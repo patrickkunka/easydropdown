@@ -1,0 +1,8 @@
+{
+  "name": "easydropdown",
+  "version": "1.0",
+  "main": "jquery.easydropdown.min.js",
+  "dependencies": {
+    "jquery": ">=1.7"
+  }
+}
