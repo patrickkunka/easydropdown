@@ -46,7 +46,7 @@ nav li{
 /* --- DEMO STYLES --- */
 
 body{
-	font-family: 'Doppio One', arial, sans-serif;
+		font-family: 'Helvetica Neue', arial, sans-serif;
 }
 
 .wrapper{
@@ -64,17 +64,19 @@ section{
 }
 
 header h1{
+	font-family: 'Doppio One', arial, sans-serif;
 	font-size: 40px;
 	margin-bottom: 8px;
 }
 
 header h2{
-	font-size: 24px;
+	font-weight: 700;
+	font-size: 20px;
 }
 
 p,
 .text li{
-	font-family: 'Helvetica Neue';
+
 	font-weight: 300;
 	margin-bottom: 15px;
 }
