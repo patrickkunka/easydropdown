@@ -27,9 +27,9 @@
 			var self = this;
 			
 			$.extend(self, settings);
-			
 			self.$select = $(domNode);
 			self.options = [];
+			self.isTouch = 'ontouchend' in document;
 			self.$select
 				.removeClass(self.wrapperClass)
 				.find('option')
@@ -53,11 +53,13 @@
 		},
 	
 		render: function(){
-			var self = this;
-			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+'"/>').parent();
+			var self = this,
+				touchClass = self.isTouch ? ' touch' : '';
+			
+			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+'"/>').parent();
 			self.$active = $('<span class="selected">'+self.selected.title+'</span>').appendTo(self.$container);
 			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
-			self.$scrollWrapper = $('<div class="scroll-wrapper"><ul></ul></div>').appendTo(self.$container);
+			self.$scrollWrapper = $('<div><ul></ul></div>').appendTo(self.$container);
 			self.$dropDown = self.$scrollWrapper.find('ul');
 			$.each(self.options, function(){
 				var option = this,
@@ -74,7 +76,30 @@
 				};
 			};
 
-			self.bindHandlers();
+			if(!self.isTouch){
+				self.bindHandlers();
+			} else {
+				self.bindTouchHandlers();
+			}
+		},
+		
+		bindTouchHandlers: function(){
+			var self = this;
+			self.$container.on('click',function(){
+				self.$select.focus();
+			});
+			self.$select.on({
+				change: function(){
+					var title = $(this).find('option:selected').text();
+					self.$active.text(title);
+				},
+				focus: function(){
+					self.$container.addClass('focus');
+				},
+				blur: function(){
+					self.$container.removeClass('focus');
+				}
+			})
 		},
 	
 		bindHandlers: function(){
@@ -97,9 +122,19 @@
 				};
 			})
 
-			self.$items.on('click', function(){
-				var index = $(this).index();
-				self.select(index);
+			self.$items.on({
+				click: function(){
+					var index = $(this).index();
+					self.select(index);
+				},
+				mouseover: function(){
+					var $t = $(this);
+					$t.addClass('focus').siblings().removeClass('focus');
+					self.focusIndex = $t.index();
+				},
+				mouseout: function(){
+					$(this).removeClass('focus');
+				}
 			});
 
 			self.$select.on({
@@ -228,7 +263,7 @@
 	$(function(){
 		$('.dropdown').each(function(){
 			var json = $(this).attr('data-settings');
-				settings = json ? json : {}; 
+				settings = json ? $.parseJSON(json) : {}; 
 			instantiate(this, settings);
 		});
 	})

@@ -50,13 +50,17 @@ body{
 }
 
 .wrapper{
-	max-width: 800px;
+	max-width: 700px;
 	margin: 0 auto;
 }
 
 header{
 	padding-top: 80px;
 	margin-bottom: 30px;
+}
+
+section{
+	margin-bottom: 80px;
 }
 
 header h1{
@@ -68,10 +72,40 @@ header h2{
 	font-size: 24px;
 }
 
-p{
+p,
+.text li{
 	font-family: 'Helvetica Neue';
 	font-weight: 300;
 	margin-bottom: 15px;
+}
+
+p{
+	line-height: 1.4;
+}
+
+p code{
+	font-size: 18px;
+}
+
+p a{
+	color: #d24a67;
+}
+
+pre{
+	padding: 15px;
+	background: #333;
+	font-size: 15px;
+	color: #c4ae78;
+	margin-bottom: 30px;
+	border-radius: 10px;
+}
+
+ul.text{
+	margin: 0 0 30px 18px;
+}
+
+.text li{
+	margin-bottom: 8px;
 }
 
 select,

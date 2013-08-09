@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=320, initial-scale=1, maximum-scale=1, user-scalable=1"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+		
+		<link href='http://fonts.googleapis.com/css?family=Doppio+One' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="demo.css"/>
+		<link rel="stylesheet" type="text/css" href="easydropdown.css"/>
+	
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="src/jquery.easydropdown.js"></script>
+		<title>EasyDropDown - A Drop-down Builder for Styleable Inputs and Menus</title>
+	</head>
+	<body>
+		<header>
+			<div class="wrapper">
+			<h1>jQuery EasyDropDown</h1>
+			<h2>A Drop-down Builder for Styleable Inputs and Menus</h2>
+			</div>
+		</header>
+		<section>
+			<div class="wrapper">
+				<p>EasyDropDown turns the good old <code>&lt;select&gt;</code> element &hellip;</p>
+				
+				<select>
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+					<option value="4">Option 4</option>
+				</select>
+				
+				<p>&hellip; into <strong>styleable drop-down menus</strong> for use in forms or general navigation.</p>
+				
+				<select class="dropdown">
+					<option value="1">Option 1</option>
+					<option value="2">Option 2</option>
+					<option value="3">Option 3</option>
+					<option value="4">Option 4</option>
+				</select>
+				
+				<p>It's like <em><a href="http://harvesthq.github.io/chosen/" target="_blank">Chosen</a></em> but with only the essential features:</p>
+				
+				<ul class="text">
+					<li>Clean, semantic markup</li>
+					<li>Form compatibility</li>
+					<li>Keyboard control and textual search</li>
+					<li>Degradation to native UI on touch devices</li>
+				</ul>
+				
+				<p><a href="https://github.com/patrickkunka/easydropdown" target="_blank"><strong>Grab it on GitHub</strong></a></p>
+				
+				<p>To use, simply include the <em>jquery.easydropdown.min.js</em> script in your page and give your <code>&lt;select&gt;</code> tags the class <code>dropdown</code>:</p>
+				
+				<pre>&lt;select class="dropdown"&gt;
+	&lt;option value="1"&gt;Option 1&lt;/option&gt;
+	&lt;option value="2"&gt;Option 2&lt;/option&gt;
+	&lt;option value="3"&gt;Option 3&lt;/option&gt;
+	&lt;option value="4"&gt;Option 4&lt;/option&gt;
+&lt;/select&gt;</pre>
+
+				<p><strong>No custom JS required!</strong></p>
+				
+				<p>Either create your own styles to match your design and branding, or use one of our ready made themes.</p>
+				<p>Each drop-down has the following markup structure that you can target with your CSS:</p>
+				
+				<pre>&lt;div class="dropdown"&gt;
+	&lt;select&gt;...&lt;/select&gt;
+	&lt;span class="selected"&gt;Option 1&lt;/span&gt;
+	&lt;span class="carat"&gt;&lt;/span&gt;
+	&lt;div&gt;
+		&lt;ul&gt;
+			&lt;li&gt;Option 1&lt;/li&gt;
+			&lt;li&gt;Option 2&lt;/li&gt;
+			&lt;li&gt;Option 3&lt;/li&gt;
+			&lt;li&gt;Option 4&lt;/li&gt;
+		&lt;/ul&gt;
+	&lt;/div&gt;
+&lt;/div&gt;</pre>
+			
+			<p class="legal">&copy; Copyright <a href="http://kunkalabs.com" target="_blank">Patrick Kunka</a> 2013</p>	
+			</div>
+		</section>
+	</body>
+</html>
