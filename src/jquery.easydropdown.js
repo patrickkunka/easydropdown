@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 1.0
+* Version: 1.1
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -210,7 +210,7 @@
 		
 		closeAll: function(){
 			var self = this,
-				instances = self.__proto__.instances;
+				instances = Object.getPrototypeOf(self).instances;
 			for(i = 0; i < instances.length; i++){
 				instances[i].close();
 			};
