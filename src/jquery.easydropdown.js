@@ -1,5 +1,5 @@
 /*
-* EASYDROPDOWN - A Dropdown Builder For Styled Inputs and Menus
+* EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
 * Version: 1.0
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
@@ -12,38 +12,43 @@
 (function($){
 	
 	function EasyDropDown(){
-		this.options = [];
-		this.isField = true;
-		this.down = false;
-		this.maxHeight = 0;
-		this.cutOff = false;
-		this.wrapperClass = 'easydropdown'
+		this.isField = true,
+		this.down = false,
+		this.inFocus = false,
+		this.cutOff = false,
+		this.wrapperClass = 'dropdown',
+		this.onSelect = null;
 	};
 	
 	EasyDropDown.prototype = {
 		constructor: EasyDropDown,
+		instances: [],
 		init: function(domNode, settings){
 			var self = this;
 			
 			$.extend(self, settings);
 			
 			self.$select = $(domNode);
-			
-			self.$select.find('option').each(function(i){
-				var $option = $(this);
-				if($option.is(':selected')){
-					self.selected = {
-						index: i,
-						title: $option.text()
-					}
-				};
-				self.options.push({
-					domNode: $option[0],
-					title: $option.text(),
-					value: $option.val(),
-					selected: $option.is(':selected')
+			self.options = [];
+			self.$select
+				.removeClass(self.wrapperClass)
+				.find('option')
+				.each(function(i){
+					var $option = $(this);
+					if($option.is(':selected')){
+						self.selected = {
+							index: i,
+							title: $option.text()
+						}
+						self.focusIndex = i;
+					};
+					self.options.push({
+						domNode: $option[0],
+						title: $option.text(),
+						value: $option.val(),
+						selected: $option.is(':selected')
+					});
 				});
-			});
 			self.render();
 		},
 	
@@ -51,6 +56,7 @@
 			var self = this;
 			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+'"/>').parent();
 			self.$active = $('<span class="selected">'+self.selected.title+'</span>').appendTo(self.$container);
+			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
 			self.$scrollWrapper = $('<div class="scroll-wrapper"><ul></ul></div>').appendTo(self.$container);
 			self.$dropDown = self.$scrollWrapper.find('ul');
 			$.each(self.options, function(){
@@ -59,7 +65,7 @@
 				self.$dropDown.append('<li'+active+'>'+option.title+'</li>');
 			});
 			self.$items = self.$dropDown.find('li');
-			console.info(self)
+			self.maxHeight = 0;
 			for(i = 0; i < self.$items.length; i++){
 				var $item = self.$items.eq(i);
 				self.maxHeight += $item.outerHeight();
@@ -73,6 +79,8 @@
 	
 		bindHandlers: function(){
 			var self = this;
+			
+			self.query = '';
 
 			self.$container.on('click',function(){
 				if(!self.down){
@@ -94,22 +102,60 @@
 				self.select(index);
 			});
 
-			if(self.isField){
-				self.$select.on({
-					focus: function(){
-						self.$container.addClass('focus')
-					},
-					blur: function(){
-						self.$container.removeClass('focus')
-					}
-				});
-			};
+			self.$select.on({
+				focus: function(){
+					self.$container.addClass('focus');
+					self.inFocus = true;
+				},
+				blur: function(){
+					self.$container.removeClass('focus');
+					self.inFocus = false;
+				}
+			});
+			
+			$(window).on('keydown', function(e){
+				if(self.inFocus){
+					var key = e.keyCode;
+					if(key == 38 || key == 40 || key == 32){
+						e.preventDefault();
+						if(key == 38){
+							self.focusIndex--
+							self.focusIndex = self.focusIndex < 0 ? self.$items.length - 1 : self.focusIndex;
+						} else if(key == 40){
+							self.focusIndex++
+							self.focusIndex = self.focusIndex > self.$items.length - 1 ? 0 : self.focusIndex;
+						};
+						if(!self.down){
+							self.open();
+						};
+						self.$items.removeClass('focus').eq(self.focusIndex).addClass('focus');
+						self.query = '';
+					};
+					if(self.down){
+						if(key == 9 || key == 27){
+							self.close();
+						} else if(key == 13){
+							self.select(self.focusIndex);
+							self.close();
+						} else if(key == 8){
+							e.preventDefault();
+							self.query = self.query.slice(0,-1)
+							self.search();
+						} else if(key != 38 && key != 40){
+							var letter = String.fromCharCode(key);
+							self.query += letter;
+							self.search();
+						};
+					};
+				};
+			});
 		},
 		
 		open: function(){
 			var self = this,
 				x = window.scrollX, 
 				y = window.scrollY;
+			self.closeAll();
 			self.$select.focus();
 			window.scrollTo(x, y);
 			self.$container.addClass('open');
@@ -122,21 +168,68 @@
 			self.$select.blur();
 			self.$container.removeClass('open');
 			self.$scrollWrapper.css('height','0px');
+			self.focusIndex = self.selected.index;
+			self.query = '';
 			self.down = false;
+		},
+		
+		closeAll: function(){
+			var self = this,
+				instances = self.__proto__.instances;
+			for(i = 0; i < instances.length; i++){
+				instances[i].close();
+			};
 		},
 	
 		select: function(index){
-			var self = this;
+			var self = this,
+				option = self.options[index];
 			self.$items.removeClass('active').eq(index).addClass('active');
-			self.$active.text(self.options[index].title);
+			self.$active.text(option.title);
 			self.$select.find('option').prop('selected',false).eq(index).prop('selected','selected');
+			self.selected = {
+				index: index,
+				title: option.title
+			};
+			self.focusIndex = i;
+			if(typeof self.onSelect == 'function'){
+				self.onSelect.call(self,{
+					title: option.title, 
+					value: option.value
+				});
+			};
+		},
+		
+		search: function(){
+			var self = this;
+			for(i = 0; i < self.options.length; i++){
+				var title = self.options[i].title.toUpperCase();
+				if(title.indexOf(self.query) != -1){
+					self.focusIndex = i;
+					self.$items.removeClass('focus').eq(self.focusIndex).addClass('focus');
+					break;
+				};
+			};
 		}
+	};
+	
+	function instantiate(domNode, settings){
+		var instance = new EasyDropDown();
+		instance.init(domNode, settings);
+		instance.instances.push(instance);
 	};
 	
 	$.fn.easyDropDown = function(settings){
 		return this.each(function(){
-			var instance = new EasyDropDown();
-			instance.init(this, settings);
+			instantiate(this, settings);
 		});
 	};
+	
+	$(function(){
+		$('.dropdown').each(function(){
+			var json = $(this).attr('data-settings');
+				settings = json ? json : {}; 
+			instantiate(this, settings);
+		});
+	})
 })(jQuery);
