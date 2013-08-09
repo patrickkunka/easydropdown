@@ -88,7 +88,7 @@
 	list-style: none;
 	background: #fff;
 	border: 1px solid #ccc;
-	border-top: 0 none;
+	border-top: 1px solid #eee;
 	border-radius: 0 0 3px 3px;
 	overflow: hidden;
 	height: 0;
