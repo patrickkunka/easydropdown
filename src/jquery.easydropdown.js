@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 1.2
+* Version: 1.3
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -74,7 +74,7 @@
 			});
 			self.$items = self.$dropDown.find('li');
 			self.maxHeight = 0;
-			if(self.cutOff)self.$container.addClass('scrollable');
+			if(self.$items.length > self.cutOff)self.$container.addClass('scrollable');
 			for(i = 0; i < self.$items.length; i++){
 				var $item = self.$items.eq(i);
 				self.maxHeight += $item.outerHeight();
@@ -222,7 +222,6 @@
 		
 		close: function(){
 			var self = this;
-			//self.$select.blur();
 			self.$container.removeClass('open');
 			self.$scrollWrapper.css('height','0px');
 			self.focusIndex = self.selected.index;
