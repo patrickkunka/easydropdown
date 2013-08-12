@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 1.3
+* Version: 1.4
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -192,6 +192,7 @@
 						if(key == 9 || key == 27){
 							self.close();
 						} else if(key == 13){
+							e.preventDefault();
 							self.select(self.focusIndex);
 							self.close();
 						} else if(key == 8){
