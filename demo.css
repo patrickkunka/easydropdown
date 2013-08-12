@@ -46,46 +46,94 @@ nav li{
 /* --- DEMO STYLES --- */
 
 body{
-		font-family: 'Helvetica Neue', arial, sans-serif;
-}
-
-.wrapper{
-	max-width: 700px;
-	margin: 0 auto;
+	font-family: 'Helvetica Neue', arial, sans-serif;
+	color: #333;
+	
+	-webkit-font-smoothing: antialiased;
 }
 
 header{
-	padding-top: 80px;
-	margin-bottom: 30px;
+	padding: 15px 0 20px;
+	border-bottom: 1px solid #ddd;
 }
 
-section{
-	margin-bottom: 80px;
+h1,h2,h3{
+		font-family: 'ff-enzo-web', sans-serif;
+		font-weight: 700;
+}
+
+header .wrapper{
+	padding: 0 30px;
 }
 
 header h1{
 	font-size: 40px;
+	font-weight: 700;
 	margin-bottom: 8px;
 }
 
 header h2{
-	font-weight: 700;
+	font-weight: 400;
 	font-size: 20px;
 }
 
+
+section{
+	position: relative;
+	font-size: 0.1px;
+	text-align: justify;
+}
+
+section:after{
+	content: '';
+	display: inline-block;
+	width: 100%;
+}
+
+section .wrapper{
+	padding: 30px;
+}
+
+section h3{
+	font-size: 20px;
+	margin-bottom: 1em;
+}
+
+.col{
+	display: inline-block;
+	vertical-align: top;
+	text-align: left;
+}
+
+.col_1{
+	width: 55%;
+}
+
+.col_2{
+	width: 45%;
+	max-width: 500px;
+	height: 100%;
+	background: #333;
+	color: #fff;
+}
+
+
 p,
 .text li{
-
-	font-weight: 300;
-	margin-bottom: 15px;
+	font-size: 16px;
+	font-weight:  300;
 }
 
 p{
 	line-height: 1.4;
+	margin-bottom: 25px;
 }
 
 p code{
-	font-size: 18px;
+	font-size: 15px;
+	background: rgba(255,255,255,.7);
+	color: #333;
+	padding: 2px;
 }
 
 p a{
@@ -93,12 +141,11 @@ p a{
 }
 
 pre{
-	padding: 15px;
-	background: #333;
 	font-size: 15px;
 	color: #c4ae78;
-	margin-bottom: 30px;
-	border-radius: 10px;
+	margin: 15px 0 30px;
+	
+	-webkit-font-smoothing: auto;
 }
 
 ul.text{
@@ -112,8 +159,24 @@ ul.text{
 select,
 .dropdown{
 	margin-bottom: 30px;
+	display: inline-block;
 }
 
 .dropdown{
-	font-family: 'Helvetica Neue', arial, sans-serif;
+	margin-right: 8px;
+}
+
+pre.prettyprint{background:#141414;color:#f8f8f8;}
+pre.prettyprint span.str,pre.prettyprint span.atv{color:#8f9d6a;}
+pre.prettyprint span.kwd,pre.prettyprint span.pun{color:#cda869;}
+pre.prettyprint span.com{color:#5f5a60;font-style:italic;}
+pre.prettyprint span.typ{color:#9b703f;}
+pre.prettyprint span.lit{color:#cf6a4c;}
+pre.prettyprint span.pln{color:#7587a6;}
+pre.prettyprint span.tag{color:#ac885b;}
+pre.prettyprint span.atn{color:#e0c589;}
+pre.prettyprint span.dec{color:#494949;}
+pre.prettyprint{
+	border: 0 none !important;
+	background: transparent !important;
 }

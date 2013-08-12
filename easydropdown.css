@@ -98,6 +98,29 @@
 .dropdown.open div{
 	opacity: 1;
 	z-index: 2;
+}
+
+.dropdown.scrollable.open div::after{
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 50px;
+	box-shadow: inset 0 -50px 30px -35px #fff;
+	pointer-events: none;
+}
+
+.dropdown ul{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.dropdown.scrollable.open ul{
 	overflow-y: auto;
 }
 
@@ -108,6 +131,8 @@
 
 .dropdown li.focus{
 	background: #d24a67;
+	position: relative;
+	z-index: 3;
 	color: #fff;
 }
 

@@ -16,6 +16,7 @@
 		this.down = false,
 		this.inFocus = false,
 		this.cutOff = false,
+		this.hasLabel = false,
 		this.wrapperClass = 'dropdown',
 		this.onSelect = null;
 	};
@@ -42,12 +43,16 @@
 						}
 						self.focusIndex = i;
 					};
-					self.options.push({
-						domNode: $option[0],
-						title: $option.text(),
-						value: $option.val(),
-						selected: $option.is(':selected')
-					});
+					if($option.hasClass('label') && i == 0){
+						self.hasLabel = true;
+					} else {
+						self.options.push({
+							domNode: $option[0],
+							title: $option.text(),
+							value: $option.val(),
+							selected: $option.is(':selected')
+						});
+					};
 				});
 			self.render();
 		},
@@ -59,7 +64,7 @@
 			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+'"/>').parent();
 			self.$active = $('<span class="selected">'+self.selected.title+'</span>').appendTo(self.$container);
 			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
-			self.$scrollWrapper = $('<div><ul></ul></div>').appendTo(self.$container);
+			self.$scrollWrapper = $('<div><ul/></div>').appendTo(self.$container);
 			self.$dropDown = self.$scrollWrapper.find('ul');
 			$.each(self.options, function(){
 				var option = this,
@@ -68,6 +73,7 @@
 			});
 			self.$items = self.$dropDown.find('li');
 			self.maxHeight = 0;
+			if(self.cutOff)self.$container.addClass('scrollable');
 			for(i = 0; i < self.$items.length; i++){
 				var $item = self.$items.eq(i);
 				self.maxHeight += $item.outerHeight();
@@ -164,6 +170,11 @@
 							self.open();
 						};
 						self.$items.removeClass('focus').eq(self.focusIndex).addClass('focus');
+						if(self.cutOff){
+							var $focusItem = self.$items.eq(self.focusIndex),
+								scroll = ($focusItem.outerHeight() * (self.focusIndex + 1)) - self.maxHeight;
+							self.$dropDown.scrollTop(scroll);
+						};
 						self.query = '';
 					};
 					if(self.down){
@@ -218,10 +229,11 @@
 	
 		select: function(index){
 			var self = this,
-				option = self.options[index];
+				option = self.options[index],
+				selectIndex = self.hasLabel ? index + 1 : index;
 			self.$items.removeClass('active').eq(index).addClass('active');
 			self.$active.text(option.title);
-			self.$select.find('option').prop('selected',false).eq(index).prop('selected','selected');
+			self.$select.find('option').prop('selected',false).eq(selectIndex).prop('selected','selected');
 			self.selected = {
 				index: index,
 				title: option.title
