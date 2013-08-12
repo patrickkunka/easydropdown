@@ -17,6 +17,7 @@
 		this.inFocus = false,
 		this.cutOff = false,
 		this.hasLabel = false,
+		this.keyboardMode = false,
 		this.wrapperClass = 'dropdown',
 		this.onSelect = null;
 	};
@@ -113,12 +114,19 @@
 			
 			self.query = '';
 
-			self.$container.on('click',function(){
-				if(!self.down){
-					self.open();
-				} else {
-					self.close();
-				};
+			self.$container.on({
+				click: function(){
+					if(!self.down){
+						self.open();
+					} else {
+						self.close();
+					};
+				},
+				mousemove: function(){
+					if(self.keyboardMode){
+						self.keyboardMode = false;
+					};
+				}
 			});
 			
 			$('body').on('click',function(e){
@@ -134,12 +142,16 @@
 					self.select(index);
 				},
 				mouseover: function(){
-					var $t = $(this);
-					$t.addClass('focus').siblings().removeClass('focus');
-					self.focusIndex = $t.index();
+					if(!self.keyboardMode){
+						var $t = $(this);
+						$t.addClass('focus').siblings().removeClass('focus');
+						self.focusIndex = $t.index();
+					};
 				},
 				mouseout: function(){
-					$(this).removeClass('focus');
+					if(!self.keyboardMode){
+						$(this).removeClass('focus');
+					};
 				}
 			});
 
@@ -156,6 +168,7 @@
 			
 			$(window).on('keydown', function(e){
 				if(self.inFocus){
+					self.keyboardMode = true;
 					var key = e.keyCode;
 					if(key == 38 || key == 40 || key == 32){
 						e.preventDefault();
