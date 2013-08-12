@@ -74,7 +74,7 @@
 			});
 			self.$items = self.$dropDown.find('li');
 			self.maxHeight = 0;
-			if(self.$items.length > self.cutOff)self.$container.addClass('scrollable');
+			if(self.cutOff && self.$items.length > self.cutOff)self.$container.addClass('scrollable');
 			for(i = 0; i < self.$items.length; i++){
 				var $item = self.$items.eq(i);
 				self.maxHeight += $item.outerHeight();
