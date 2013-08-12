@@ -26,7 +26,7 @@
 		constructor: EasyDropDown,
 		instances: [],
 		init: function(domNode, settings){
-			var self = this;
+			var	self = this;
 			
 			$.extend(self, settings);
 			self.$select = $(domNode);
@@ -59,7 +59,7 @@
 		},
 	
 		render: function(){
-			var self = this,
+			var	self = this,
 				touchClass = self.isTouch ? ' touch' : '';
 			
 			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+'"/>').parent();
@@ -68,7 +68,7 @@
 			self.$scrollWrapper = $('<div><ul/></div>').appendTo(self.$container);
 			self.$dropDown = self.$scrollWrapper.find('ul');
 			$.each(self.options, function(){
-				var option = this,
+				var	option = this,
 					active = option.selected ? ' class="active"':'';
 				self.$dropDown.append('<li'+active+'>'+option.title+'</li>');
 			});
@@ -87,11 +87,11 @@
 				self.bindHandlers();
 			} else {
 				self.bindTouchHandlers();
-			}
+			};
 		},
 		
 		bindTouchHandlers: function(){
-			var self = this;
+			var	self = this;
 			self.$container.on('click',function(){
 				self.$select.focus();
 			});
@@ -106,14 +106,12 @@
 				blur: function(){
 					self.$container.removeClass('focus');
 				}
-			})
+			});
 		},
 	
 		bindHandlers: function(){
-			var self = this;
-			
+			var	self = this;
 			self.query = '';
-
 			self.$container.on({
 				click: function(){
 					if(!self.down){
@@ -224,7 +222,7 @@
 		
 		close: function(){
 			var self = this;
-			self.$select.blur();
+			//self.$select.blur();
 			self.$container.removeClass('open');
 			self.$scrollWrapper.css('height','0px');
 			self.focusIndex = self.selected.index;
