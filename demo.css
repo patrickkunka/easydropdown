@@ -99,6 +99,13 @@ section h3{
 	margin-bottom: 1em;
 }
 
+section h4{
+	font-family: 'ff-enzo-web', sans-serif;
+	font-size: 18px;
+	margin-bottom: 1em;
+	font-weight: 300;
+}
+
 .col{
 	display: inline-block;
 	vertical-align: top;
@@ -112,9 +119,10 @@ section h3{
 .col_2{
 	width: 45%;
 	max-width: 500px;
-	height: 100%;
 	background: #333;
 	color: #fff;
+	
+	box-shadow: inset 20px 0 20px -20px rgba(0,0,0,.6);
 }
 
 
@@ -126,6 +134,7 @@ p,
 
 .btn{
 	display: inline-block;
+	font-family: 'ff-enzo-web', sans-serif;
 	background: #d24a67;
 	font-weight: 700;
 	font-size: 16px;
@@ -134,6 +143,17 @@ p,
 	margin-bottom: 30px;
 	
 	border-radius: 5px;
+	
+	-webkit-transition: all 150ms ease-in-out;
+	-moz-transition: all 150ms ease-in-out;
+	-ms-transition: all 150ms ease-in-out;
+	transition: all 150ms ease-in-out;
+}
+
+.btn:hover{
+	background: #fc6767;
+	
+	box-shadow: inset 0 0 10px rgba(0,0,0,.2);
 }
 
 p{
@@ -150,6 +170,10 @@ p code{
 
 p a{
 	color: #d24a67;
+}
+
+p a:hover{
+	color: #fc6767;
 }
 
 pre{
