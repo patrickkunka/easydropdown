@@ -58,7 +58,6 @@ header{
 }
 
 h1,h2,h3{
-		font-family: 'ff-enzo-web', sans-serif;
 		font-weight: 700;
 }
 
@@ -100,7 +99,6 @@ section h3{
 }
 
 section h4{
-	font-family: 'ff-enzo-web', sans-serif;
 	font-size: 18px;
 	margin-bottom: 1em;
 	font-weight: 300;
@@ -118,13 +116,12 @@ section h4{
 
 .col_2{
 	width: 45%;
-	max-width: 500px;
+	max-width: 520px;
 	background: #333;
 	color: #fff;
 	
 	box-shadow: inset 20px 0 20px -20px rgba(0,0,0,.6);
 }
-
 
 p,
 .text li{
@@ -132,9 +129,18 @@ p,
 	font-weight:  300;
 }
 
+p.legal{
+	margin-top: 80px;
+	font-size: 14px;
+}
+
+.col_2 p,
+.col_2 .text li{
+	font-weight: 400;
+}
+
 .btn{
 	display: inline-block;
-	font-family: 'ff-enzo-web', sans-serif;
 	background: #d24a67;
 	font-weight: 700;
 	font-size: 16px;
@@ -152,6 +158,7 @@ p,
 
 .btn:hover{
 	background: #fc6767;
+	color: #fff;
 	
 	box-shadow: inset 0 0 10px rgba(0,0,0,.2);
 }
@@ -168,11 +175,11 @@ p code{
 	padding: 2px;
 }
 
-p a{
+a{
 	color: #d24a67;
 }
 
-p a:hover{
+a:hover{
 	color: #fc6767;
 }
 
@@ -186,9 +193,11 @@ pre{
 
 ul.text{
 	margin: 0 0 30px 18px;
+	list-style: square;
 }
 
 .text li{
+	line-height: 1.4;
 	margin-bottom: 8px;
 }
 
@@ -215,4 +224,29 @@ pre.prettyprint span.dec{color:#494949;}
 pre.prettyprint{
 	border: 0 none !important;
 	background: transparent !important;
+}
+
+@media all and (max-width: 1040px){
+	.col,
+	.col_2,
+	.col_1{
+		display: block;
+		width: auto;
+		max-width: 100%;
+		background: #fff;
+		color: #333;
+		box-shadow: none;
+	}
+	
+	pre.prettyprint{
+		font-size: 14px;
+		background: #333 !important;
+		padding: 12px !important;
+		border-radius: 5px !important;
+		overflow-x: scroll;
+	}
+	
+	p.legal{
+		display: none;
+	}
 }

@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 1.2
+* Version: 1.4
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -74,7 +74,7 @@
 			});
 			self.$items = self.$dropDown.find('li');
 			self.maxHeight = 0;
-			if(self.cutOff)self.$container.addClass('scrollable');
+			if(self.cutOff && self.$items.length > self.cutOff)self.$container.addClass('scrollable');
 			for(i = 0; i < self.$items.length; i++){
 				var $item = self.$items.eq(i);
 				self.maxHeight += $item.outerHeight();
@@ -192,6 +192,7 @@
 						if(key == 9 || key == 27){
 							self.close();
 						} else if(key == 13){
+							e.preventDefault();
 							self.select(self.focusIndex);
 							self.close();
 						} else if(key == 8){
@@ -222,7 +223,6 @@
 		
 		close: function(){
 			var self = this;
-			//self.$select.blur();
 			self.$container.removeClass('open');
 			self.$scrollWrapper.css('height','0px');
 			self.focusIndex = self.selected.index;
@@ -284,10 +284,22 @@
 	};
 	
 	$(function(){
+		if (typeof Object.getPrototypeOf !== "function"){
+			if (typeof "test".__proto__ === "object"){
+				Object.getPrototypeOf = function(object){
+					return object.__proto__;
+				};
+			} else {
+				Object.getPrototypeOf = function(object){
+					return object.constructor.prototype;
+				};
+			};
+		};
+		
 		$('.dropdown').each(function(){
 			var json = $(this).attr('data-settings');
 				settings = json ? $.parseJSON(json) : {}; 
 			instantiate(this, settings);
 		});
-	})
+	});
 })(jQuery);

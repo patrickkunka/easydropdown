@@ -12,11 +12,8 @@
 		<link rel="shortcut icon" type="image/x-icon" href="../im/favicon.ico"/>
 		<link rel="stylesheet" type="text/css" href="demo.css"/>
 		<link rel="stylesheet" type="text/css" href="easydropdown.css"/>
-		
-		<script type="text/javascript" src="//use.typekit.net/aqg7wka.js"></script>
-		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-		<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 	
+		<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src="src/jquery.easydropdown.js"></script>
 		<title>EasyDropDown - A Drop-down Builder for Styleable Inputs and Menus</title>
@@ -32,7 +29,7 @@
 			<div class="col col_1">
 				<div class="wrapper">
 					<h3>What Is It?</h3>
-					<p>EasyDropDown is a 2KB jQuery plugin that turns humble <code>&lt;select&gt;</code> elements &hellip;</p>
+					<p>EasyDropDown is a jQuery plugin that turns humble <code>&lt;select&gt;</code> elements &hellip;</p>
 				
 					<fieldset>
 						
@@ -119,7 +116,7 @@
 					
 					<fieldset>
 				
-						<select tabindex="4" class="dropdown" id="Test">
+						<select tabindex="4" class="dropdown">
 							<option class="label" value="">Month</option>
 							<option value="1">January</option>
 							<option value="2">February</option>
@@ -170,7 +167,7 @@
 					        <option value="31">31</option>
 						</select>
 					
-						<select tabindex="6" id="Scroll" class="dropdown" data-settings='{"cutOff": 12}'>
+						<select tabindex="6" class="dropdown" data-settings='{"cutOff": 12}'>
 							<option class="label">Year</option>
 							<option value="2011">2011</option>
 							<option value="2010">2010</option>
@@ -202,7 +199,7 @@
 				
 					<ul class="text">
 						<li>Clean, semantic markup</li>
-						<li>Form compatibility</li>
+						<li>Form &amp; validation compatibilty</li>
 						<li>Full keyboard control with textual search</li>
 						<li>Inner-scroll for long lists</li>
 						<li>Degradation to native UI on touch devices</li>
@@ -212,31 +209,7 @@
 					
 					<h3>Available Themes</h3>
 					
-					<h4>Default</h4>
-					
-					<select class="dropdown" tabindex="7">
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-					</select>
-					
-					<h4>Bootstrap</h4>
-					
-					<select class="dropdown" tabindex="7">
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-					</select>
-					
-					<h4>Barrel</h4>
-					
-					<select class="dropdown" tabindex="7">
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-					</select>
-					
-					<h4>Metro</h4>
+					<h4>Default / <a href="easydropdown.css">easydropdown.css</a></h4>
 					
 					<select class="dropdown" tabindex="7">
 						<option value="1">Option 1</option>
@@ -260,11 +233,31 @@
 	&lt;option value="4"&gt;Option 4&lt;/option&gt;
 &lt;/select&gt;</pre>
 
+					<p>If you are using labels within the <code>&lt;select&gt;</code> element, identify them with the class <code>label</code>:
+						
+					<pre class="prettyprint lang-html">&lt;select class="dropdown"&gt;
+	&lt;option class="label"&gt;Month&lt;/option&gt;
+	&lt;option value="1"&gt;January&lt;/option&gt;
+	&lt;option value="2"&gt;February&lt;/option&gt;
+	&lt;option value="3"&gt;March&lt;/option&gt;
+	...
+&lt;/select&gt;</pre>
+
+					<p>To build your dropdown with an arbitrary option pre-selected, simply give it the <code>selected</code> attribute as you normally would:</p>
+					
+					<pre class="prettyprint lang-html">&lt;select class="dropdown"&gt;
+	&lt;option class="label"&gt;Month&lt;/option&gt;
+	&lt;option value="1"&gt;January&lt;/option&gt;
+	&lt;option value="2" selected&gt;February&lt;/option&gt;
+	&lt;option value="3"&gt;March&lt;/option&gt;
+	...
+&lt;/select&gt;</pre>
+
 					<p>No custom JS required!</p>
 					
 					<h3>How To Style It</h3>
 					
-					<p>Either create your own styles to match your design and branding, or use one of our ready made <a href="easydropdown.css">themes</a>.</p>
+					<p>Either create your own styles to match your design and branding, or use one of our ready made themes. We recommend starting with the default theme and customizing&nbsp;it.</p>
 					<p>Each drop-down has the following markup structure that you can target with your CSS:</p>
 				
 					<pre class="prettyprint lang-html">&lt;div class="dropdown"&gt;
@@ -283,16 +276,37 @@
 
 					<h3>Advanced Usage</h3>
 					
-					<p>Alternatively, you can instantiate your dropdowns via jQuery, with custom settings:</p>
+					<p>Alternatively, by not using the class 'dropdown' you can instantiate your dropdowns manually in your javascript, with custom settings.</p>
 					
-					<pre class="prettyprint lang-js">$(function(){
+					<pre class="prettyprint">$(function(){
 	var $selects = $('select');
 						
 	$selects.easyDropDown({
 		cutOff: 10,
-		wrapperClass: 'my-dropdown-class'
+		wrapperClass: 'my-dropdown-class',
+		onSelect: function(selected){
+			// do something
+		}
 	});
 });</pre>
+
+				<p>You may also define your customizable settings directly in your HTML via a JSON Object in the data-settings attribute:</p>
+				
+				<pre class="prettyprint lang-html">&lt;select class="dropdown" 
+	data-settings='{"cutOff":6}'&gt;
+	&lt;option value="1"&gt;Option 1&lt;/option&gt;
+	&lt;option value="2"&gt;Option 2&lt;/option&gt;
+	..
+&lt;/select&gt;</pre>
+				
+				<h3>Customizable Settings</h3>
+				<ul class="text">
+					<li><strong>cutOff</strong> <em>(integer)</em><br/>
+						The maximum number of items to show before scrolling.</li>
+					<li><strong>wrapperClass</strong> <em>(string)</em><br/>
+						The class of the parent wrapper element, used to target styling.</li>
+					<li><strong>onSelect</strong> <em>(function)</em><br/>
+						A custom function to call when an item is selected. Useful for non-form input uses. An object containing the selected item's value and title is passed as an argument.</li>
 					
 					
 				</div>
