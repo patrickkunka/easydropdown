@@ -32,7 +32,7 @@
 			<div class="col col_1">
 				<div class="wrapper">
 					<h3>What Is It?</h3>
-					<p>EasyDropDown turns the humble <code>&lt;select&gt;</code> element &hellip;</p>
+					<p>EasyDropDown is a 2KB jQuery plugin that turns humble <code>&lt;select&gt;</code> elements &hellip;</p>
 				
 					<fieldset>
 						
@@ -203,11 +203,46 @@
 					<ul class="text">
 						<li>Clean, semantic markup</li>
 						<li>Form compatibility</li>
-						<li>Keyboard control and textual search</li>
+						<li>Full keyboard control with textual search</li>
+						<li>Inner-scroll for long lists</li>
 						<li>Degradation to native UI on touch devices</li>
 					</ul>
 				
 					<a href="https://github.com/patrickkunka/easydropdown" target="_blank" class="btn">Fork it on GitHub</a>
+					
+					<h3>Available Themes</h3>
+					
+					<h4>Default</h4>
+					
+					<select class="dropdown" tabindex="7">
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+					
+					<h4>Bootstrap</h4>
+					
+					<select class="dropdown" tabindex="7">
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+					
+					<h4>Barrel</h4>
+					
+					<select class="dropdown" tabindex="7">
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
+					
+					<h4>Metro</h4>
+					
+					<select class="dropdown" tabindex="7">
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+					</select>
 			
 					<p class="legal">&copy; Copyright <a href="http://kunkalabs.com" target="_blank">Patrick Kunka</a> 2013 / <a href="http://kunkalabs.com" target="_blank">kunkalabs.com</a></p>	
 					</div>
@@ -245,6 +280,20 @@
 		&lt;/ul&gt;
 	&lt;/div&gt;
 &lt;/div&gt;</pre>
+
+					<h3>Advanced Usage</h3>
+					
+					<p>Alternatively, you can instantiate your dropdowns via jQuery, with custom settings:</p>
+					
+					<pre class="prettyprint lang-js">$(function(){
+	var $selects = $('select');
+						
+	$selects.easyDropDown({
+		cutOff: 10,
+		wrapperClass: 'my-dropdown-class'
+	});
+});</pre>
+					
 					
 				</div>
 			</div>
