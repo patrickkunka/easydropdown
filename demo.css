@@ -124,6 +124,18 @@ p,
 	font-weight:  300;
 }
 
+.btn{
+	display: inline-block;
+	background: #d24a67;
+	font-weight: 700;
+	font-size: 16px;
+	color: #fff;
+	padding: 10px 12px;
+	margin-bottom: 30px;
+	
+	border-radius: 5px;
+}
+
 p{
 	line-height: 1.4;
 	margin-bottom: 25px;
