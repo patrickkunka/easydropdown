@@ -132,6 +132,11 @@ p,
 	font-weight:  300;
 }
 
+.col_2 p,
+.col_2 .text li{
+	font-weight: 400;
+}
+
 .btn{
 	display: inline-block;
 	font-family: 'ff-enzo-web', sans-serif;
@@ -189,6 +194,7 @@ ul.text{
 }
 
 .text li{
+	line-height: 1.4;
 	margin-bottom: 8px;
 }
 
