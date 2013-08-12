@@ -139,8 +139,3 @@
 .dropdown li.active{
 	font-weight: 700;
 }
-
-.dropdown.open .scroll-wrapper{
-	height: auto;
-	opacity: 1;
-}
