@@ -283,10 +283,22 @@
 	};
 	
 	$(function(){
+		if (typeof Object.getPrototypeOf !== "function"){
+			if (typeof "test".__proto__ === "object"){
+				Object.getPrototypeOf = function(object){
+					return object.__proto__;
+				};
+			} else {
+				Object.getPrototypeOf = function(object){
+					return object.constructor.prototype;
+				};
+			};
+		};
+		
 		$('.dropdown').each(function(){
 			var json = $(this).attr('data-settings');
 				settings = json ? $.parseJSON(json) : {}; 
 			instantiate(this, settings);
 		});
-	})
+	});
 })(jQuery);
