@@ -156,9 +156,11 @@ p.legal{
 	transition: all 150ms ease-in-out;
 }
 
-.btn:hover{
+.btn:hover,
+.btn:focus{
 	background: #fc6767;
 	color: #fff;
+	outline: 0 none;
 	
 	box-shadow: inset 0 0 10px rgba(0,0,0,.2);
 }
