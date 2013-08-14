@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 1.4
+* Version: 1.5
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -97,8 +97,17 @@
 			});
 			self.$select.on({
 				change: function(){
-					var title = $(this).find('option:selected').text();
+					var	$selected = $(this).find('option:selected'),
+						title = $selected.text(),
+						value = $selected.val();
+						
 					self.$active.text(title);
+					if(typeof self.onSelect == 'function'){
+						self.onSelect.call(self,{
+							title: title, 
+							value: value
+						});
+					};
 				},
 				focus: function(){
 					self.$container.addClass('focus');
