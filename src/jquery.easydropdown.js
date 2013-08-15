@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 1.5
+* Version: 1.6
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -171,6 +171,14 @@
 					self.$container.removeClass('focus');
 					self.inFocus = false;
 				}
+			});
+			
+			self.$dropDown.on('scroll',function(e){
+				if(self.$dropDown[0].scrollTop == self.$dropDown[0].scrollHeight - self.maxHeight){
+					self.$container.addClass('bottom');
+				} else {
+					self.$container.removeClass('bottom');
+				};
 			});
 			
 			$(window).on('keydown', function(e){

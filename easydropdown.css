@@ -4,7 +4,8 @@
 
 .dropdown,
 .dropdown div,
-.dropdown li{
+.dropdown li,
+.dropdown div::after{
 	-webkit-transition: all 150ms ease-in-out;
 	-moz-transition: all 150ms ease-in-out;
 	-ms-transition: all 150ms ease-in-out;
@@ -126,7 +127,7 @@
 
 /* FADE OVERLAY FOR SCROLLING LISTS */
 
-.dropdown.scrollable.open div::after{
+.dropdown.scrollable div::after{
 	content: '';
 	position: absolute;
 	left: 0;
@@ -137,6 +138,10 @@
 	box-shadow: inset 0 -50px 30px -35px #fff;
 	
 	pointer-events: none;
+}
+
+.dropdown.scrollable.bottom div::after{
+	opacity: 0;
 }
 
 /* DROP DOWN LIST */
