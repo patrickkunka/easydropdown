@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 1.6
+* Version: 1.8
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -18,6 +18,7 @@
 		this.cutOff = false,
 		this.hasLabel = false,
 		this.keyboardMode = false,
+		this.nativeTouch = true,
 		this.wrapperClass = 'dropdown',
 		this.onSelect = null;
 	};
@@ -60,9 +61,9 @@
 	
 		render: function(){
 			var	self = this,
-				touchClass = self.isTouch ? ' touch' : '';
+				touchClass = self.isTouch && self.nativeTouch ? ' touch' : '';
 			
-			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+'"/>').parent();
+			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+'"><span class="old"/></div>').parent().parent();
 			self.$active = $('<span class="selected">'+self.selected.title+'</span>').appendTo(self.$container);
 			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
 			self.$scrollWrapper = $('<div><ul/></div>').appendTo(self.$container);
@@ -83,10 +84,10 @@
 				};
 			};
 
-			if(!self.isTouch){
-				self.bindHandlers();
-			} else {
+			if(self.isTouch && self.nativeTouch){
 				self.bindTouchHandlers();
+			} else {
+				self.bindHandlers();
 			};
 		},
 		
@@ -137,11 +138,13 @@
 			});
 			
 			$('body').on('click',function(e){
-				var $target = $(e.target);
-				if(!$target.closest('.'+self.wrapperClass).length && self.down){
+				var $target = $(e.target),
+					classNames = self.wrapperClass.split(' ').join('.');
+
+				if(!$target.closest('.'+classNames).length && self.down){
 					self.close();
 				};
-			})
+			});
 
 			self.$items.on({
 				click: function(){
@@ -181,10 +184,11 @@
 				};
 			});
 			
-			$(window).on('keydown', function(e){
+			self.$select.on('keydown', function(e){
 				if(self.inFocus){
 					self.keyboardMode = true;
 					var key = e.keyCode;
+					
 					if(key == 38 || key == 40 || key == 32){
 						e.preventDefault();
 						if(key == 38){
@@ -228,11 +232,13 @@
 		
 		open: function(){
 			var self = this,
-				x = window.scrollX, 
-				y = window.scrollY;
+				scrollTop = window.scrollY || document.documentElement.scrollTop,
+				scrollLeft = window.scrollX || document.documentElement.scrollLeft,
+				scrollOffset = self.notInViewport(scrollTop);
+
 			self.closeAll();
 			self.$select.focus();
-			window.scrollTo(x, y);
+			window.scrollTo(scrollLeft, scrollTop+scrollOffset);
 			self.$container.addClass('open');
 			self.$scrollWrapper.css('height',self.maxHeight+'px');
 			self.down = true;
@@ -284,6 +290,21 @@
 					self.$items.removeClass('focus').eq(self.focusIndex).addClass('focus');
 					break;
 				};
+			};
+		},
+		
+		notInViewport: function(scrollTop){
+			var self = this,
+				range = {
+					min: scrollTop,
+					max: scrollTop + (window.innerHeight || document.documentElement.clientHeight)
+				},
+				menuBottom = self.$dropDown.offset().top + self.maxHeight;
+				
+			if(menuBottom >= range.min && menuBottom <= range.max){
+				return 0;
+			} else {
+				return (menuBottom - range.max) + 5;
 			};
 		}
 	};

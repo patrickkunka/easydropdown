@@ -60,9 +60,18 @@
 
 /* OLD SELECT (HIDDEN) */
 
+.dropdown .old{
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 0;
+	width: 0;
+	overflow: hidden;
+}
+
 .dropdown select{
 	position: absolute;
-	left: -9999px;
+	left: 0px;
 	top: 0px;
 }
 

@@ -302,11 +302,13 @@
 				<h3>Customizable Settings</h3>
 				<ul class="text">
 					<li><strong>cutOff</strong> <em>(integer)</em><br/>
-						The maximum number of items to show before scrolling.</li>
+						The maximum number of items to show before scrolling (default <code>false</code>).</li>
 					<li><strong>wrapperClass</strong> <em>(string)</em><br/>
-						The class of the parent wrapper element, used to target styling.</li>
+						The class of the parent wrapper element, used to target styling (default <code>'dropdown'</code>).</li>
 					<li><strong>onSelect</strong> <em>(function)</em><br/>
 						A custom function to call when an item is selected. Useful for non-form input uses. An object containing the selected item's value and title is passed as an argument.</li>
+					<li><strong>nativeTouch</strong> <em>(boolean)</em><br/>
+						Fallback to native UI on touch-enabled devices (default <code>true</code>).</li>
 					
 					
 				</div>

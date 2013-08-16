@@ -170,7 +170,8 @@ p{
 	margin-bottom: 25px;
 }
 
-p code{
+p code,
+li code{
 	font-size: 15px;
 	background: rgba(255,255,255,.7);
 	color: #333;
