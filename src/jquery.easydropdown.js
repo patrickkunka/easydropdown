@@ -34,7 +34,7 @@
 			self.options = [];
 			self.isTouch = 'ontouchend' in document;
 			self.$select
-				.removeClass(self.wrapperClass)
+				.removeClass(self.wrapperClass+' dropdown')
 				.find('option')
 				.each(function(i){
 					var $option = $(this);
