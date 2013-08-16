@@ -76,6 +76,10 @@ h1,h2,h3{
 	vertical-align: bottom;
 }
 
+.ib{
+	display: inline-block;
+}
+
 header .wrapper{
 	padding: 0 30px;
 }
@@ -111,6 +115,7 @@ section .wrapper{
 section h3{
 	font-size: 20px;
 	margin-bottom: 1em;
+	padding-top: .5em;
 }
 
 section h4{
@@ -174,6 +179,10 @@ p.legal{
 	-moz-transition: all 150ms ease-in-out;
 	-ms-transition: all 150ms ease-in-out;
 	transition: all 150ms ease-in-out;
+}
+
+.btn.ib{
+	margin-right: 10px;
 }
 
 .btn:hover,
