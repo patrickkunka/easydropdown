@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 1.8
+* Version: 1.9
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -47,6 +47,8 @@
 					};
 					if($option.hasClass('label') && i == 0){
 						self.hasLabel = true;
+						self.label = $option.text();
+						$option.attr('value','');
 					} else {
 						self.options.push({
 							domNode: $option[0],
@@ -68,6 +70,7 @@
 			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
 			self.$scrollWrapper = $('<div><ul/></div>').appendTo(self.$container);
 			self.$dropDown = self.$scrollWrapper.find('ul');
+			self.$form = self.$container.closest('form');
 			$.each(self.options, function(){
 				var	option = this,
 					active = option.selected ? ' class="active"':'';
@@ -228,6 +231,13 @@
 					};
 				};
 			});
+			
+			if(self.$form.length){
+				self.$form.on('reset', function(){
+					var active = self.hasLabel ? self.label : '';
+					self.$active.text(active);
+				});
+			};
 		},
 		
 		open: function(){
