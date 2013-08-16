@@ -263,6 +263,11 @@ pre.prettyprint{
 		box-shadow: none;
 	}
 	
+	.col_2 h3,
+	.col_2 strong{
+		color: #333;
+	}
+	
 	pre.prettyprint{
 		font-size: 14px;
 		background: #333 !important;
@@ -271,8 +276,9 @@ pre.prettyprint{
 		overflow-x: scroll;
 	}
 	
-	p.legal{
-		display: none;
+	hgroup{
+		text-align: left;
+		margin-bottom: 10px;
 	}
 }
 
