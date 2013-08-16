@@ -206,6 +206,7 @@
 						<li>Full keyboard control with textual search</li>
 						<li>Inner-scroll for long lists</li>
 						<li>Degradation to native UI on touch devices</li>
+						<li>Fully functional IE8+</li>
 					</ul>
 				
 					<a href="https://github.com/patrickkunka/easydropdown" target="_blank" class="btn">Fork it on GitHub</a>
@@ -218,6 +219,8 @@
 						<option value="1">Option 1</option>
 						<option value="2">Option 2</option>
 						<option value="3">Option 3</option>
+						<option value="4">Option 4</option>
+						<option value="5">Option 5</option>
 					</select>
 					
 					<h4>Metro / <a href="easydropdown.metro.css">easydropdown.metro.css</a></h4>
@@ -226,6 +229,8 @@
 						<option value="1">Option 1</option>
 						<option value="2">Option 2</option>
 						<option value="3">Option 3</option>
+						<option value="4">Option 4</option>
+						<option value="5">Option 5</option>
 					</select>
 				</div>
 			</div>
@@ -270,7 +275,9 @@
 					<p>Each drop-down has the following basic markup structure that you can target with your CSS:</p>
 				
 					<pre class="prettyprint lang-html">&lt;div class="dropdown"&gt;
-	&lt;select&gt;...&lt;/select&gt;
+	&lt;span class="old"&gt;
+		&lt;select&gt;...&lt;/select&gt;
+	&lt;/span&gt;
 	&lt;span class="selected"&gt;Option 1&lt;/span&gt;
 	&lt;span class="carat"&gt;&lt;/span&gt;
 	&lt;div&gt;
@@ -282,6 +289,18 @@
 		&lt;/ul&gt;
 	&lt;/div&gt;
 &lt;/div&gt;</pre>
+
+					<p>The following classes are added/removed dynamically:</p>
+					
+					<ul class="text">
+						<li><strong>.focus</strong> <em>(container)</em><br/>On input focus</li>
+						<li><strong>.open</strong> <em>(container)</em><br/>On menu open</li>
+						<li><strong>.scrollable</strong> <em>(container)</em><br/>When in scroll mode (see cutOff)</li>
+						<li><strong>.bottom</strong> <em>(container)</em><br/>On scroll bottom-out</li>
+						<li><strong>.touch</strong> <em>(container)</em><br/>When in native touch UI mode (see nativeTouch)</li>
+						<li><strong>.focus</strong> <em>(menu item)</em><br/>On hover or keyboard focus</li>
+						<li><strong>.active</strong> <em>(menu item)</em><br/>Selected menu item</li>
+					</ul>
 
 					<h3>Advanced Usage</h3>
 					

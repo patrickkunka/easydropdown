@@ -138,6 +138,11 @@ section h4{
 	box-shadow: inset 20px 0 20px -20px rgba(0,0,0,.6);
 }
 
+.col_2 h3,
+.col_2 strong{
+	color: #fff;
+}
+
 p,
 .text li{
 	font-size: 16px;
@@ -191,6 +196,8 @@ li code{
 	background: rgba(255,255,255,.7);
 	color: #333;
 	padding: 2px;
+	
+	border-radius: 1px;
 }
 
 a{
@@ -216,7 +223,7 @@ ul.text{
 
 .text li{
 	line-height: 1.4;
-	margin-bottom: 8px;
+	margin-bottom: 12px;
 }
 
 select,
