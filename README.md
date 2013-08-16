@@ -1,5 +1,5 @@
 # EasyDropDown
-## A Drop-down Builder For Styled Inputs and Menus
+### A Drop-down Builder For Styled Inputs and Menus
 
 ### What Is It?
 
