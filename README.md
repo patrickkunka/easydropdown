@@ -3,7 +3,7 @@
 
 ### What Is It?
 
-EasyDropDown is a jQuery plugin that turns humble <select> elements into styleable drop-down menus for use in forms or general UI/navigation.
+EasyDropDown is a jQuery plugin that effortlessly turns humble <select> elements into styleable drop-down menus for use in forms or general UI/navigation.
 	
 It's like Chosen but with only the essential features:
 
