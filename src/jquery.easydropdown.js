@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 1.9
+* Version: 2.0.2
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -32,11 +32,11 @@
 			$.extend(self, settings);
 			self.$select = $(domNode);
 			self.options = [];
+			self.$options = self.$select.find('option');
 			self.isTouch = 'ontouchend' in document;
-			self.$select
-				.removeClass(self.wrapperClass+' dropdown')
-				.find('option')
-				.each(function(i){
+			self.$select.removeClass(self.wrapperClass+' dropdown');
+			if(self.$options.length){
+				self.$options.each(function(i){
 					var $option = $(this);
 					if($option.is(':selected')){
 						self.selected = {
@@ -58,7 +58,15 @@
 						});
 					};
 				});
-			self.render();
+				if(!self.selected){
+					self.selected = {
+						index: 0,
+						title: self.$options.eq(0).text()
+					}
+					self.focusIndex = 0;
+				};
+				self.render();
+			};
 		},
 	
 		render: function(){
@@ -219,10 +227,12 @@
 							e.preventDefault();
 							self.select(self.focusIndex);
 							self.close();
+							return false;
 						} else if(key == 8){
 							e.preventDefault();
 							self.query = self.query.slice(0,-1)
 							self.search();
+							return false;
 						} else if(key != 38 && key != 40){
 							var letter = String.fromCharCode(key);
 							self.query += letter;
