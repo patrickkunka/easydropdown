@@ -227,10 +227,12 @@
 							e.preventDefault();
 							self.select(self.focusIndex);
 							self.close();
+							return false;
 						} else if(key == 8){
 							e.preventDefault();
 							self.query = self.query.slice(0,-1)
 							self.search();
+							return false;
 						} else if(key != 38 && key != 40){
 							var letter = String.fromCharCode(key);
 							self.query += letter;
