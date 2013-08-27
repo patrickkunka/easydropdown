@@ -584,23 +584,9 @@ pre.prettyprint{
 	z-index: 2;
 }
 
-.flat:hover{
+.flat:hover,
+.flat.focus{
 	background: #00C384;
-}
-
-.flat:after{
-	content: '';
-	position: absolute;
-	right: 3px;
-	bottom: 3px;
-	top: 2px;
-	width: 30px;
-	background: transparent;
-}
-
-
-.flat.focus:after{
-	/*background: #00D993;*/
 }
 
 /* CARAT */
@@ -695,7 +681,8 @@ pre.prettyprint{
 	box-shadow: inset -55px 0 25px -20px #29af84;
 }
 
-.flat:hover .selected::after{
+.flat:hover .selected::after,
+.flat.focus .selected::after{
 	box-shadow: inset -55px 0 25px -20px #00c384;
 }
 
@@ -773,8 +760,8 @@ pre.prettyprint{
 	list-style: none;
 	padding: 14px 12px;
 	border-bottom: 1px solid #29AF84;
-	border-radius: 5px;
 }
+
 .flat li:last-child {
     border-bottom: 0;
 }
