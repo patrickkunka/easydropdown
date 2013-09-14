@@ -10,7 +10,7 @@
 
 
 (function($){
-	
+
 	function EasyDropDown(){
 		this.isField = true,
 		this.down = false,
@@ -22,13 +22,13 @@
 		this.wrapperClass = 'dropdown',
 		this.onSelect = null;
 	};
-	
+
 	EasyDropDown.prototype = {
 		constructor: EasyDropDown,
 		instances: [],
 		init: function(domNode, settings){
 			var	self = this;
-			
+
 			$.extend(self, settings);
 			self.$select = $(domNode);
 			self.options = [];
@@ -65,14 +65,15 @@
 					}
 					self.focusIndex = 0;
 				};
+				self.$select.on('turnOff', self.turnOff(self));
 				self.render();
 			};
 		},
-	
+
 		render: function(){
 			var	self = this,
 				touchClass = self.isTouch && self.nativeTouch ? ' touch' : '';
-			
+
 			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+'"><span class="old"/></div>').parent().parent();
 			self.$active = $('<span class="selected">'+self.selected.title+'</span>').appendTo(self.$container);
 			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
@@ -101,10 +102,10 @@
 				self.bindHandlers();
 			};
 		},
-		
+
 		bindTouchHandlers: function(){
 			var	self = this;
-			self.$container.on('click',function(){
+			self.$container.on('click.easydropdown',function(){
 				self.$select.focus();
 			});
 			self.$select.on({
@@ -112,11 +113,11 @@
 					var	$selected = $(this).find('option:selected'),
 						title = $selected.text(),
 						value = $selected.val();
-						
+
 					self.$active.text(title);
 					if(typeof self.onSelect == 'function'){
 						self.onSelect.call(self,{
-							title: title, 
+							title: title,
 							value: value
 						});
 					};
@@ -129,26 +130,26 @@
 				}
 			});
 		},
-	
+
 		bindHandlers: function(){
 			var	self = this;
 			self.query = '';
 			self.$container.on({
-				click: function(){
+				"click.easydropdown": function(){
 					if(!self.down){
 						self.open();
 					} else {
 						self.close();
 					};
 				},
-				mousemove: function(){
+				"mousemove.easydropdown": function(){
 					if(self.keyboardMode){
 						self.keyboardMode = false;
 					};
 				}
 			});
-			
-			$('body').on('click',function(e){
+
+			$('body').on('click.easydropdown',function(e){
 				var $target = $(e.target),
 					classNames = self.wrapperClass.split(' ').join('.');
 
@@ -158,19 +159,19 @@
 			});
 
 			self.$items.on({
-				click: function(){
+				"click.easydropdown": function(){
 					var index = $(this).index();
 					self.select(index);
 					self.$select.focus();
 				},
-				mouseover: function(){
+				"mouseover.easydropdown": function(){
 					if(!self.keyboardMode){
 						var $t = $(this);
 						$t.addClass('focus').siblings().removeClass('focus');
 						self.focusIndex = $t.index();
 					};
 				},
-				mouseout: function(){
+				"mouseout.easydropdown": function(){
 					if(!self.keyboardMode){
 						$(this).removeClass('focus');
 					};
@@ -178,29 +179,29 @@
 			});
 
 			self.$select.on({
-				focus: function(){
+				"focus.easydropdown": function(){
 					self.$container.addClass('focus');
 					self.inFocus = true;
 				},
-				blur: function(){
+				"blur.easydropdown": function(){
 					self.$container.removeClass('focus');
 					self.inFocus = false;
 				}
 			});
-			
-			self.$dropDown.on('scroll',function(e){
+
+			self.$dropDown.on('scroll.easydropdown',function(e){
 				if(self.$dropDown[0].scrollTop == self.$dropDown[0].scrollHeight - self.maxHeight){
 					self.$container.addClass('bottom');
 				} else {
 					self.$container.removeClass('bottom');
 				};
 			});
-			
-			self.$select.on('keydown', function(e){
+
+			self.$select.on('keydown.easydropdown', function(e){
 				if(self.inFocus){
 					self.keyboardMode = true;
 					var key = e.keyCode;
-					
+
 					if(key == 38 || key == 40 || key == 32){
 						e.preventDefault();
 						if(key == 38){
@@ -240,15 +241,15 @@
 					};
 				};
 			});
-			
+
 			if(self.$form.length){
-				self.$form.on('reset', function(){
+				self.$form.on('reset.easydropdown', function(){
 					var active = self.hasLabel ? self.label : '';
 					self.$active.text(active);
 				});
 			};
 		},
-		
+
 		open: function(){
 			var self = this,
 				scrollTop = window.scrollY || document.documentElement.scrollTop,
@@ -262,7 +263,7 @@
 			self.$scrollWrapper.css('height',self.maxHeight+'px');
 			self.down = true;
 		},
-		
+
 		close: function(){
 			var self = this;
 			self.$container.removeClass('open');
@@ -271,7 +272,7 @@
 			self.query = '';
 			self.down = false;
 		},
-		
+
 		closeAll: function(){
 			var self = this,
 				instances = Object.getPrototypeOf(self).instances;
@@ -279,7 +280,7 @@
 				instances[i].close();
 			};
 		},
-	
+
 		select: function(index){
 			var self = this,
 				option = self.options[index],
@@ -294,12 +295,12 @@
 			self.focusIndex = i;
 			if(typeof self.onSelect == 'function'){
 				self.onSelect.call(self,{
-					title: option.title, 
+					title: option.title,
 					value: option.value
 				});
 			};
 		},
-		
+
 		search: function(){
 			var self = this;
 			for(i = 0; i < self.options.length; i++){
@@ -312,17 +313,29 @@
 				};
 			};
 		},
-		
+
 		scrollToView: function(){
 			var self = this;
 			if(self.focusIndex >= self.cutOff){
 				var $focusItem = self.$items.eq(self.focusIndex),
 					scroll = ($focusItem.outerHeight() * (self.focusIndex + 1)) - self.maxHeight;
-			
+
 				self.$dropDown.scrollTop(scroll);
 			};
 		},
-		
+
+		turnOff: function (self) {
+			var	self = this;
+			return function () {
+				self.$container.off('.easydropdown');
+				self.$select.off('.easydropdown');
+				self.$items.off('.easydropdown');
+				self.$form.off('.easydropdown');
+				self.$dropDown.off('.easydropdown');
+				self.$dropDown.off('turnOff');
+				self = null;
+			};
+		},
 		notInViewport: function(scrollTop){
 			var self = this,
 				range = {
@@ -330,7 +343,7 @@
 					max: scrollTop + (window.innerHeight || document.documentElement.clientHeight)
 				},
 				menuBottom = self.$dropDown.offset().top + self.maxHeight;
-				
+
 			if(menuBottom >= range.min && menuBottom <= range.max){
 				return 0;
 			} else {
@@ -338,19 +351,18 @@
 			};
 		}
 	};
-	
 	function instantiate(domNode, settings){
 		var instance = new EasyDropDown();
 		instance.init(domNode, settings);
-		instance.instances.push(instance);
 	};
-	
+
+
 	$.fn.easyDropDown = function(settings){
 		return this.each(function(){
-			instantiate(this, settings);
+			return instantiate(this, settings);
 		});
 	};
-	
+
 	$(function(){
 		if (typeof Object.getPrototypeOf !== "function"){
 			if (typeof "test".__proto__ === "object"){
@@ -363,11 +375,5 @@
 				};
 			};
 		};
-		
-		$('.dropdown').each(function(){
-			var json = $(this).attr('data-settings');
-				settings = json ? $.parseJSON(json) : {}; 
-			instantiate(this, settings);
-		});
 	});
 })(jQuery);
