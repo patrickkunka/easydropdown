@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 2.0.4
+* Version: 2.0.5
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -229,16 +229,24 @@
 							return false;
 						} else if(key == 8){
 							e.preventDefault();
-							self.query = self.query.slice(0,-1)
+							self.query = self.query.slice(0,-1);
 							self.search();
+							clearTimeout(self.resetQuery);
 							return false;
 						} else if(key != 38 && key != 40){
 							var letter = String.fromCharCode(key);
 							self.query += letter;
 							self.search();
+							clearTimeout(self.resetQuery);
 						};
 					};
 				};
+			});
+			
+			self.$select.on('keyup',function(){
+				self.resetQuery = setTimeout(function(){
+					self.query = '';
+				},1200);
 			});
 			
 			if(self.$form.length){
@@ -301,13 +309,28 @@
 		},
 		
 		search: function(){
-			var self = this;
-			for(i = 0; i < self.options.length; i++){
-				var title = self.options[i].title.toUpperCase();
-				if(title.indexOf(self.query) != -1){
+			var self = this,
+				lock = function(i){
 					self.focusIndex = i;
 					self.$items.removeClass('focus').eq(self.focusIndex).addClass('focus');
-					self.scrollToView();
+					self.scrollToView();	
+				},
+				getTitle = function(i){
+					return self.options[i].title.toUpperCase();
+				};
+				
+			for(i = 0; i < self.options.length; i++){
+				var title = getTitle(i);
+				if(title.indexOf(self.query) == 0){
+					lock(i);
+					return;
+				};
+			};
+			
+			for(i = 0; i < self.options.length; i++){
+				var title = getTitle(i);
+				if(title.indexOf(self.query) > -1){
+					lock(i);
 					break;
 				};
 			};
