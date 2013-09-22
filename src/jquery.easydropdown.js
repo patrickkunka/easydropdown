@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 2.0.5
+* Version: 2.0.6
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -15,6 +15,7 @@
 		this.isField = true,
 		this.down = false,
 		this.inFocus = false,
+		this.disabled = false,
 		this.cutOff = false,
 		this.hasLabel = false,
 		this.keyboardMode = false,
@@ -31,10 +32,14 @@
 			
 			$.extend(self, settings);
 			self.$select = $(domNode);
+			self.id = domNode.id;
 			self.options = [];
 			self.$options = self.$select.find('option');
 			self.isTouch = 'ontouchend' in document;
 			self.$select.removeClass(self.wrapperClass+' dropdown');
+			if(self.$select.is(':disabled')){
+				self.disabled = true;
+			};
 			if(self.$options.length){
 				self.$options.each(function(i){
 					var $option = $(this);
@@ -71,9 +76,10 @@
 	
 		render: function(){
 			var	self = this,
-				touchClass = self.isTouch && self.nativeTouch ? ' touch' : '';
+				touchClass = self.isTouch && self.nativeTouch ? ' touch' : '',
+				disabledClass = self.disabled ? ' disabled' : '';
 			
-			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+'"><span class="old"/></div>').parent().parent();
+			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+disabledClass+'"><span class="old"/></div>').parent().parent();
 			self.$active = $('<span class="selected">'+self.selected.title+'</span>').appendTo(self.$container);
 			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
 			self.$scrollWrapper = $('<div><ul/></div>').appendTo(self.$container);
@@ -104,7 +110,7 @@
 		
 		bindTouchHandlers: function(){
 			var	self = this;
-			self.$container.on('click',function(){
+			self.$container.on('click.easyDropDown',function(){
 				self.$select.focus();
 			});
 			self.$select.on({
@@ -134,21 +140,21 @@
 			var	self = this;
 			self.query = '';
 			self.$container.on({
-				click: function(){
-					if(!self.down){
+				'click.easyDropDown': function(){
+					if(!self.down && !self.disabled){
 						self.open();
 					} else {
 						self.close();
 					};
 				},
-				mousemove: function(){
+				'mousemove.easyDropDown': function(){
 					if(self.keyboardMode){
 						self.keyboardMode = false;
 					};
 				}
 			});
 			
-			$('body').on('click',function(e){
+			$('body').on('click.easyDropDown.'+self.id,function(e){
 				var $target = $(e.target),
 					classNames = self.wrapperClass.split(' ').join('.');
 
@@ -158,19 +164,19 @@
 			});
 
 			self.$items.on({
-				click: function(){
+				'click.easyDropDown': function(){
 					var index = $(this).index();
 					self.select(index);
 					self.$select.focus();
 				},
-				mouseover: function(){
+				'mouseover.easyDropDown': function(){
 					if(!self.keyboardMode){
 						var $t = $(this);
 						$t.addClass('focus').siblings().removeClass('focus');
 						self.focusIndex = $t.index();
 					};
 				},
-				mouseout: function(){
+				'mouseout.easyDropDown': function(){
 					if(!self.keyboardMode){
 						$(this).removeClass('focus');
 					};
@@ -178,17 +184,68 @@
 			});
 
 			self.$select.on({
-				focus: function(){
+				'focus.easyDropDown': function(){
 					self.$container.addClass('focus');
 					self.inFocus = true;
 				},
-				blur: function(){
+				'blur.easyDropDown': function(){
 					self.$container.removeClass('focus');
 					self.inFocus = false;
+				},
+				'keydown.easyDropDown': function(e){
+					if(self.inFocus){
+						self.keyboardMode = true;
+						var key = e.keyCode;
+
+						if(key == 38 || key == 40 || key == 32){
+							e.preventDefault();
+							if(key == 38){
+								self.focusIndex--
+								self.focusIndex = self.focusIndex < 0 ? self.$items.length - 1 : self.focusIndex;
+							} else if(key == 40){
+								self.focusIndex++
+								self.focusIndex = self.focusIndex > self.$items.length - 1 ? 0 : self.focusIndex;
+							};
+							if(!self.down){
+								self.open();
+							};
+							self.$items.removeClass('focus').eq(self.focusIndex).addClass('focus');
+							if(self.cutOff){
+								self.scrollToView();
+							};
+							self.query = '';
+						};
+						if(self.down){
+							if(key == 9 || key == 27){
+								self.close();
+							} else if(key == 13){
+								e.preventDefault();
+								self.select(self.focusIndex);
+								self.close();
+								return false;
+							} else if(key == 8){
+								e.preventDefault();
+								self.query = self.query.slice(0,-1);
+								self.search();
+								clearTimeout(self.resetQuery);
+								return false;
+							} else if(key != 38 && key != 40){
+								var letter = String.fromCharCode(key);
+								self.query += letter;
+								self.search();
+								clearTimeout(self.resetQuery);
+							};
+						};
+					};
+				},
+				'keyup.easyDropDown': function(){
+					self.resetQuery = setTimeout(function(){
+						self.query = '';
+					},1200);
 				}
 			});
 			
-			self.$dropDown.on('scroll',function(e){
+			self.$dropDown.on('scroll.easyDropDown',function(e){
 				if(self.$dropDown[0].scrollTop == self.$dropDown[0].scrollHeight - self.maxHeight){
 					self.$container.addClass('bottom');
 				} else {
@@ -196,65 +253,24 @@
 				};
 			});
 			
-			self.$select.on('keydown', function(e){
-				if(self.inFocus){
-					self.keyboardMode = true;
-					var key = e.keyCode;
-					
-					if(key == 38 || key == 40 || key == 32){
-						e.preventDefault();
-						if(key == 38){
-							self.focusIndex--
-							self.focusIndex = self.focusIndex < 0 ? self.$items.length - 1 : self.focusIndex;
-						} else if(key == 40){
-							self.focusIndex++
-							self.focusIndex = self.focusIndex > self.$items.length - 1 ? 0 : self.focusIndex;
-						};
-						if(!self.down){
-							self.open();
-						};
-						self.$items.removeClass('focus').eq(self.focusIndex).addClass('focus');
-						if(self.cutOff){
-							self.scrollToView();
-						};
-						self.query = '';
-					};
-					if(self.down){
-						if(key == 9 || key == 27){
-							self.close();
-						} else if(key == 13){
-							e.preventDefault();
-							self.select(self.focusIndex);
-							self.close();
-							return false;
-						} else if(key == 8){
-							e.preventDefault();
-							self.query = self.query.slice(0,-1);
-							self.search();
-							clearTimeout(self.resetQuery);
-							return false;
-						} else if(key != 38 && key != 40){
-							var letter = String.fromCharCode(key);
-							self.query += letter;
-							self.search();
-							clearTimeout(self.resetQuery);
-						};
-					};
-				};
-			});
-			
-			self.$select.on('keyup',function(){
-				self.resetQuery = setTimeout(function(){
-					self.query = '';
-				},1200);
-			});
-			
 			if(self.$form.length){
-				self.$form.on('reset', function(){
-					var active = self.hasLabel ? self.label : '';
+				self.$form.on('reset.easyDropDown', function(){
+					var active = self.hasLabel ? self.label : self.options[0].title;
 					self.$active.text(active);
 				});
 			};
+		},
+		
+		unbindHandlers: function(){
+			var self = this;
+			
+			self.$container
+				.add(self.$select)
+				.add(self.$items)
+				.add(self.$form)
+				.add(self.$dropDown)
+				.off('.easyDropDown');
+			$('body').off('.'+self.id);
 		},
 		
 		open: function(){
@@ -283,18 +299,24 @@
 		closeAll: function(){
 			var self = this,
 				instances = Object.getPrototypeOf(self).instances;
-			for(i = 0; i < instances.length; i++){
-				instances[i].close();
+			for(var key in instances){
+				var instance = instances[key];
+				instance.close();
 			};
 		},
 	
 		select: function(index){
-			var self = this,
-				option = self.options[index],
+			var self = this;
+			
+			if(typeof index === 'string'){
+				index = self.$select.find('option[value='+index+']').index() - 1;
+			};
+			
+			var	option = self.options[index],
 				selectIndex = self.hasLabel ? index + 1 : index;
 			self.$items.removeClass('active').eq(index).addClass('active');
 			self.$active.text(option.title);
-			self.$select.find('option').prop('selected',false).eq(selectIndex).prop('selected','selected');
+			self.$select.find('option').removeAttr('selected').eq(selectIndex).attr('selected','selected').parent().trigger('change');
 			self.selected = {
 				index: index,
 				title: option.title
@@ -359,24 +381,68 @@
 			} else {
 				return (menuBottom - range.max) + 5;
 			};
+		},
+		
+		destroy: function(){
+			var self = this;
+			self.unbindHandlers();
+			self.$select.unwrap().siblings().remove();
+			self.$select.unwrap();
+			delete Object.getPrototypeOf(self).instances[self.$select[0].id];
+		},
+		
+		disable: function(){
+			var self = this;
+			self.disabled = true;
+			self.$container.addClass('disabled');
+			self.$select.attr('disabled',true);
+			if(!self.down)self.close();
+		},
+		
+		enable: function(){
+			var self = this;
+			self.disabled = false;
+			self.$container.removeClass('disabled');
+			self.$select.attr('disabled',false);
 		}
 	};
 	
-	function instantiate(domNode, settings){
-		var instance = new EasyDropDown();
-		instance.init(domNode, settings);
-		instance.instances.push(instance);
-	};
+	var instantiate = function(domNode, settings){
+			domNode.id = !domNode.id ? 'EasyDropDown'+rand() : domNode.id;
+			var instance = new EasyDropDown();
+			if(!instance.instances[domNode.id]){
+				instance.instances[domNode.id] = instance;
+				instance.init(domNode, settings);
+			};
+		},
+		rand = function(){
+			return ('00000'+(Math.random()*16777216<<0).toString(16)).substr(-6).toUpperCase();
+		};
 	
-	$.fn.easyDropDown = function(settings){
-		return this.each(function(){
-			instantiate(this, settings);
+	$.fn.easyDropDown = function(){
+		var args = arguments,
+			dataReturn = [],
+			eachReturn;
+			
+		eachReturn = this.each(function(){
+			if(args && typeof args[0] === 'string'){
+				var data = EasyDropDown.prototype.instances[this.id][args[0]](args[1], args[2]);
+				if(data)dataReturn.push(data);
+			} else {
+				instantiate(this, args[0]);
+			};
 		});
+		
+		if(dataReturn.length){
+			return dataReturn.length > 1 ? dataReturn : dataReturn[0];
+		} else {
+			return eachReturn;
+		};
 	};
 	
 	$(function(){
-		if (typeof Object.getPrototypeOf !== "function"){
-			if (typeof "test".__proto__ === "object"){
+		if(typeof Object.getPrototypeOf !== 'function'){
+			if(typeof 'test'.__proto__ === 'object'){
 				Object.getPrototypeOf = function(object){
 					return object.__proto__;
 				};
