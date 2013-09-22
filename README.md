@@ -28,7 +28,7 @@ To use, simply include the jquery.easydropdown.min.js script in your page and gi
 If you are using labels within the <select> element, identify them with the class label:
 
 	<select class="dropdown">
-		<option class="label">Month</option>
+		<option value="" class="label">Month</option>
 		<option value="1">January</option>
 		<option value="2">February</option>
 		<option value="3">March</option>
@@ -38,9 +38,19 @@ If you are using labels within the <select> element, identify them with the clas
 To build your dropdown with an arbitrary option pre-selected, simply give it the selected attribute as you normally would:
 
 	<select class="dropdown">
-		<option class="label">Month</option>
+		<option value="" class="label">Month</option>
 		<option value="1">January</option>
 		<option value="2" selected>February</option>
+		<option value="3">March</option>
+		...
+	</select>
+	
+Similarly, a dropdown may be disabled with the disabled attribute:
+
+	<select class="dropdown" disabled>
+		<option value="" class="label">Month</option>
+		<option value="1">January</option>
+		<option value="2">February</option>
 		<option value="3">March</option>
 		...
 	</select>
@@ -81,6 +91,8 @@ When in scroll mode (see cutOff)
 On scroll bottom-out
 + .touch (container)
 When in native touch UI mode (see nativeTouch)
++ .disabled (container)
+When disabled
 + .focus (menu item)
 On hover or keyboard focus
 + .active (menu item)
@@ -121,3 +133,16 @@ The class of the parent wrapper element, used to target styling (default 'dropdo
 A custom function to call when an item is selected. Useful for non-form input uses. An object containing the selected item's value and title is passed as an argument.
 + nativeTouch (boolean)
 Fallback to native UI on touch-enabled devices (default true).
+
+###Methods
+
++ .easyDropDown('disable')
+Disable the dropdown.
++ .easyDropDown('enable')
+Enable the dropdown.
++ .easyDropDown('destroy')
+Remove all generated elements and unbind all handlers.
++ .easyDropDown('select', index/value)
+Programmatically select option by index (integer) or value (string).
++ .val()
+Get selected value.
