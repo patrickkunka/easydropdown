@@ -65,6 +65,10 @@
 	border-bottom: 8px solid #000;
 }
 
+.dropdown.disabled .carat{
+	border-top-color: #999;
+}
+
 /* OLD SELECT (HIDDEN) */
 
 .dropdown .old{
@@ -104,6 +108,10 @@
 	padding: 9px 12px;
 	overflow: hidden;
 	white-space: nowrap;
+}
+
+.dropdown.disabled .selected{
+	color: #999;
 }
 
 .dropdown .selected::after{
