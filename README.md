@@ -108,7 +108,7 @@ Alternatively, by not using the class 'dropdown' you can instantiate your dropdo
 		$selects.easyDropDown({
 			cutOff: 10,
 			wrapperClass: 'my-dropdown-class',
-			onSelect: function(selected){
+			onChange: function(selected){
 				// do something
 			}
 		});
@@ -129,7 +129,7 @@ You may also define your customizable settings directly in your HTML via a JSON 
 The maximum number of items to show before scrolling (default false).
 + wrapperClass (string)
 The class of the parent wrapper element, used to target styling (default 'dropdown').
-+ onSelect (function)
++ onChange (function)
 A custom function to call when an item is selected. Useful for non-form input uses. An object containing the selected item's value and title is passed as an argument.
 + nativeTouch (boolean)
 Fallback to native UI on touch-enabled devices (default true).

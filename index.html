@@ -228,6 +228,19 @@
 					
 					<p class="ib"><a href="https://github.com/patrickkunka/easydropdown/archive/master.zip">or download .ZIP</a></p>
 					
+					<h3>Latest updates v2.1.0</h3>
+					
+					<ul class="text">
+						<li><strong>onSelect</strong> callback option renamed to <strong>onChange</strong></li>
+						<li>Textual search strings reset after 1200ms of keyboard inactivity</li>
+						<li><strong>disable</strong> method added</li>
+						<li><strong>enable</strong> method added</li>
+						<li><strong>select</strong> method added</li>
+						<li><strong>destroy</strong> method added</li>
+						<li>Support for <strong>disabled</strong> attribute on <code>&lt;select&gt;</code> element added</li>
+						<li>Various bug fixes</li>
+					</ul>
+					
 					<h3>Available Ready-made Themes</h3>
 					
 					<h4>Default / <a href="themes/easydropdown.css">easydropdown.css</a></h4>
@@ -350,7 +363,7 @@
 	$selects.easyDropDown({
 		cutOff: 10,
 		wrapperClass: 'my-dropdown-class',
-		onSelect: function(selected){
+		onChange: function(selected){
 			// do something
 		}
 	});
@@ -364,6 +377,14 @@
 	&lt;option value="2"&gt;Option 2&lt;/option&gt;
 	..
 &lt;/select&gt;</pre>
+
+				<p>The "onchange" attribute may be applied as normal:</p>
+				
+				<pre class="prettyprint lang-html">&lt;select class="dropdown" onchange="alert(this.value)"&gt;
+	&lt;option value="1"&gt;Option 1&lt;/option&gt;
+	&lt;option value="2"&gt;Option 2&lt;/option&gt;
+	..
+&lt;/select&gt;</pre>
 				
 				<h3>Customizable Settings</h3>
 				<ul class="text">
@@ -371,7 +392,7 @@
 						The maximum number of items to show before scrolling (default <code>false</code>).</li>
 					<li><strong>wrapperClass</strong> <em>(string)</em><br/>
 						The class of the parent wrapper element, used to target styling (default <code>'dropdown'</code>).</li>
-					<li><strong>onSelect</strong> <em>(function)</em><br/>
+					<li><strong>onChange</strong> <em>(function)</em><br/>
 						A custom function to call when an item is selected. Useful for non-form input uses. An object containing the selected item's value and title is passed as an argument.</li>
 					<li><strong>nativeTouch</strong> <em>(boolean)</em><br/>
 						Fallback to native UI on touch-enabled devices (default <code>true</code>).</li>
