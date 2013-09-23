@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 2.0.6
+* Version: 2.1.0
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -21,7 +21,7 @@
 		this.keyboardMode = false,
 		this.nativeTouch = true,
 		this.wrapperClass = 'dropdown',
-		this.onSelect = null;
+		this.onChange = null;
 	};
 	
 	EasyDropDown.prototype = {
@@ -120,8 +120,8 @@
 						value = $selected.val();
 						
 					self.$active.text(title);
-					if(typeof self.onSelect == 'function'){
-						self.onSelect.call(self,{
+					if(typeof self.onChange === 'function'){
+						self.onChange.call(self.$select[0],{
 							title: title, 
 							value: value
 						});
@@ -322,8 +322,8 @@
 				title: option.title
 			};
 			self.focusIndex = i;
-			if(typeof self.onSelect == 'function'){
-				self.onSelect.call(self,{
+			if(typeof self.onChange === 'function'){
+				self.onChange.call(self.$select[0],{
 					title: option.title, 
 					value: option.value
 				});
