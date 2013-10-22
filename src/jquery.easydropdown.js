@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 2.1.0
+* Version: 2.1.1
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -316,7 +316,14 @@
 				selectIndex = self.hasLabel ? index + 1 : index;
 			self.$items.removeClass('active').eq(index).addClass('active');
 			self.$active.text(option.title);
-			self.$select.find('option').removeAttr('selected').eq(selectIndex).attr('selected','selected').parent().trigger('change');
+			self.$select
+				.find('option')
+				.removeAttr('selected')
+				.eq(selectIndex)
+				.prop('selected',true)
+				.parent()
+				.trigger('change');
+				
 			self.selected = {
 				index: index,
 				title: option.title
