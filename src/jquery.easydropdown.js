@@ -1,6 +1,6 @@
 /*
 * EASYDROPDOWN - A Drop-down Builder for Styleable Inputs and Menus
-* Version: 2.1.1
+* Version: 2.1.2
 * License: Creative Commons Attribution 3.0 Unported - CC BY 3.0
 * http://creativecommons.org/licenses/by/3.0/
 * This software may be used freely on commercial and non-commercial projects with attribution to the author/copyright holder.
@@ -460,7 +460,7 @@
 			};
 		};
 		
-		$('.dropdown').each(function(){
+		$('select.dropdown').each(function(){
 			var json = $(this).attr('data-settings');
 				settings = json ? $.parseJSON(json) : {}; 
 			instantiate(this, settings);
