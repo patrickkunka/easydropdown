@@ -22,6 +22,7 @@
 		this.nativeTouch = true,
 		this.wrapperClass = 'dropdown',
 		this.onChange = null;
+		this.valueWrapper = null;
 	};
 	
 	EasyDropDown.prototype = {
@@ -87,8 +88,19 @@
 			self.$form = self.$container.closest('form');
 			$.each(self.options, function(){
 				var	option = this,
-					active = option.selected ? ' class="active"':'';
-				self.$dropDown.append('<li'+active+'>'+option.title+'</li>');
+					li = $('<li>');
+
+				if (option.selected) {
+					li.addClass('active');
+				}
+
+				if (self.valueWrapper) {
+					li.html($(self.valueWrapper).html(option.title));
+				} else {
+					li.html(option.title);
+				}
+
+				self.$dropDown.append(li);
 			});
 			self.$items = self.$dropDown.find('li');
 			self.maxHeight = 0;
