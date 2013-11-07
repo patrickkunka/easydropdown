@@ -301,7 +301,9 @@
 				instances = Object.getPrototypeOf(self).instances;
 			for(var key in instances){
 				var instance = instances[key];
-				instance.close();
+				if($.isFunction(instance.close)){
+					instance.close();
+				}
 			};
 		},
 	
