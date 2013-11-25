@@ -23,6 +23,7 @@
 		this.wrapperClass = 'dropdown',
 		this.onChange = null;
 		this.valueWrapper = null;
+		this.useValueAsClass = false;
 	};
 	
 	EasyDropDown.prototype = {
@@ -47,7 +48,8 @@
 					if($option.is(':selected')){
 						self.selected = {
 							index: i,
-							title: $option.text()
+							title: $option.text(),
+							value: $option.val()
 						}
 						self.focusIndex = i;
 					};
@@ -81,7 +83,7 @@
 				disabledClass = self.disabled ? ' disabled' : '';
 			
 			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+disabledClass+'"><span class="old"/></div>').parent().parent();
-			self.$active = $('<span class="selected">'+self.selected.title+'</span>').appendTo(self.$container);
+			self.$active = $('<span class="selected'+(self.useValueAsClass ? ' '+self.selected.value : '')+'">'+self.selected.title+'</span>').appendTo(self.$container);
 			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
 			self.$scrollWrapper = $('<div><ul/></div>').appendTo(self.$container);
 			self.$dropDown = self.$scrollWrapper.find('ul');
@@ -98,6 +100,10 @@
 					li.html($(self.valueWrapper).html(option.title));
 				} else {
 					li.html(option.title);
+				}
+
+				if (self.useValueAsClass) {
+					li.addClass(option.value);
 				}
 
 				self.$dropDown.append(li);
