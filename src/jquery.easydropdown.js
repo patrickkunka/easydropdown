@@ -62,7 +62,8 @@
 							domNode: $option[0],
 							title: $option.text(),
 							value: $option.val(),
-							selected: $option.is(':selected')
+							selected: $option.is(':selected'),
+							disabled : $option.is(':disabled')
 						});
 					};
 				});
@@ -94,6 +95,10 @@
 
 				if (option.selected) {
 					li.addClass('active');
+				}
+				
+				if (option.disabled) {
+					li.addClass('disabled');
 				}
 
 				if (self.valueWrapper) {
@@ -332,6 +337,11 @@
 			
 			var	option = self.options[index],
 				selectIndex = self.hasLabel ? index + 1 : index;
+				
+			if (option.disabled) {
+				return;
+			}
+				
 			self.$items.removeClass('active').eq(index).addClass('active');
 			self.$active.text(option.title);
 			self.$select
