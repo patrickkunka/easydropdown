@@ -110,7 +110,7 @@
 			
 			for(i = 0; i < self.$items.length; i++){
 				var $item = self.$items.eq(i);
-				self.maxHeight += $item.outerHeight();
+				self.maxHeight += $item.outerHeight(true);
 				if(self.cutOff == i+1){
 					break;
 				};
@@ -379,7 +379,7 @@
 			var self = this;
 			if(self.focusIndex >= self.cutOff){
 				var $focusItem = self.$items.eq(self.focusIndex),
-					scroll = ($focusItem.outerHeight() * (self.focusIndex + 1)) - self.maxHeight;
+					scroll = ($focusItem.outerHeight(true) * (self.focusIndex + 1)) - self.maxHeight;
 			
 				self.$dropDown.scrollTop(scroll);
 			};
