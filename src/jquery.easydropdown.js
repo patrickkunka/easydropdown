@@ -176,7 +176,6 @@
 				'click.easyDropDown': function(){
 					var index = $(this).index();
 					self.select(index);
-					self.$select.focus();
 				},
 				'mouseover.easyDropDown': function(){
 					if(!self.keyboardMode){
