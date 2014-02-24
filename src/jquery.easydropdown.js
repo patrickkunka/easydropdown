@@ -133,6 +133,12 @@
 			if (self.multiple) {
 				selectionString = [];
 				for (; i < self.selected.length; ++i) {
+					if (self.hasLabel && self.selected[i].index == 0) {
+						if (self.selected.length == 1) {
+							selectionString = [self.label];
+						}
+						continue;
+					}
 					selectionString.push(self.selected[i].title);
 				}
 				selectionString = selectionString.join(', ');
@@ -406,9 +412,9 @@
 				selectIndex = self.hasLabel ? index + 1 : index,
 				allOptions = self.$select.find('option'),
 				selectionData = {
-					index: index,
+					index: selectIndex,
 					title: option.title
-				}, i;
+				}, i, alreadyOn;
 
 			if (!this.multiple) {
 				self.$items.removeClass('active');
@@ -437,10 +443,18 @@
 				}
 			} else {
 				if (selected) {
-					self.selected.push(selectionData);
+					alreadyOn = false;
+					for (i = 0; i < self.selected.length; ++i) {
+						if (self.selected[i].index == selectIndex) {
+							alreadyOn = true;
+						}
+					}
+					if (!alreadyOn) {
+						self.selected.push(selectionData);
+					}
 				} else {
 					for (i = 0; i < self.selected.length; ++i) {
-						if (self.selected[i].index == index) {
+						if (self.selected[i].index == selectIndex) {
 							self.selected.splice(i, 1);
 							break;
 						}
