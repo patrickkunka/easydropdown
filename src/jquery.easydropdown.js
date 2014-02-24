@@ -16,6 +16,7 @@
 		this.down = false,
 		this.inFocus = false,
 		this.disabled = false,
+		this.multiple = false,
 		this.cutOff = false,
 		this.hasLabel = false,
 		this.keyboardMode = false,
@@ -40,15 +41,21 @@
 			if(self.$select.is(':disabled')){
 				self.disabled = true;
 			};
+			if(self.$select.attr('multiple')){
+				self.multiple = true;
+			};
 			if(self.$options.length){
+				self.selected = [];
 				self.$options.each(function(i){
 					var $option = $(this);
 					if($option.is(':selected')){
-						self.selected = {
+						self.selected.push({
 							index: i,
 							title: $option.text()
+						});
+						if (self.focusIndex === undefined) {
+							self.focusIndex = i;
 						}
-						self.focusIndex = i;
 					};
 					if($option.hasClass('label') && i == 0){
 						self.hasLabel = true;
@@ -63,13 +70,18 @@
 						});
 					};
 				});
-				if(!self.selected){
-					self.selected = {
+				if(!self.selected.length){
+					self.selected = [{
 						index: 0,
 						title: self.$options.eq(0).text()
-					}
+					}];
 					self.focusIndex = 0;
 				};
+
+				if (!self.multiple) {
+					self.selected = self.selected[0];
+				}
+
 				self.render();
 			};
 		},
@@ -77,10 +89,11 @@
 		render: function(){
 			var	self = this,
 				touchClass = self.isTouch && self.nativeTouch ? ' touch' : '',
-				disabledClass = self.disabled ? ' disabled' : '';
-			
-			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+disabledClass+'"><span class="old"/></div>').parent().parent();
-			self.$active = $('<span class="selected">'+self.selected.title+'</span>').appendTo(self.$container);
+				disabledClass = self.disabled ? ' disabled' : '',
+				multipleClass = self.multiple ? ' multiple' : '';
+
+			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+disabledClass+multipleClass+'"><span class="old"/></div>').parent().parent();
+			self.$active = $('<span class="selected">' + self.getSelectionText() + '</span>').appendTo(self.$container);
 			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
 			self.$scrollWrapper = $('<div><ul/></div>').appendTo(self.$container);
 			self.$dropDown = self.$scrollWrapper.find('ul');
@@ -102,7 +115,26 @@
 				self.bindHandlers();
 			};
 		},
-		
+
+		getSelectionText: function(){
+			var self = this, selectionString, i = 0;
+
+			if ((self.multiple && !self.selected.length) || (!self.multiple && typeof self.selected.title == 'undefined')) {
+				return self.$options.eq(0).text();
+			}
+
+			if (self.multiple) {
+				selectionString = [];
+				for (; i < self.selected.length; ++i) {
+					selectionString.push(self.selected[i].title);
+				}
+				selectionString = selectionString.join(', ');
+			} else {
+				selectionString = self.selected.title;
+			}
+			return selectionString;
+		},
+
 		getMaxHeight: function(){
 			var self = this;
 			
@@ -126,15 +158,21 @@
 				change: function(){
 					var	$selected = $(this).find('option:selected'),
 						title = $selected.text(),
-						value = $selected.val();
-						
-					self.$active.text(title);
-					if(typeof self.onChange === 'function'){
-						self.onChange.call(self.$select[0],{
-							title: title, 
-							value: value
+						value = $selected.val(),
+						selectedArr = [];
+
+					$selected.each(function(idx, el) {
+						selectedArr.push({
+							title : $(el).text(),
+							index : idx
 						});
-					};
+					});
+
+					self.selected = self.multiple ? selectedArr : selectedArr[0];
+
+					self.$active.text(self.getSelectionText());
+
+					self.fireChangeCallback();
 				},
 				focus: function(){
 					self.$container.addClass('focus');
@@ -144,12 +182,42 @@
 				}
 			});
 		},
-	
+
+		fireChangeCallback: function(){
+			var self = this,
+				$selected = self.$select.find('option:selected');
+
+			if(typeof self.onChange === 'function'){
+				if (!self.multiple) {
+					self.onChange.call(self.$select[0],{
+						title: title,
+						value: value
+					});
+				} else {
+					self.onChange.call(self.$select[0], $selected.map(function(i, el) {
+						return {
+							title: $(el).text(),
+							value : $(el).val()
+						};
+					}));
+				}
+			};
+		},
+
 		bindHandlers: function(){
 			var	self = this;
 			self.query = '';
 			self.$container.on({
-				'click.easyDropDown': function(){
+				'click.easyDropDown': function(e){
+					// multiple inputs close when clicking on the <select> again & do not close when the list is clicked
+					if (self.multiple && self.down && !self.disabled) {
+						if ($(e.target).closest(self.$dropDown).length == 0) {
+							self.close();
+						}
+						return;
+					}
+
+					// single-option <select> handling
 					if(!self.down && !self.disabled){
 						self.open();
 					} else {
@@ -301,7 +369,7 @@
 			var self = this;
 			self.$container.removeClass('open');
 			self.$scrollWrapper.css('height','0px');
-			self.focusIndex = self.selected.index;
+			self.focusIndex = self.multiple ? self.selected[0].index : self.selected.index;
 			self.query = '';
 			self.down = false;
 		},
@@ -314,39 +382,76 @@
 				instance.close();
 			};
 		},
-	
-		select: function(index){
+
+		select: function(index, selected){
 			var self = this;
 			
 			if(typeof index === 'string'){
 				index = self.$select.find('option[value='+index+']').index() - 1;
 			};
-			
+
+			// if no state is specified directly, default behaviour is selection on single inputs and toggling on multiple ones.
+			if (typeof selected == 'undefined') {
+				selected = self.multiple ? !self.$items.eq(index).hasClass('active') : true;
+			}
+
 			var	option = self.options[index],
-				selectIndex = self.hasLabel ? index + 1 : index;
-			self.$items.removeClass('active').eq(index).addClass('active');
-			self.$active.text(option.title);
-			self.$select
-				.find('option')
-				.removeAttr('selected')
-				.eq(selectIndex)
-				.prop('selected',true)
+				selectIndex = self.hasLabel ? index + 1 : index,
+				allOptions = self.$select.find('option'),
+				selectionData = {
+					index: index,
+					title: option.title
+				}, i;
+
+			if (!this.multiple) {
+				self.$items.removeClass('active');
+				allOptions.removeAttr('selected');
+			}
+
+			if (selected) {
+				self.$items.eq(index).addClass('active');
+			} else {
+				self.$items.eq(index).removeClass('active');
+			}
+
+			allOptions.eq(selectIndex)
+				.prop('selected',selected)
 				.parent()
 				.trigger('change');
-				
-			self.selected = {
-				index: index,
-				title: option.title
-			};
+
+			if (!this.multiple) {
+				if (selected) {
+					self.selected = selectionData;
+				} else {
+					self.selected = {
+						index: 0,
+						title: self.$options.eq(0).text()
+					};
+				}
+			} else {
+				if (selected) {
+					self.selected.push(selectionData);
+				} else {
+					for (i = 0; i < self.selected.length; ++i) {
+						if (self.selected[i].index == index) {
+							self.selected.splice(i, 1);
+							break;
+						}
+					}
+				}
+			}
+
 			self.focusIndex = i;
-			if(typeof self.onChange === 'function'){
-				self.onChange.call(self.$select[0],{
-					title: option.title, 
-					value: option.value
-				});
-			};
+
+			self.$active.text(self.getSelectionText());
+
+			self.fireChangeCallback();
 		},
-		
+
+		deselect: function(index){
+			this.select(index, false);
+		},
+
 		search: function(){
 			var self = this,
 				lock = function(i){
