@@ -382,7 +382,7 @@
 			var self = this;
 			self.$container.removeClass('open');
 			self.$scrollWrapper.css('height','0px');
-			self.focusIndex = self.multiple ? self.selected[0].index : self.selected.index;
+			self.focusIndex = self.multiple ? (self.selected.length ? self.selected[0].index : 0) : self.selected.index;
 			self.query = '';
 			self.down = false;
 		},
