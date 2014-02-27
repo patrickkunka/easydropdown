@@ -125,12 +125,12 @@
 				return self.$options.eq(0).text();
 			}
 
-			self.selected.sort(function(a, b) {
-				if (a.index == b.index) return 0;
-				return a.index > b.index ? 1 : -1;
-			});
-
 			if (self.multiple) {
+				self.selected.sort(function(a, b) {
+					if (a.index == b.index) return 0;
+					return a.index > b.index ? 1 : -1;
+				});
+
 				selectionString = [];
 				for (; i < self.selected.length; ++i) {
 					if (self.hasLabel && self.selected[i].index == 0) {
