@@ -22,6 +22,9 @@
 		this.nativeTouch = true,
 		this.wrapperClass = 'dropdown',
 		this.onChange = null;
+		this.renderItem = function(item) {
+			return item.title;
+		}
 	};
 	
 	EasyDropDown.prototype = {
@@ -46,6 +49,7 @@
 					if($option.is(':selected')){
 						self.selected = {
 							index: i,
+							domNode: $option[0],
 							title: $option.text()
 						}
 						self.focusIndex = i;
@@ -66,7 +70,8 @@
 				if(!self.selected){
 					self.selected = {
 						index: 0,
-						title: self.$options.eq(0).text()
+						domNode: self.$options.eq(0)[0],
+						title: self.selected.domNode.text(),
 					}
 					self.focusIndex = 0;
 				};
@@ -80,7 +85,7 @@
 				disabledClass = self.disabled ? ' disabled' : '';
 			
 			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+disabledClass+'"><span class="old"/></div>').parent().parent();
-			self.$active = $('<span class="selected">'+self.selected.title+'</span>').appendTo(self.$container);
+			self.$active = $('<span class="selected">'+self.renderItem(self.selected)+'</span>').appendTo(self.$container);
 			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
 			self.$scrollWrapper = $('<div><ul/></div>').appendTo(self.$container);
 			self.$dropDown = self.$scrollWrapper.find('ul');
@@ -88,7 +93,7 @@
 			$.each(self.options, function(){
 				var	option = this,
 					active = option.selected ? ' class="active"':'';
-				self.$dropDown.append('<li'+active+'>'+option.title+'</li>');
+				self.$dropDown.append('<li'+active+'>'+self.renderItem(option)+'</li>');
 			});
 			self.$items = self.$dropDown.find('li');
 			
@@ -126,13 +131,15 @@
 				change: function(){
 					var	$selected = $(this).find('option:selected'),
 						title = $selected.text(),
+						domNode = $selected[0],
 						value = $selected.val();
 						
-					self.$active.text(title);
+					self.$active.html(self.renderItem($selected[0]));
 					if(typeof self.onChange === 'function'){
 						self.onChange.call(self.$select[0],{
 							title: title, 
-							value: value
+							value: value,
+							domNode: domNode
 						});
 					};
 				},
@@ -325,7 +332,7 @@
 			var	option = self.options[index],
 				selectIndex = self.hasLabel ? index + 1 : index;
 			self.$items.removeClass('active').eq(index).addClass('active');
-			self.$active.text(option.title);
+			self.$active.html(self.renderItem(option));
 			self.$select
 				.find('option')
 				.removeAttr('selected')
@@ -336,13 +343,15 @@
 				
 			self.selected = {
 				index: index,
-				title: option.title
+				title: option.title,
+				domNode: option
 			};
 			self.focusIndex = i;
 			if(typeof self.onChange === 'function'){
 				self.onChange.call(self.$select[0],{
 					title: option.title, 
-					value: option.value
+					value: option.value,
+					domNode: option
 				});
 			};
 		},
