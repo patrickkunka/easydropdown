@@ -38,6 +38,7 @@
 			self.$options = self.$select.find('option');
 			self.isTouch = 'ontouchend' in document;
 			self.$select.removeClass(self.wrapperClass+' dropdown');
+            self.extraClasses = self.$select.attr('class');
 			if(self.$select.is(':disabled')){
 				self.disabled = true;
 			}
@@ -78,9 +79,10 @@
 		render: function(){
 			var	self = this,
 				touchClass = self.isTouch && self.nativeTouch ? ' touch' : '',
-				disabledClass = self.disabled ? ' disabled' : '';
+				disabledClass = self.disabled ? ' disabled' : '',
+                extraClasses = self.extraClasses ? ' ' + self.extraClasses : '';
 
-			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+disabledClass+'"><span class="old"/></div>').parent().parent();
+			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+disabledClass+extraClasses+'"><span class="old"/></div>').parent().parent();
 			self.$active = $('<span class="selected">'+self.selected.title+'</span>').appendTo(self.$container);
 			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
 			self.$scrollWrapper = $('<div><ul/></div>').appendTo(self.$container);
