@@ -10,6 +10,7 @@
 
 
 (function($){
+	'use strict';
 
 	function EasyDropDown(){
 		this.isField = true,
@@ -22,7 +23,7 @@
 		this.nativeTouch = true,
 		this.wrapperClass = 'dropdown',
 		this.onChange = null;
-	};
+	}
 
 	EasyDropDown.prototype = {
 		constructor: EasyDropDown,
@@ -39,7 +40,7 @@
 			self.$select.removeClass(self.wrapperClass+' dropdown');
 			if(self.$select.is(':disabled')){
 				self.disabled = true;
-			};
+			}
 			if(self.$options.length){
 				self.$options.each(function(i){
 					var $option = $(this);
@@ -47,10 +48,10 @@
 						self.selected = {
 							index: i,
 							title: $option.text()
-						}
+						};
 						self.focusIndex = i;
-					};
-					if($option.hasClass('label') && i == 0){
+					}
+					if($option.hasClass('label') && i === 0){
 						self.hasLabel = true;
 						self.label = $option.text();
 						$option.attr('value','');
@@ -61,17 +62,17 @@
 							value: $option.val(),
 							selected: $option.is(':selected')
 						});
-					};
+					}
 				});
 				if(!self.selected){
 					self.selected = {
 						index: 0,
 						title: self.$options.eq(0).text()
-					}
+					};
 					self.focusIndex = 0;
-				};
+				}
 				self.render();
-			};
+			}
 		},
 
 		render: function(){
@@ -100,7 +101,7 @@
 				self.bindTouchHandlers();
 			} else {
 				self.bindHandlers();
-			};
+			}
 		},
 
 		getMaxHeight: function(){
@@ -111,10 +112,10 @@
 			for(i = 0; i < self.$items.length; i++){
 				var $item = self.$items.eq(i);
 				self.maxHeight += $item.outerHeight();
-				if(self.cutOff == i+1){
+				if(self.cutOff === i+1){
 					break;
-				};
-			};
+				}
+			}
 		},
 
 		bindTouchHandlers: function(){
@@ -134,7 +135,7 @@
 							title: title,
 							value: value
 						});
-					};
+					}
 				},
 				focus: function(){
 					self.$container.addClass('focus');
@@ -154,12 +155,12 @@
 						self.open();
 					} else {
 						self.close();
-					};
+					}
 				},
 				'mousemove.easyDropDown': function(){
 					if(self.keyboardMode){
 						self.keyboardMode = false;
-					};
+					}
 				}
 			});
 
@@ -169,7 +170,7 @@
 
 				if(!$target.closest('.'+classNames).length && self.down){
 					self.close();
-				};
+				}
 			});
 
 			self.$items.on({
@@ -183,12 +184,12 @@
 						var $t = $(this);
 						$t.addClass('focus').siblings().removeClass('focus');
 						self.focusIndex = $t.index();
-					};
+					}
 				},
 				'mouseout.easyDropDown': function(){
 					if(!self.keyboardMode){
 						$(this).removeClass('focus');
-					};
+					}
 				}
 			});
 
@@ -209,21 +210,21 @@
 						if(key == 38 || key == 40 || key == 32){
 							e.preventDefault();
 							if(key == 38){
-								self.focusIndex--
+								self.focusIndex--;
 								self.focusIndex = self.focusIndex < 0 ? self.$items.length - 1 : self.focusIndex;
 							} else if(key == 40){
-								self.focusIndex++
+								self.focusIndex++;
 								self.focusIndex = self.focusIndex > self.$items.length - 1 ? 0 : self.focusIndex;
-							};
+							}
 							if(!self.down){
 								self.open();
-							};
+							}
 							self.$items.removeClass('focus').eq(self.focusIndex).addClass('focus');
 							if(self.cutOff){
 								self.scrollToView();
-							};
+							}
 							self.query = '';
-						};
+						}
 						if(self.down){
 							if(key == 9 || key == 27){
 								self.close();
@@ -243,9 +244,9 @@
 								self.query += letter;
 								self.search();
 								clearTimeout(self.resetQuery);
-							};
-						};
-					};
+							}
+						}
+					}
 				},
 				'keyup.easyDropDown': function(){
 					self.resetQuery = setTimeout(function(){
@@ -259,7 +260,7 @@
 					self.$container.addClass('bottom');
 				} else {
 					self.$container.removeClass('bottom');
-				};
+				}
 			});
 
 			if(self.$form.length){
@@ -267,7 +268,7 @@
 					var active = self.hasLabel ? self.label : self.options[0].title;
 					self.$active.text(active);
 				});
-			};
+			}
 		},
 
 		unbindHandlers: function(){
@@ -312,7 +313,7 @@
 			for(var key in instances){
 				var instance = instances[key];
 				instance.close();
-			};
+			}
 		},
 
 		select: function(index){
@@ -320,7 +321,7 @@
 
 			if(typeof index === 'string'){
 				index = self.$select.find('option[value='+index+']').index() - 1;
-			};
+			}
 
 			var	option = self.options[index],
 				selectIndex = self.hasLabel ? index + 1 : index;
@@ -344,7 +345,7 @@
 					title: option.title,
 					value: option.value
 				});
-			};
+			}
 		},
 
 		search: function(){
@@ -360,19 +361,19 @@
 
 			for(i = 0; i < self.options.length; i++){
 				var title = getTitle(i);
-				if(title.indexOf(self.query) == 0){
+				if(title.indexOf(self.query) === 0){
 					lock(i);
 					return;
-				};
-			};
+				}
+			}
 
 			for(i = 0; i < self.options.length; i++){
 				var title = getTitle(i);
 				if(title.indexOf(self.query) > -1){
 					lock(i);
 					break;
-				};
-			};
+				}
+			}
 		},
 
 		scrollToView: function(){
@@ -382,7 +383,7 @@
 					scroll = ($focusItem.outerHeight() * (self.focusIndex + 1)) - self.maxHeight;
 
 				self.$dropDown.scrollTop(scroll);
-			};
+			}
 		},
 
 		notInViewport: function(scrollTop){
@@ -397,7 +398,7 @@
 				return 0;
 			} else {
 				return (menuBottom - range.max) + 5;
-			};
+			}
 		},
 
 		destroy: function(){
@@ -429,7 +430,7 @@
 			var instance = new EasyDropDown();
 			if(!instance.instances[domNode.id]){
 				instance.instances[domNode.id] = instance;
-			};
+			}
 			instance.init(domNode, settings);
 		},
 		rand = function(){
@@ -447,14 +448,14 @@
 				if(data)dataReturn.push(data);
 			} else {
 				instantiate(this, args[0]);
-			};
+			}
 		});
 
 		if(dataReturn.length){
 			return dataReturn.length > 1 ? dataReturn : dataReturn[0];
 		} else {
 			return eachReturn;
-		};
+		}
 	};
 
 	$(function(){
@@ -467,8 +468,8 @@
 				Object.getPrototypeOf = function(object){
 					return object.constructor.prototype;
 				};
-			};
-		};
+			}
+		}
 
 		$('select.dropdown').each(function(){
 			var json = $(this).attr('data-settings');
