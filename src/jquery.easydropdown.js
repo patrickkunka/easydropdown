@@ -177,7 +177,7 @@
 					$selected.each(function(idx, el) {
 						selectedArr.push({
 							title : $(el).text(),
-							index : idx
+							index : $(el).index()
 						});
 					});
 
