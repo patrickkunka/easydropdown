@@ -319,7 +319,14 @@
 			var self = this;
 			
 			if(typeof index === 'string'){
-				index = self.$select.find('option[value='+index+']').index() - 1;
+				var options = self.$select.find('option');
+
+				for (var i = 0; i < options.length; ++i) {
+					if ($(options[i]).val() === index) {
+						index = i;
+						break;
+					}
+				}
 			};
 			
 			var	option = self.options[index],
