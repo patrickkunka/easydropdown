@@ -61,7 +61,8 @@
 							domNode: $option[0],
 							title: $option.text(),
 							value: $option.val(),
-							selected: $option.is(':selected')
+							selected: $option.is(':selected'),
+              classes: $option.attr('class') || ''
 						});
 					}
 				});
@@ -89,9 +90,20 @@
 			self.$dropDown = self.$scrollWrapper.find('ul');
 			self.$form = self.$container.closest('form');
 			$.each(self.options, function(){
-				var	option = this,
-					active = option.selected ? ' class="active"':'';
-				self.$dropDown.append('<li'+active+'>'+option.title+'</li>');
+        var option = this,
+          classes = option.classes.split(' ');
+
+        if (option.selected) {
+          classes.push('active');
+        }
+
+        if (classes.length > 0) {
+          classes = ' class="' + classes.join(' ') + '"';
+        } else {
+          classes = '';
+        }
+
+        self.$dropDown.append('<li'+classes+'>'+option.title+'</li>');
 			});
 			self.$items = self.$dropDown.find('li');
 
@@ -111,7 +123,7 @@
 
 			self.maxHeight = 0;
 
-			for(i = 0; i < self.$items.length; i++){
+			for(var i = 0; i < self.$items.length; i++){
 				var $item = self.$items.eq(i);
 				self.maxHeight += $item.outerHeight();
 				if(self.cutOff === i+1){
@@ -474,7 +486,7 @@
 		}
 
 		$('select.dropdown').each(function(){
-			var json = $(this).attr('data-settings');
+			var json = $(this).attr('data-settings'),
 				settings = json ? $.parseJSON(json) : {};
 			instantiate(this, settings);
 		});
