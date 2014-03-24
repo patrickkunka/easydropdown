@@ -1,6 +1,6 @@
 {
   "name": "easydropdown",
-  "version": "2.1.4-OMEPatch",
+  "version": "2.1.5",
   "main": "jquery.easydropdown.min.js",
   "dependencies": {
     "jquery": ">=1.7"

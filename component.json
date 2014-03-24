@@ -1,6 +1,6 @@
 {
   "name": "easydropdown",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "main": "src/jquery.easydropdown.js",
   "scripts": [
   	"src/jquery.easydropdown.js"
