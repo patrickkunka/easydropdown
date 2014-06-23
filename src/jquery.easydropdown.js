@@ -119,7 +119,12 @@
 		
 		bindTouchHandlers: function(){
 			var	self = this;
-			self.$container.on('click.easyDropDown',function(){
+			self.$container.on('click.easyDropDown',function(e){
+				var worked = false, 
+					evt = document.createEvent("MouseEvents");
+				
+				evt.initMouseEvent("mousedown", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+				worked = self.$select[0].dispatchEvent(evt);
 				self.$select.focus();
 			});
 			self.$select.on({
