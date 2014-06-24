@@ -21,6 +21,7 @@
 		this.keyboardMode = false,
 		this.nativeTouch = true,
 		this.wrapperClass = 'dropdown',
+    this.labelEmpty = false,
 		this.onChange = null;
 	};
 	
@@ -50,7 +51,7 @@
 						}
 						self.focusIndex = i;
 					};
-					if($option.hasClass('label') && i == 0){
+          if(($option.hasClass('label') || ($option.val() == "" && self.labelEmpty)) && i == 0){
 						self.hasLabel = true;
 						self.label = $option.text();
 						$option.attr('value','');
