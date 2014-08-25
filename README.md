@@ -148,3 +148,5 @@ Remove all generated elements and unbind all handlers.
 Programmatically select option by index (integer) or value (string).
 + .val()
 Get selected value.
++ .easyDropDown('update')
+Update easydropdown with the underlying input value.

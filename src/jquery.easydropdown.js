@@ -421,6 +421,11 @@
 			self.disabled = false;
 			self.$container.removeClass('disabled');
 			self.$select.attr('disabled',false);
+		},
+
+		update: function() {
+			var self = this;
+			self.select(self.$select.find('option:selected').index());
 		}
 	};
 	
