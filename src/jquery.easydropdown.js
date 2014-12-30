@@ -81,7 +81,7 @@
 			
 			self.$container = self.$select.wrap('<div class="'+self.wrapperClass+touchClass+disabledClass+'"><span class="old"/></div>').parent().parent();
 			self.$active = $('<span class="selected">'+self.selected.title+'</span>').appendTo(self.$container);
-			self.$carat = $('<span class="carat"/>').appendTo(self.$container);
+			self.$carat = $('<span class="carat"/>').prependTo(self.$container);
 			self.$scrollWrapper = $('<div><ul/></div>').appendTo(self.$container);
 			self.$dropDown = self.$scrollWrapper.find('ul');
 			self.$form = self.$container.closest('form');
