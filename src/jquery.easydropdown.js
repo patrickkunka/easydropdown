@@ -421,6 +421,21 @@
 			self.disabled = false;
 			self.$container.removeClass('disabled');
 			self.$select.attr('disabled',false);
+		},
+
+		update: function() {
+			var self = this;
+			self.$options = self.$select.find('option');
+			self.options = [];
+			self.$options.each(function() {
+				var $option = $(this);
+				self.options.push({
+					domNode: $option[0],
+					title: $option.text(),
+					value: $option.val(),
+					selected: $option.is(':selected')
+				})
+			})
 		}
 	};
 	
