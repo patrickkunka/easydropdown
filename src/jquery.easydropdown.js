@@ -176,7 +176,9 @@
 				'click.easyDropDown': function(){
 					var index = $(this).index();
 					self.select(index);
-					self.$select.focus();
+					if(!self.isTouch || self.nativeTouch === true) {
+						self.$select.focus();
+					}
 				},
 				'mouseover.easyDropDown': function(){
 					if(!self.keyboardMode){
@@ -290,7 +292,9 @@
 
 			self.closeAll();
 			self.getMaxHeight();
-			self.$select.focus();
+			if(!self.isTouch || self.nativeTouch === true) {
+				self.$select.focus();
+			}
 			window.scrollTo(scrollLeft, scrollTop+scrollOffset);
 			self.$container.addClass('open');
 			self.$scrollWrapper.css('height',self.maxHeight+'px');
