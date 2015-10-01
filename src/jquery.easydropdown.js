@@ -46,18 +46,18 @@
 					if($option.is(':selected')){
 						self.selected = {
 							index: i,
-							title: $option.text()
+							title: $option.html()
 						}
 						self.focusIndex = i;
 					};
 					if($option.hasClass('label') && i == 0){
 						self.hasLabel = true;
-						self.label = $option.text();
+						self.label = $option.html();
 						$option.attr('value','');
 					} else {
 						self.options.push({
 							domNode: $option[0],
-							title: $option.text(),
+							title: $option.html(),
 							value: $option.val(),
 							selected: $option.is(':selected')
 						});
@@ -66,7 +66,7 @@
 				if(!self.selected){
 					self.selected = {
 						index: 0,
-						title: self.$options.eq(0).text()
+						title: self.$options.eq(0).html()
 					}
 					self.focusIndex = 0;
 				};
@@ -125,10 +125,10 @@
 			self.$select.on({
 				change: function(){
 					var	$selected = $(this).find('option:selected'),
-						title = $selected.text(),
+						title = $selected.html(),
 						value = $selected.val();
 						
-					self.$active.text(title);
+					self.$active.html(title);
 					if(typeof self.onChange === 'function'){
 						self.onChange.call(self.$select[0],{
 							title: title, 
@@ -265,7 +265,7 @@
 			if(self.$form.length){
 				self.$form.on('reset.easyDropDown', function(){
 					var active = self.hasLabel ? self.label : self.options[0].title;
-					self.$active.text(active);
+					self.$active.html(active);
 				});
 			};
 		},
@@ -325,7 +325,7 @@
 			var	option = self.options[index],
 				selectIndex = self.hasLabel ? index + 1 : index;
 			self.$items.removeClass('active').eq(index).addClass('active');
-			self.$active.text(option.title);
+			self.$active.html(option.title);
 			self.$select
 				.find('option')
 				.removeAttr('selected')
