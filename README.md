@@ -5,8 +5,8 @@
 
 ### What Is It?
 
-EasyDropDown is a jQuery plugin that effortlessly turns humble <select> elements into styleable drop-down menus for use in forms or general UI/navigation.
-	
+EasyDropDown is a jQuery plugin that effortlessly turns humble `<select>` elements into styleable drop-down menus for use in forms or general UI/navigation.
+
 It's like Chosen but with only the essential features:
 
 + Clean, semantic markup
@@ -18,7 +18,7 @@ It's like Chosen but with only the essential features:
 
 ###How To Use It
 
-To use, simply include the jquery.easydropdown.min.js script in your page and give your <select> tags the class dropdown:
+To use, simply include the jquery.easydropdown.min.js script in your page and give your `<select>` tags the class dropdown:
 
 	<select class="dropdown">
 		<option value="1">Option 1</option>
@@ -26,8 +26,8 @@ To use, simply include the jquery.easydropdown.min.js script in your page and gi
 		<option value="3">Option 3</option>
 		<option value="4">Option 4</option>
 	</select>
-	
-If you are using labels within the <select> element, identify them with the class label:
+
+If you are using labels within the `<select>` element, identify them with the class label:
 
 	<select class="dropdown">
 		<option value="" class="label">Month</option>
