@@ -1,0 +1,8 @@
+.nyc_output
+coverage
+src
+test
+
+.travis.yml
+tsconfig.json
+tslint.json

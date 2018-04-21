@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "target": "es5",
+        "lib": ["es2015", "es2017", "dom"],
+        "noUnusedLocals": true,
+        "declaration": true,
+        "sourceMap": true
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "./src/*.test.ts"
+    ]
+}

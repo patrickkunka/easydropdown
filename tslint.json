@@ -1,0 +1,42 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended",
+        "tslint-eslint-rules"
+    ],
+    "rules": {
+        "arrow-parens": false,
+        "curly": false,
+        "eofline": false,
+        "forin": false,
+        "import-spacing": false,
+        "member-ordering": [true, {
+            "order": [
+                "public-instance-field",
+                "protected-instance-field",
+                "private-instance-field",
+                "public-static-field",
+                "protected-static-field",
+                "private-static-field",
+                "constructor",
+                "public-instance-method",
+                "protected-instance-method",
+                "private-instance-method",
+                "public-static-method",
+                "protected-static-method",
+                "private-static-method"
+            ]
+        }],
+        "member-access": [true, "check-accessor"],
+        "newline-before-return": true,
+        "no-conditional-assignment": false,
+        "no-console": [true, "log"],
+        "object-curly-spacing": [true, "never"],
+        "object-literal-sort-keys": false,
+        "quotemark": [true, "single", "jsx-double"],
+        "radix": false,
+        "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+        "typedef-whitespace": false
+    },
+    "rulesDirectory": []
+}

@@ -1,0 +1,65 @@
+{
+  "name": "easydropdown",
+  "version": "4.0.0",
+  "description": "",
+  "author": "KunkaLabs Limited",
+  "private": false,
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "browser": "./dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patrickkunka/easydropdown/"
+  },
+  "scripts": {
+    "test:unit": "mocha -r ts-node/register ./test/unit.ts",
+    "test": "npm run test:unit",
+    "lint": "tslint -c tslint.json './src/**/*.ts'",
+    "watch": "tsc --watch",
+    "build": "tsc",
+    "bundle:watch": "npm run bundle:build -- --watch",
+    "bundle:build": "webpack --config ./config/webpack.config.ts",
+    "prepublishOnly": "npm run test && npm run build",
+    "cover": "nyc mocha ./test/unit.ts",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+  },
+  "nyc": {
+    "require": [
+      "ts-node/register",
+      "source-map-support/register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/index.ts",
+      "**/*.d.ts",
+      "**/**.test.ts",
+      "**/Interfaces",
+      "**/Constants",
+      "dist",
+      "coverage"
+    ],
+    "all": true
+  },
+  "devDependencies": {
+    "@types/chai": "^4.0.5",
+    "@types/mocha": "^2.2.44",
+    "@types/node": "^8.0.53",
+    "chai": "^3.5.0",
+    "chai-shallow-deep-equal": "^1.4.0",
+    "coveralls": "^3.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.0.2",
+    "nyc": "^11.3.0",
+    "source-map-support": "^0.5.0",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1"
+  }
+}
