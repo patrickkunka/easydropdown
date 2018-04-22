@@ -1,19 +1,20 @@
-import * as path from 'path';
-// import * as webpack from 'webpack';
+// tslint:disable:no-var-requires
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     entry: './src/index.ts',
     output: {
-        filename: 'tome.js',
+        filename: 'easydropdown.js',
         path: path.resolve(__dirname, '../', 'dist'),
-        library: 'tome',
+        library: 'easydropdown',
         libraryTarget: 'umd'
     },
     devtool: 'source-map',
     plugins: [
-        // new webpack.optimize.UglifyJsPlugin({
-        //    sourcemap: true
-        // })
+        new webpack.optimize.UglifyJsPlugin({
+           sourcemap: true
+        })
     ],
     resolve: {
         extensions: ['.ts', '.js']

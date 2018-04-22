@@ -14,7 +14,7 @@ class EventBinding implements IEventBinding {
     }
 
     public unbind() {
-        this.target.removeEventListener(this.type, this.handler);
+        this.target.removeEventListener(this.type, this.handler as EventListener);
     }
 }
 

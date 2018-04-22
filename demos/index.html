@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>EasyDropDown Demo</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                padding: 1rem;
+            }
+
+            .edd {
+                position: relative;
+                width: 5rem;
+                height: 1.5rem;
+            }
+
+            .edd-head {
+                background: #eee;
+                overflow: hidden;
+            }
+
+            .edd-select {
+                position: absolute;
+                opacity: 0;
+                width: 0;
+                height: 0;
+                left: -999px;
+            }
+
+            .edd-body {
+                max-height: 300px;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: calc(100% + 0.5rem);
+                background: #eee;
+            }
+        </style>
+    </head>
+    <body>
+        <select id="test">
+            <option value="foo">Foo</option>
+            <option value="bar">Bar</option>
+        </select>
+
+        <script src="../dist/easydropdown.js"></script>
+        <script>
+            const select = document.querySelector('#test');
+
+            easydropdown(select);
+        </script>
+    </body>
+</html>

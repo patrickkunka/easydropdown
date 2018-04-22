@@ -9,8 +9,12 @@ describe('Renderer', () => {
     it('renders the dropdown markup structure for a given state', () => {
         const state = new State();
         const classNames = new ClassNames();
+        const parent = document.createElement('div');
+        const select = document.createElement('select');
 
-        const dom = Renderer.render(state, classNames);
+        parent.appendChild(select);
+
+        const dom = Renderer.render(state, classNames, select);
 
         assert.isOk(dom.root);
         assert.isOk(dom.head);
@@ -18,5 +22,6 @@ describe('Renderer', () => {
         assert.isOk(dom.itemsList);
         assert.isNotOk(dom.groups.length);
         assert.isNotOk(dom.options.length);
+        assert.equal(select, dom.select);
     });
 });

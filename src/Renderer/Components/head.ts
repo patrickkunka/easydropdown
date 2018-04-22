@@ -7,6 +7,7 @@ const head = (state: State, classNames: ClassNames) => (`
     <div class="${classNames.head}" ref="head">
         ${label(state, classNames)}
         ${arrow(state, classNames)}
+        <div class="${classNames.select}" ref="select"></div>
     </div>
 `);
 

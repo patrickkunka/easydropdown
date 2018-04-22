@@ -1,1 +1,3 @@
-export {default as default} from './Mediator/Mediator';
+import factory from './Mediator/factory';
+
+module.exports = factory;

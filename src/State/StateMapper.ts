@@ -43,7 +43,7 @@ class StateMapper {
             }
         }
 
-        return Object.freeze(state);
+        return Object.seal(state);
     }
 
     private static mapGroup(group: HTMLOptGroupElement = null): Group {

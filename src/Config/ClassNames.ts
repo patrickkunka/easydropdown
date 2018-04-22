@@ -12,6 +12,7 @@ class ClassNames implements IClassNames {
     public head:           string = 'edd-head';
     public label:          string = 'edd-label';
     public arrow:          string = 'edd-arrow';
+    public select:         string = 'edd-select';
     public body:           string = 'edd-body';
     public bodyScrollable: string = 'edd-body-scrollable';
     public bodyAtTop:      string = 'edd-body-at-top';

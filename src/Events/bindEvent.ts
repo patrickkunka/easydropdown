@@ -3,7 +3,7 @@ import throttle      from '../Shared/Util/throttle';
 import EventBinding  from './EventBinding';
 import IEventBinding from './Interfaces/IEventBinding';
 
-const bindEvent = (context: any, eventBindingRaw: (string|IEventBinding)): EventBinding => {
+const bindEvent = (context: any, eventBindingRaw: IEventBinding): EventBinding => {
     const eventBinding = new EventBinding(eventBindingRaw);
 
     const boundHandler = eventBinding.handler.bind(context);
