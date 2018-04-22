@@ -8,14 +8,12 @@ class StateMapper {
 
         let isWithinGroup = false;
 
-        state.autofocus = selectElement.autofocus;
         state.name = selectElement.name;
         state.isDisabled = selectElement.disabled;
 
-
         for (let i = 0, child: Element; (child = selectElement.children[i]); i++) {
-            if (i === 0 && child.getAttribute('data-label') !== null) {
-                state.label = child.textContent;
+            if (i === 0 && child.getAttribute('data-placeholder') !== null) {
+                state.placeholder = child.textContent;
 
                 continue;
             }
@@ -67,4 +65,3 @@ class StateMapper {
 }
 
 export default StateMapper;
-

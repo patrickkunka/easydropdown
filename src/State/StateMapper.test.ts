@@ -1,17 +1,16 @@
-import 'jsdom-global/register'
 import {assert} from 'chai';
+import 'jsdom-global/register';
 
 import createDomElementFromHtml from '../Shared/Util/createDomElementFromHtml';
 import StateMapper              from './StateMapper';
 
-describe('StateMapper', function() {
+describe('StateMapper', () => {
     it('maps a select element\'s attributes', () => {
-        const select = createDomElementFromHtml(`<select name="foo" disabled autofocus/>`);
+        const select = createDomElementFromHtml(`<select name="foo" disabled/>`);
         const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
 
         assert.equal(state.name, 'foo');
         assert.isTrue(state.isDisabled);
-        assert.isTrue(state.autofocus);
     });
 
     it('maps a select element\'s options', () => {
@@ -81,18 +80,21 @@ describe('StateMapper', function() {
         });
     });
 
-    it('maps a first option with a `data-label` attribute preset to the global label', () => {
+    it('maps a first option with a `data-placeholder` attribute preset to the placeholder', () => {
         const select = createDomElementFromHtml(`
             <select name="foo">
-                <option data-label>Select</option>
+                <option data-placeholder>Select</option>
+                <option>Bar</option>
             </select>
         `);
 
         const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
 
-        assert.equal(state.label, 'Select');
-        assert.equal(state.totalGroups, 0);
-        assert.equal(state.totalOptions, 0);
+        assert.equal(state.placeholder, 'Select');
+        assert.equal(state.totalGroups, 1);
+        assert.equal(state.totalOptions, 1);
+        assert.equal(state.selectedIndex, -1);
+        assert.equal(state.value, '');
     });
 
     it('maps `optgroup` elements to `groups`', () => {
@@ -109,7 +111,9 @@ describe('StateMapper', function() {
 
         const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
 
-        assert.equal(state.label, '');
+        assert.equal(state.placeholder, 'Select');
+        assert.equal(state.label, 'Quux');
+        assert.equal(state.value, 'Quux');
         assert.equal(state.totalGroups, 2);
         assert.equal(state.totalOptions, 2);
         assert.equal(state.selectedIndex, 1);
@@ -131,7 +135,6 @@ describe('StateMapper', function() {
 
         const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
 
-        assert.equal(state.label, '');
         assert.equal(state.totalGroups, 3);
         assert.equal(state.totalOptions, 4);
         assert.equal(state.selectedIndex, 3);

@@ -1,8 +1,8 @@
-import ClassNames from '../Config/ClassNames';
-import root       from './Components/root';
-import Dom        from './Dom';
-import State from '../State/State';
+import ClassNames               from '../Config/ClassNames';
 import createDomElementFromHtml from '../Shared/Util/createDomElementFromHtml';
+import State                    from '../State/State';
+import root                     from './Components/root';
+import Dom                      from './Dom';
 
 class Renderer {
     public static render(state: State, classNames: ClassNames): Dom {
@@ -11,24 +11,22 @@ class Renderer {
 
         dom.root = createDomElementFromHtml(html) as HTMLDivElement;
 
-        return Object.keys(dom).reduce((dom, ref) => {
-            const element = dom.root.querySelector(`[ref="${ref}"]`);
+        return Object.keys(dom).reduce((localDom, ref) => {
+            const element = localDom.root.querySelector(`[ref="${ref}"]`);
 
-            if (!element || ref === 'root') return dom;
+            if (!element || ref === 'root') return localDom;
 
-            const value = dom[ref];
+            const value = localDom[ref];
 
             element.removeAttribute('ref');
 
             if (value === null) {
-                dom[ref] = element;
-            } else {
-                if (!Array.isArray(value)) dom[ref] = [value];
-
-                dom[ref].push(element)
+                localDom[ref] = element;
+            } else if (Array.isArray(value)) {
+                value.push(element);
             }
 
-            return dom;
+            return localDom;
         }, dom);
     }
 }

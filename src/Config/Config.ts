@@ -3,8 +3,8 @@ import ClassNames from './ClassNames';
 import IConfig    from './Interfaces/IConfig';
 
 class Config implements IConfig {
-    callbacks = new Callbacks();
-    classNames = new ClassNames();
+    public callbacks = new Callbacks();
+    public classNames = new ClassNames();
 
     constructor() {
         Object.seal(this);
