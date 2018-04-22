@@ -13,8 +13,8 @@
     "url": "https://github.com/patrickkunka/easydropdown/"
   },
   "scripts": {
-    "test:unit": "mocha -r ts-node/register ./test/unit.ts",
-    "test": "npm run test:unit",
+    "test": "mocha --opts ./config/mocha.opts",
+    "test:watch": "mocha --opts ./config/mocha.opts --watch",
     "lint": "tslint -c tslint.json './src/**/*.ts'",
     "watch": "tsc --watch",
     "build": "tsc",
@@ -47,6 +47,9 @@
     ],
     "all": true
   },
+  "dependencies": {
+    "helpful-merge": "^0.1.0"
+  },
   "devDependencies": {
     "@types/chai": "^4.0.5",
     "@types/mocha": "^2.2.44",
@@ -55,6 +58,8 @@
     "chai-shallow-deep-equal": "^1.4.0",
     "coveralls": "^3.0.0",
     "istanbul": "^0.4.5",
+    "jsdom": "^11.8.0",
+    "jsdom-global": "^3.0.2",
     "mocha": "^3.0.2",
     "nyc": "^11.3.0",
     "source-map-support": "^0.5.0",
