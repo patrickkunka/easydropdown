@@ -13,7 +13,7 @@ const createMockState = () => ({
     ]
 });
 
-describe('State', function() {
+describe('State', () => {
     describe('get totalGroups()', () => {
         it('returns the total number of groups', () => {
             const state = new State(createMockState());

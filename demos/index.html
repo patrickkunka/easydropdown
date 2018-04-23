@@ -19,10 +19,17 @@
                 position: relative;
                 width: 5rem;
                 height: 1.5rem;
+                user-select: none;
             }
 
             .edd-head {
                 background: #eee;
+                overflow: hidden;
+            }
+
+            .edd-label {
+                white-space: nowrap;
+                text-overflow: ellipsis;
                 overflow: hidden;
             }
 
@@ -35,19 +42,52 @@
             }
 
             .edd-body {
-                max-height: 300px;
+                max-height: 0;
+                opacity: 0;
                 position: absolute;
                 left: 0;
                 right: 0;
                 top: calc(100% + 0.5rem);
                 background: #eee;
+                transition: opacity 200ms, max-height 200ms ease-out;
+                pointer-events: none;
+                overflow: auto;
             }
+
+            .edd-open .edd-body {
+                opacity: 1;
+                max-height: 300px;
+                pointer-events: all;
+            }
+
+            .edd-option {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden
+            }
+
+            .edd-option-focused {
+                background: orange;
+            }
+
+            .edd-option-selected {
+                background: greenyellow;
+            }
+
         </style>
     </head>
     <body>
         <select id="test">
-            <option value="foo">Foo</option>
-            <option value="bar">Bar</option>
+            <option value="1">Foo</option>
+            <option value="2">Bar</option>
+            <option value="3">Long long option title</option>
+            <option value="4">Bar</option>
+            <option value="5">Foo</option>
+            <option value="6">Bar</option>
+            <option value="7">Foo</option>
+            <option value="8">Bar</option>
+            <option value="9">Foo</option>
+            <option value="10">Bar</option>
         </select>
 
         <script src="../dist/easydropdown.js"></script>

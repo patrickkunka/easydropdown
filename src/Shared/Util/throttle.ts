@@ -2,9 +2,8 @@ const throttle = (handler: (e: Event) => void, delay: number): (e: Event) => voi
     let timerId = null;
     let last: number;
 
-    return function() {
+    return (...args) => {
         const now = Date.now();
-        const args = arguments;
 
         const later = () => {
             timerId = null;

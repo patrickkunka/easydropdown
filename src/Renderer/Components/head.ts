@@ -4,10 +4,10 @@ import arrow      from './arrow';
 import label      from './label';
 
 const head = (state: State, classNames: ClassNames) => (`
-    <div class="${classNames.head}" ref="head">
+    <div class="${classNames.head}" data-ref="head">
         ${label(state, classNames)}
         ${arrow(state, classNames)}
-        <div class="${classNames.select}" ref="select"></div>
+        <select class="${classNames.select}" data-ref="select"></select>
     </div>
 `);
 

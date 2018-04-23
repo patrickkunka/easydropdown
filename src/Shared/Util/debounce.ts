@@ -9,9 +9,7 @@
 function debounce(fn: (e: Event) => void, interval: number, immediate: boolean = false): (e: Event) => void {
     let timeoutId = null;
 
-    return function() {
-        const args = arguments;
-
+    return (...args) => {
         const later = () => {
             timeoutId = null;
 

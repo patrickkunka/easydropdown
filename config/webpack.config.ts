@@ -1,6 +1,6 @@
 // tslint:disable:no-var-requires
 const path = require('path');
-const webpack = require('webpack');
+// const webpack = require('webpack');
 
 module.exports = {
     entry: './src/index.ts',
@@ -12,9 +12,9 @@ module.exports = {
     },
     devtool: 'source-map',
     plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-           sourcemap: true
-        })
+        // new webpack.optimize.UglifyJsPlugin({
+        //    sourcemaps: true
+        // })
     ],
     resolve: {
         extensions: ['.ts', '.js']

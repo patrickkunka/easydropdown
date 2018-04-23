@@ -1,27 +1,24 @@
+import Dom           from '../Renderer/Dom';
 import debounce      from '../Shared/Util/debounce';
 import throttle      from '../Shared/Util/throttle';
+import IActions      from '../State/Interfaces/IActions';
+import State         from '../State/State';
 import EventBinding  from './EventBinding';
 import IEventBinding from './Interfaces/IEventBinding';
 
-const bindEvent = (context: any, eventBindingRaw: IEventBinding): EventBinding => {
+const bindEvent = (state: State, actions: IActions, dom: Dom, eventBindingRaw: IEventBinding): EventBinding => {
     const eventBinding = new EventBinding(eventBindingRaw);
-
-    const boundHandler = eventBinding.handler.bind(context);
+    const boundHandler = (e) => eventBinding.handler(e, {state, actions, dom});
 
     if (eventBinding.debounce > 0) {
-        eventBinding.handler = debounce(boundHandler, eventBinding.debounce, true);
+        eventBinding.boundHandler = debounce(boundHandler, eventBinding.debounce, true);
     } else if (eventBinding.throttle > 0) {
-        eventBinding.handler = throttle(boundHandler, eventBinding.throttle);
+        eventBinding.boundHandler = throttle(boundHandler, eventBinding.throttle);
     } else {
-        eventBinding.handler = boundHandler;
+        eventBinding.boundHandler = boundHandler;
     }
 
-    eventBinding.handler = (eventBinding.debounce <= 0) ?
-        boundHandler : debounce(boundHandler, eventBinding.debounce, true);
-
-    eventBinding.target.addEventListener(eventBinding.type, eventBinding.handler, {
-        passive: eventBinding.passive
-    });
+    eventBinding.target.addEventListener(eventBinding.type, eventBinding.boundHandler);
 
     return eventBinding;
 };

@@ -12,7 +12,7 @@ const group = (groupState: Group, state: State, classNames: ClassNames) => {
     ]);
 
     return (`
-        <div class="${className}">
+        <div class="${className}" data-ref="group">
             ${groupState.hasLabel ?
                 `<div class="${classNames.groupLabel}>${groupState.label}</div>` : ''
             }

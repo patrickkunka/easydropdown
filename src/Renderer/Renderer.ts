@@ -4,6 +4,7 @@ import State                    from '../State/State';
 import root                     from './Components/root';
 import Dom                      from './Dom';
 import domDiff                  from './domDiff';
+import domPatch                 from './domPatch';
 
 class Renderer {
     public classNames: ClassNames;
@@ -30,7 +31,9 @@ class Renderer {
         const nextRoot = createDomElementFromHtml(nextHtml) as HTMLDivElement;
         const diffCommand = domDiff(this.dom.root, nextRoot);
 
-        console.log('diffed:', diffCommand);
+        domPatch(this.dom.root, diffCommand);
+
+        console.log('DOM patched', Date.now() - (window as any).startTime);
     }
 
     public destroy(): void {
@@ -47,9 +50,12 @@ class Renderer {
         Object
             .keys(this.dom)
             .reduce((localDom, ref) => {
-                const element = localDom.root.querySelector(`[ref="${ref}"]`);
+                const selector = `[data-ref="${ref}"]`;
+                const elements = localDom.root.querySelectorAll(selector);
 
-                if (!element || ref === 'root') return localDom;
+                if (elements.length < 1 || ref === 'root') return localDom;
+
+                const element = elements[0];
 
                 if (ref === 'select') {
                     element.parentElement.replaceChild(selectElement, element);
@@ -63,7 +69,7 @@ class Renderer {
                 if (value === null) {
                     localDom[ref] = element;
                 } else if (Array.isArray(value)) {
-                    value.push(element);
+                    Array.prototype.push.apply(value, elements);
                 }
 
                 return localDom;

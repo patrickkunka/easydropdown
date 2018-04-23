@@ -23,12 +23,13 @@ class Mediator {
         this.state         = StateMapper.mapFromSelect(selectElement);
         this.renderer      = new Renderer(this.config.classNames);
         this.dom           = this.renderer.render(this.state, selectElement);
-        console.log(this.dom);
         this.actions       = StateManager.proxyActions(this.state, state => this.renderer.update(state));
-        this.eventBindings = EventManager.bindEvents(this.dom, this.actions);
+        this.eventBindings = EventManager.bindEvents(this.state, this.actions, this.dom);
+
+        console.log(this.state, this.dom);
     }
 
-    public destroy() {
+    public destroy(): void {
         this.eventBindings.forEach(binding => binding.unbind());
     }
 }

@@ -36,6 +36,7 @@
         "quotemark": [true, "single", "jsx-double"],
         "radix": false,
         "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+        "typedef": [true, "call-signature"],
         "typedef-whitespace": false
     },
     "rulesDirectory": []

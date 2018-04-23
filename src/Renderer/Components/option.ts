@@ -11,11 +11,7 @@ const option = (optionState: Option, state: State, classNames: ClassNames) => {
         [optionState.isDisabled, classNames.optionDisabled]
     ]);
 
-    return (`
-        <div class="${className}">
-            ${optionState.label}
-        </div>
-    `);
+    return `<div class="${className}" data-ref="option" title="${optionState.label}">${optionState.label}</div>`;
 };
 
 export default option;

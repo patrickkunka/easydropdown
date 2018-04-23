@@ -2,25 +2,23 @@ import AttributeChangeType  from './Constants/AttributeChangeType';
 import DomChangeType        from './Constants/DomChangeType';
 import DiffCommand          from './DiffCommand';
 import IAttributeChange     from './Interfaces/IAttributeChange';
-
-const CHILD_MARKER_SELECTOR = '#cortex-children';
-
-interface IPartialDiffCommand {
-    type: DomChangeType;
-    attributeChanges: IAttributeChange[];
-}
+import IPartialDiffCommand  from './Interfaces/IPartialDiffCommand';
 
 /**
  * Recursively diffs the structure of two equivalent DOM nodes, and
  * returns a `DiffCommand` object representing a tree of any differences.
  */
 
-const domDiff = (prev: Node, next: Node, index: number = null): DiffCommand => {
+function domDiff(prev: Node, next: Node): DiffCommand {
     let totalChildNodes = -1;
 
     const command = new DiffCommand();
 
-    command.index = index;
+    if (prev instanceof HTMLSelectElement) {
+        command.type = DomChangeType.NONE;
+
+        return command;
+    }
 
     if (prev instanceof Text && next instanceof Text) {
         // Text nodes
@@ -71,23 +69,10 @@ const domDiff = (prev: Node, next: Node, index: number = null): DiffCommand => {
                 // The element has children, and has the same number of children
                 // as previous version
 
-                let hasPassedChildMarker = false;
-
                 // Recursively diff each child
 
                 for (let i = 0, childNode; (childNode = prev.childNodes[i]); i++) {
-                    // For nodes after the child marker, count their indices
-                    // from the end of the parent
-
-                    const childIndex = hasPassedChildMarker ? i - totalChildNodes : i;
-
-                    if (childNode instanceof HTMLElement && childNode.matches(CHILD_MARKER_SELECTOR)) {
-                        // Once the child marker is passed, set flag
-
-                        hasPassedChildMarker = true;
-                    }
-
-                    command.childCommands.push(domDiff(childNode, next.childNodes[i], childIndex));
+                    command.childCommands.push(domDiff(childNode, next.childNodes[i]));
                 }
             } else {
                 // Each version has a different number of children, so
@@ -107,14 +92,14 @@ const domDiff = (prev: Node, next: Node, index: number = null): DiffCommand => {
     }
 
     return command;
-};
+}
 
 /**
  * Diffs the attributes of two equivalent nodes, and returns a
  * partially-mapped `DiffCommand`-like object.
  */
 
-const diffAttributeChanges = (prev: HTMLElement, next: HTMLElement): IPartialDiffCommand => {
+function diffAttributeChanges(prev: HTMLElement, next: HTMLElement): IPartialDiffCommand {
     // Obtain the highest number of attributes on either element
 
     const totalAttributes = Math.max(prev.attributes.length, next.attributes.length);
@@ -216,6 +201,6 @@ const diffAttributeChanges = (prev: HTMLElement, next: HTMLElement): IPartialDif
         type: DomChangeType.OUTER,
         attributeChanges
     };
-};
+}
 
 export default domDiff;

@@ -4,51 +4,52 @@ import IActions     from './Interfaces/IActions';
 import State        from './State';
 
 const actionsResolver = (state: State): IActions => ({
-    focus() {
+    focus(): void {
         state.isFocused = true;
     },
 
-    blur() {
+    blur(): void {
         state.isFocused = false;
     },
 
-    invalidate() {
+    invalidate(): void {
         state.isInvalid = true;
     },
 
-    validate() {
+    validate(): void {
         state.isInvalid = false;
     },
 
-    topOut() {
+    topOut(): void {
         state.scrollStatus = ScrollStatus.AT_TOP;
     },
 
-    bottomOut() {
+    bottomOut(): void {
         state.scrollStatus = ScrollStatus.AT_BOTTOM;
     },
 
-    scroll() {
+    scroll(): void {
         state.scrollStatus = ScrollStatus.SCROLLED;
     },
 
-    openAbove() {
+    openAbove(): void {
         state.bodyStatus = BodyStatus.OPEN_ABOVE;
     },
 
-    openBelow() {
+    openBelow(): void {
         state.bodyStatus = BodyStatus.OPEN_BELOW;
     },
 
-    close() {
+    close(): void {
         state.bodyStatus = BodyStatus.CLOSED;
+        state.focusedIndex = -1;
     },
 
-    selectOption(index) {
+    selectOption(index: number): void {
         state.selectedIndex = index;
     },
 
-    focusOption(index) {
+    focusOption(index: number): void {
         state.focusedIndex = index;
     }
 });

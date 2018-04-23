@@ -2,7 +2,7 @@ import closestParent  from '../../Shared/Util/closestParent';
 import * as Selectors from '../Constants/Selectors';
 import IHandlerParams from '../Interfaces/IHandlerParams';
 
-function handleBodyClick(e: Event, {state, actions, dom}: IHandlerParams): void {
+function handleBodyMouseover(e: Event, {state, actions, dom}: IHandlerParams): void {
     e.stopPropagation();
 
     const option = closestParent(e.target as HTMLElement, Selectors.OPTION, true);
@@ -11,7 +11,7 @@ function handleBodyClick(e: Event, {state, actions, dom}: IHandlerParams): void 
 
     const optionIndex = Array.prototype.indexOf.call(dom.option, option);
 
-    actions.selectOption(optionIndex);
+    actions.focusOption(optionIndex);
 }
 
-export default handleBodyClick;
+export default handleBodyMouseover;

@@ -1,14 +1,16 @@
-import Dom                 from '../Renderer/Dom';
-import handleBodyClick     from './Handlers/handleBodyClick';
-import handleHeadClick     from './Handlers/handleHeadClick';
-import handleHeadMousedown from './Handlers/handleHeadMousedown';
-import handleHeadMouseup   from './Handlers/handleHeadMouseup';
-import handleSelectBlur    from './Handlers/handleSelectBlur';
-import handleSelectChange  from './Handlers/handleSelectChange';
-import handleSelectFocus   from './Handlers/handleSelectFocus';
-import handleSelectKeydown from './Handlers/handleSelectKeydown';
-import handleSelectKeyup   from './Handlers/handleSelectKeyup';
-import IEventBinding       from './Interfaces/IEventBinding';
+import Dom                  from '../Renderer/Dom';
+import handleBodyClick      from './Handlers/handleBodyClick';
+import handleBodyMouseover from './Handlers/handleBodyMouseover';
+import handleHeadClick      from './Handlers/handleHeadClick';
+import handleHeadMousedown  from './Handlers/handleHeadMousedown';
+import handleHeadMouseup    from './Handlers/handleHeadMouseup';
+import handleSelectBlur     from './Handlers/handleSelectBlur';
+import handleSelectChange   from './Handlers/handleSelectChange';
+import handleSelectFocus    from './Handlers/handleSelectFocus';
+import handleSelectKeydown  from './Handlers/handleSelectKeydown';
+import handleSelectKeyup    from './Handlers/handleSelectKeyup';
+import handleWindowClick    from './Handlers/handleWindowClick';
+import IEventBinding        from './Interfaces/IEventBinding';
 
 const getEventsList = (dom: Dom): IEventBinding[] => [
     {
@@ -27,9 +29,19 @@ const getEventsList = (dom: Dom): IEventBinding[] => [
         handler: handleHeadMouseup
     },
     {
-        target: document.body,
+        target: document.documentElement,
+        type: 'click',
+        handler: handleWindowClick
+    },
+    {
+        target: dom.body,
         type: 'click',
         handler: handleBodyClick
+    },
+    {
+        target: dom.body,
+        type: 'mouseover',
+        handler: handleBodyMouseover
     },
     {
         target: dom.select,

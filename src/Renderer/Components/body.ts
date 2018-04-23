@@ -11,8 +11,8 @@ const body = (state: State, classNames: ClassNames) => {
     ]);
 
     return (`
-        <div class="${className}" ref="body">
-            <div class="${classNames.itemsList}" ref="itemsList">
+        <div class="${className}" data-ref="body">
+            <div class="${classNames.itemsList}" data-ref="itemsList">
                 ${state.groups.map(groupState => group(groupState, state, classNames)).join('')}
             </div>
         </div>
