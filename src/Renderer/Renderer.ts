@@ -3,23 +3,49 @@ import createDomElementFromHtml from '../Shared/Util/createDomElementFromHtml';
 import State                    from '../State/State';
 import root                     from './Components/root';
 import Dom                      from './Dom';
+import domDiff                  from './domDiff';
 
 class Renderer {
-    public static render(state: State, classNames: ClassNames, selectElement: HTMLSelectElement): Dom {
-        const html = root(state, classNames);
-        const dom = new Dom();
+    public classNames: ClassNames;
+    public dom: Dom;
 
-        dom.root = createDomElementFromHtml(html) as HTMLDivElement;
-        dom.select = selectElement;
+    constructor(classNames: ClassNames) {
+        this.dom = new Dom();
+        this.classNames = classNames;
+    }
 
+    public render(state: State, selectElement: HTMLSelectElement): Dom {
+        const html = root(state, this.classNames);
+
+        this.dom.root = createDomElementFromHtml(html) as HTMLDivElement;
+        this.dom.select = selectElement;
+
+        this.mount(selectElement);
+
+        return this.dom;
+    }
+
+    public update(state: State): void {
+        const nextHtml = root(state, this.classNames);
+        const nextRoot = createDomElementFromHtml(nextHtml) as HTMLDivElement;
+        const diffCommand = domDiff(this.dom.root, nextRoot);
+
+        console.log('diffed:', diffCommand);
+    }
+
+    public destroy(): void {
+        /**/
+    }
+
+    private mount(selectElement: HTMLSelectElement): void {
         const parent = selectElement.parentElement;
 
         if (!parent) throw new Error('[EasyDropDown] The provided `<select>` element must exist within a document');
 
-        parent.replaceChild(dom.root, selectElement);
+        parent.replaceChild(this.dom.root, selectElement);
 
-        return Object
-            .keys(dom)
+        Object
+            .keys(this.dom)
             .reduce((localDom, ref) => {
                 const element = localDom.root.querySelector(`[ref="${ref}"]`);
 
@@ -34,8 +60,6 @@ class Renderer {
 
                 const value = localDom[ref];
 
-                element.removeAttribute('ref');
-
                 if (value === null) {
                     localDom[ref] = element;
                 } else if (Array.isArray(value)) {
@@ -43,19 +67,7 @@ class Renderer {
                 }
 
                 return localDom;
-            }, dom);
-    }
-
-    public static destroy(dom: Dom, selectElement: HTMLSelectElement): void {
-        dom.root.parentElement.replaceChild(dom.select, dom.root);
-
-        dom.select.className = '';
-    }
-
-    public static update(dom: Dom, classNames: ClassNames, state: State): void {
-        Renderer.destroy(dom, dom.select);
-
-        Object.assign(dom, Renderer.render(state, classNames, dom.select));
+            }, this.dom);
     }
 }
 
