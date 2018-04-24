@@ -5,7 +5,7 @@ function handleHeadClick(e: MouseEvent, {state, actions, dom, config}: IHandlerP
     e.stopPropagation();
 
     if (state.isClosed) {
-        actions.open(detectBodyCollision(dom, config));
+        actions.open(detectBodyCollision(dom, config), dom.optionHeight);
 
         dom.select.focus();
     }

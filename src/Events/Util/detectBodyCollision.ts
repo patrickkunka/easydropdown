@@ -7,12 +7,10 @@ function detectBodyCollision(dom: Dom, config: Config): CollisionType {
     const wh = window.innerHeight;
     const deltaTop = bbHead.top;
     const deltaBottom = wh - bbHead.bottom;
-    const firstOption = dom.option[0];
 
-    if (!firstOption) return CollisionType.NONE;
+    if (!dom.firstOption) return CollisionType.NONE;
 
-    const optionHeight = firstOption.clientHeight;
-    const maxHeight = config.behavior.maxVisibleOptions * optionHeight;
+    const maxHeight = config.behavior.maxVisibleOptions * dom.optionHeight;
 
     if (deltaTop <= maxHeight) {
         return CollisionType.TOP;

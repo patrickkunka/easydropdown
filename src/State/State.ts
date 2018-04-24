@@ -10,6 +10,7 @@ class State {
     public groups:        Group[]      = [];
     public focusedIndex:  number       = -1;
     public selectedIndex: number       = -1;
+    public optionHeight:  number       = -1;
     public name:          string       = '';
     public placeholder:   string       = 'Select';
     public scrollStatus:  ScrollStatus = ScrollStatus.AT_TOP;
@@ -113,6 +114,10 @@ class State {
 
     public get isAtBottom(): boolean {
         return this.scrollStatus === ScrollStatus.AT_BOTTOM;
+    }
+
+    public get maxBodyHeight(): number {
+        return Math.max(0, this.optionHeight * this.config.behavior.maxVisibleOptions);
     }
 
     public getOptionFromIndex(index): Option {

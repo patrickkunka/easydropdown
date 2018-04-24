@@ -9,6 +9,16 @@ class Dom {
     public itemsList: HTMLDivElement    = null;
     public group:     HTMLDivElement[]  = [];
     public option:    HTMLDivElement[]  = [];
+
+    public get firstOption(): HTMLDivElement {
+        return this.option[0] || null;
+    }
+
+    public get optionHeight(): number {
+        if (!this.firstOption) return -1;
+
+        return this.firstOption.clientHeight;
+    }
 }
 
 export default Dom;
