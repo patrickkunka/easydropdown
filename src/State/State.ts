@@ -1,3 +1,4 @@
+import Config       from '../Config/Config';
 import BodyStatus   from './Constants/BodyStatus';
 import ScrollStatus from './Constants/ScrollStatus';
 import Group        from  './Group';
@@ -17,7 +18,11 @@ class State {
     public isInvalid:     boolean      = false;
     public isFocused:     boolean      = false;
 
-    constructor(stateRaw: any = null) {
+    private config: Config;
+
+    constructor(stateRaw: any = null, config = new Config()) {
+        this.config = config;
+
         if (!stateRaw) return;
 
         assign(this, stateRaw);
@@ -55,8 +60,27 @@ class State {
         return this.selectedOption ? this.selectedOption.value : '';
     }
 
+    public get humanReadableValue(): string {
+        if (
+            !this.hasValue ||
+            (
+                this.config.behavior.showPlaceholderOnOpen &&
+                this.hasPlaceholder &&
+                this.isOpen
+            )
+        ) {
+            return this.placeholder;
+        }
+
+        return this.label;
+    }
+
     public get label(): string {
         return this.selectedOption ? this.selectedOption.label : '';
+    }
+
+    public get hasPlaceholder(): boolean {
+        return this.placeholder !== '';
     }
 
     public get hasValue(): boolean {

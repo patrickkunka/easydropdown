@@ -1,14 +1,12 @@
-import Dom           from '../Renderer/Dom';
-import debounce      from '../Shared/Util/debounce';
-import throttle      from '../Shared/Util/throttle';
-import IActions      from '../State/Interfaces/IActions';
-import State         from '../State/State';
-import EventBinding  from './EventBinding';
-import IEventBinding from './Interfaces/IEventBinding';
+import debounce       from '../Shared/Util/debounce';
+import throttle       from '../Shared/Util/throttle';
+import EventBinding   from './EventBinding';
+import IEventBinding  from './Interfaces/IEventBinding';
+import IHandlerParams from './Interfaces/IHandlerParams';
 
-const bindEvent = (state: State, actions: IActions, dom: Dom, eventBindingRaw: IEventBinding): EventBinding => {
+const bindEvent = (handlerParams: IHandlerParams, eventBindingRaw: IEventBinding): EventBinding => {
     const eventBinding = new EventBinding(eventBindingRaw);
-    const boundHandler = (e) => eventBinding.handler(e, {state, actions, dom});
+    const boundHandler = (e) => eventBinding.handler(e, handlerParams);
 
     if (eventBinding.debounce > 0) {
         eventBinding.boundHandler = debounce(boundHandler, eventBinding.debounce, true);

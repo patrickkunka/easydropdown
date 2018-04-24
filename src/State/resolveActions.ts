@@ -1,9 +1,10 @@
-import BodyStatus   from './Constants/BodyStatus';
-import ScrollStatus from './Constants/ScrollStatus';
-import IActions     from './Interfaces/IActions';
-import State        from './State';
+import BodyStatus    from './Constants/BodyStatus';
+import CollisionType from './Constants/CollisionType';
+import ScrollStatus  from './Constants/ScrollStatus';
+import IActions      from './Interfaces/IActions';
+import State         from './State';
 
-const actionsResolver = (state: State): IActions => ({
+const resolveActions = (state: State): IActions => ({
     focus(): void {
         state.isFocused = true;
     },
@@ -32,12 +33,18 @@ const actionsResolver = (state: State): IActions => ({
         state.scrollStatus = ScrollStatus.SCROLLED;
     },
 
-    openAbove(): void {
-        state.bodyStatus = BodyStatus.OPEN_ABOVE;
-    },
+    open(collision: CollisionType): void {
+        switch (collision) {
+            case CollisionType.NONE:
+            case CollisionType.TOP:
+                state.bodyStatus = BodyStatus.OPEN_BELOW;
 
-    openBelow(): void {
-        state.bodyStatus = BodyStatus.OPEN_BELOW;
+                break;
+            case CollisionType.BOTTOM:
+                state.bodyStatus = BodyStatus.OPEN_ABOVE;
+
+                break;
+        }
     },
 
     close(): void {
@@ -56,4 +63,4 @@ const actionsResolver = (state: State): IActions => ({
     }
 });
 
-export default actionsResolver;
+export default resolveActions;

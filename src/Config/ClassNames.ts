@@ -10,7 +10,7 @@ class ClassNames implements IClassNames {
     public rootFocused:    string = 'edd-focused';
     public rootHasValue:   string = 'edd-has-value';
     public head:           string = 'edd-head';
-    public label:          string = 'edd-label';
+    public value:          string = 'edd-value';
     public arrow:          string = 'edd-arrow';
     public select:         string = 'edd-select';
     public body:           string = 'edd-body';

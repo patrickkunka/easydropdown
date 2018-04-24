@@ -19,14 +19,18 @@ class Mediator {
     public renderer: Renderer;
 
     constructor(selectElement: HTMLSelectElement, options: IConfig) {
-        this.config        = merge(new Config(), options);
-        this.state         = StateMapper.mapFromSelect(selectElement);
-        this.renderer      = new Renderer(this.config.classNames);
-        this.dom           = this.renderer.render(this.state, selectElement);
-        this.actions       = StateManager.proxyActions(this.state, state => this.renderer.update(state));
-        this.eventBindings = EventManager.bindEvents(this.state, this.actions, this.dom);
+        this.config   = merge(new Config(), options);
+        this.state    = StateMapper.mapFromSelect(selectElement, this.config);
+        this.renderer = new Renderer(this.config.classNames);
+        this.dom      = this.renderer.render(this.state, selectElement);
+        this.actions  = StateManager.proxyActions(this.state, state => this.renderer.update(state));
 
-        console.log(this.state, this.dom);
+        this.eventBindings = EventManager.bindEvents({
+            actions: this.actions,
+            config: this.config,
+            dom: this.dom,
+            state: this.state
+        });
     }
 
     public destroy(): void {

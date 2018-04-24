@@ -1,8 +1,9 @@
-import IHandlerParams from '../Interfaces/IHandlerParams';
+import IHandlerParams      from '../Interfaces/IHandlerParams';
+import detectBodyCollision from '../Util/detectBodyCollision';
 
-function handleSelectKeydownDown({keyCode}: KeyboardEvent, {state, actions}: IHandlerParams): void {
+function handleSelectKeydownDown({keyCode}: KeyboardEvent, {state, dom, actions, config}: IHandlerParams): void {
     if (state.isClosed) {
-        actions.openAbove();
+        actions.open(detectBodyCollision(dom, config));
 
         return;
     }

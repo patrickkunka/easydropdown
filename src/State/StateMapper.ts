@@ -1,10 +1,11 @@
+import Config from '../Config/Config';
 import Group  from './Group';
 import Option from './Option';
 import State  from './State';
 
 class StateMapper {
-    public static mapFromSelect(selectElement: HTMLSelectElement): State {
-        const state = new State();
+    public static mapFromSelect(selectElement: HTMLSelectElement, config: Config): State {
+        const state = new State(null, config);
 
         let isWithinGroup = false;
 

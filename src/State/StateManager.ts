@@ -1,13 +1,13 @@
-import actionsResolver     from './actionsResolver';
 import IActions            from './Interfaces/IActions';
 import IOnAction           from './Interfaces/IOnAction';
 import IPropertyDescriptor from './Interfaces/IPropertyDescriptor';
+import resolveActions      from './resolveActions';
 import State               from './State';
 
 class StateManager {
     public static proxyActions(state: State, onAction: IOnAction): IActions {
         const stateProxy = StateManager.createStateProxy(state, onAction);
-        const actions = actionsResolver(stateProxy);
+        const actions = resolveActions(stateProxy);
 
         return actions;
     }

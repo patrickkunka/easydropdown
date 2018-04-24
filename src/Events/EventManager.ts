@@ -1,12 +1,11 @@
-import Dom           from '../Renderer/Dom';
-import State         from '../State/State';
-import bindEvent     from './bindEvent';
-import EventBinding  from './EventBinding';
-import getEventsList from './getEventsList';
+import bindEvent      from './bindEvent';
+import EventBinding   from './EventBinding';
+import getEventsList  from './getEventsList';
+import IHandlerParams from './Interfaces/IHandlerParams';
 
 class EventManager {
-    public static bindEvents(state: State, actions: any, dom: Dom): EventBinding[] {
-        return getEventsList(dom).map(bindEvent.bind(null, state, actions, dom));
+    public static bindEvents(handlerParams: IHandlerParams): EventBinding[] {
+        return getEventsList(handlerParams.dom).map(bindEvent.bind(null, handlerParams));
     }
 }
 

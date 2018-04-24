@@ -18,16 +18,22 @@
             .edd {
                 position: relative;
                 width: 5rem;
-                height: 1.5rem;
                 user-select: none;
+                margin-bottom: 1rem;
             }
 
             .edd-head {
                 background: #eee;
                 overflow: hidden;
+                height: 1.25rem;
             }
 
-            .edd-label {
+            .edd-focused .edd-head {
+                box-shadow: 0 0 5px blue;
+            }
+
+            .edd-label,
+            .edd-option {
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -47,23 +53,26 @@
                 position: absolute;
                 left: 0;
                 right: 0;
-                top: calc(100% + 0.5rem);
                 background: #eee;
-                transition: opacity 200ms, max-height 200ms ease-out;
                 pointer-events: none;
                 overflow: auto;
+                margin: 0.5rem 0;
+                z-index: 999;
             }
 
             .edd-open .edd-body {
                 opacity: 1;
                 max-height: 300px;
                 pointer-events: all;
+                transition: opacity 200ms, max-height 200ms ease-out;
             }
 
-            .edd-option {
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden
+            .edd-open-above .edd-body {
+                bottom: 100%;
+            }
+
+            .edd-open-below .edd-body {
+                top: 100%;
             }
 
             .edd-option-focused {
@@ -77,7 +86,22 @@
         </style>
     </head>
     <body>
-        <select id="test">
+        <select id="test1">
+            <option data-placeholder>Select</option>
+            <option value="1">Foo</option>
+            <option value="2">Bar</option>
+            <option value="3">Long long option title</option>
+            <option value="4">Bar</option>
+            <option value="5">Foo</option>
+            <option value="6">Bar</option>
+            <option value="7">Foo</option>
+            <option value="8">Bar</option>
+            <option value="9">Foo</option>
+            <option value="10">Bar</option>
+        </select>
+
+        <select id="test2">
+            <option data-placeholder>Select</option>
             <option value="1">Foo</option>
             <option value="2">Bar</option>
             <option value="3">Long long option title</option>
@@ -92,9 +116,11 @@
 
         <script src="../dist/easydropdown.js"></script>
         <script>
-            const select = document.querySelector('#test');
+            const select1 = document.querySelector('#test1');
+            const select2 = document.querySelector('#test2');
 
-            easydropdown(select);
+            easydropdown(select1);
+            easydropdown(select2);
         </script>
     </body>
 </html>

@@ -1,3 +1,5 @@
+import CollisionType from '../Constants/CollisionType';
+
 interface IActions {
     focus(): void;
     blur(): void;
@@ -6,8 +8,7 @@ interface IActions {
     topOut(): void;
     bottomOut(): void;
     scroll(): void;
-    openAbove(): void;
-    openBelow(): void;
+    open(collision: CollisionType): void;
     close(): void;
     selectOption(index: number): void;
     focusOption(index: number): void;
