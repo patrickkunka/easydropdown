@@ -32,8 +32,6 @@ class Renderer {
         const diffCommand = domDiff(this.dom.root, nextRoot);
 
         domPatch(this.dom.root, diffCommand);
-
-        console.log('DOM patched', Date.now() - (window as any).startTime);
     }
 
     public destroy(): void {

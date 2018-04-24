@@ -47,6 +47,8 @@ const actionsResolver = (state: State): IActions => ({
 
     selectOption(index: number): void {
         state.selectedIndex = index;
+
+        this.close();
     },
 
     focusOption(index: number): void {

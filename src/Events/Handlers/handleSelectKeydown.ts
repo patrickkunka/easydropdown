@@ -1,38 +1,31 @@
-import * as KeyCodes  from '../Constants/Keycodes';
-import IHandlerParams from '../Interfaces/IHandlerParams';
+import * as KeyCodes           from '../Constants/Keycodes';
+import IHandlerParams          from '../Interfaces/IHandlerParams';
+import handleSelectKeydownDown from './handleSelectKeydownDown';
+import handleSelectKeydownUp   from './handleSelectKeydownUp';
 
-const handleSelectKeydown = ({keyCode}: KeyboardEvent, {state, actions}: IHandlerParams) => {
-    let focusedIndex = state.focusedIndex > -1 ?
-        state.focusedIndex : state.selectedIndex;
+function handleSelectKeydown(e: KeyboardEvent, handlerParams: IHandlerParams): void {
+    const {keyCode} = e;
+    const {state, actions} = handlerParams;
 
     switch (keyCode) {
         case KeyCodes.DOWN:
-            do {
-                actions.focusOption(focusedIndex += 1);
-            }
-            while (state.focusedOption && state.focusedOption.isDisabled);
-
-            if (focusedIndex >= state.totalOptions) {
-                focusedIndex = 0;
-            }
-
-            actions.focusOption(focusedIndex);
+            handleSelectKeydownDown(e, handlerParams);
 
             break;
         case KeyCodes.UP:
-            do {
-                actions.focusOption(focusedIndex -= 1);
-            }
-            while (state.focusedOption && state.focusedOption.isDisabled);
+            handleSelectKeydownUp(e, handlerParams);
 
-            if (focusedIndex === 0) {
-                focusedIndex = state.totalOptions - 1;
-            }
+            break;
+        case KeyCodes.SPACE:
+        case KeyCodes.ENTER:
+            actions.selectOption(state.focusedIndex);
 
-            actions.focusOption(focusedIndex);
+            break;
+        case KeyCodes.ESC:
+            actions.close();
 
             break;
     }
-};
+}
 
 export default handleSelectKeydown;

@@ -56,8 +56,6 @@ class StateManager {
     }
 
     private static updatePropertyValue(state: State, key: string, onAction: IOnAction, value: any): void {
-        console.log('action invoked'); (window as any).startTime = Date.now();
-
         state[key] = value;
 
         onAction(state);
