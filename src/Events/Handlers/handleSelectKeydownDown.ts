@@ -1,6 +1,12 @@
 import IHandlerParams from '../Interfaces/IHandlerParams';
 
 function handleSelectKeydownDown({keyCode}: KeyboardEvent, {state, actions}: IHandlerParams): void {
+    if (state.isClosed) {
+        actions.openAbove();
+
+        return;
+    }
+
     let focusedIndex = state.focusedIndex > -1 ?
         state.focusedIndex : state.selectedIndex;
 
