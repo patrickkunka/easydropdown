@@ -1,5 +1,5 @@
 TODO:
-- `change` handler
+- `change` emitter
 - polling for changes
 - cache/close all instances on open
 - close/open API
@@ -7,3 +7,4 @@ TODO:
 - native mode
 - createall/destroyall api
 - text search
+- tests

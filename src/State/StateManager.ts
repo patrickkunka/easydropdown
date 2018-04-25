@@ -58,7 +58,7 @@ class StateManager {
     private static updatePropertyValue(state: State, key: string, onAction: IOnAction, value: any): void {
         state[key] = value;
 
-        onAction(state);
+        onAction(state, key, value);
     }
 }
 

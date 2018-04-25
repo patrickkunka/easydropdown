@@ -26,12 +26,16 @@ class Renderer {
         return this.dom;
     }
 
-    public update(state: State): void {
+    public update(state: State, key: string, value: any): void {
         const nextHtml = root(state, this.classNames);
         const nextRoot = createDomElementFromHtml(nextHtml) as HTMLDivElement;
         const diffCommand = domDiff(this.dom.root, nextRoot);
 
         domPatch(this.dom.root, diffCommand);
+
+        if (key === 'selectedIndex') {
+            this.syncSelectWithValue(value);
+        }
     }
 
     public destroy(): void {
@@ -72,6 +76,16 @@ class Renderer {
 
                 return localDom;
             }, this.dom);
+    }
+
+    private syncSelectWithValue(value: string): void {
+        const event = new CustomEvent('change', {
+            bubbles: true
+        });
+
+        this.dom.select.value = value;
+
+        this.dom.select.dispatchEvent(event);
     }
 }
 
