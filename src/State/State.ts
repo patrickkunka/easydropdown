@@ -120,7 +120,7 @@ class State {
         return Math.max(0, this.optionHeight * this.config.behavior.maxVisibleOptions);
     }
 
-    public getOptionFromIndex(index): Option {
+    public getOptionFromIndex(index: number): Option {
         let groupStartIndex = 0;
 
         for (const group of this.groups) {
@@ -138,6 +138,22 @@ class State {
         }
 
         return null;
+    }
+
+    public getOptionIndexFromValue(value: string): number {
+        let index: number = -1;
+
+        for (const group of this.groups) {
+            for (const option of group.options) {
+                index++;
+
+                if (option.value === value) {
+                    return index;
+                }
+            }
+        }
+
+        return index;
     }
 }
 

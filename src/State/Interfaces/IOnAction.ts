@@ -1,5 +1,5 @@
 import State from '../State';
 
-type IOnAction = (state: State, key: string, value: any) => void;
+type IOnAction = (state: State, updatedKey: string) => void;
 
 export default IOnAction;

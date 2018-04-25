@@ -26,7 +26,7 @@ class Renderer {
         return this.dom;
     }
 
-    public update(state: State, key: string, value: any): void {
+    public update(state: State, key: string): void {
         const nextHtml = root(state, this.classNames);
         const nextRoot = createDomElementFromHtml(nextHtml) as HTMLDivElement;
         const diffCommand = domDiff(this.dom.root, nextRoot);
@@ -34,7 +34,7 @@ class Renderer {
         domPatch(this.dom.root, diffCommand);
 
         if (key === 'selectedIndex') {
-            this.syncSelectWithValue(value);
+            this.syncSelectWithValue(state.value);
         }
     }
 
