@@ -12,6 +12,7 @@ interface IActions {
     close(): void;
     selectOption(index: number): void;
     focusOption(index: number): void;
+    closeOthers?(): void;
 }
 
 export default IActions;

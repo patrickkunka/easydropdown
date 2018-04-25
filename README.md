@@ -1,7 +1,5 @@
 TODO:
-- cache/close all instances on open
-- selector api
-- close/open API
+- facade
 - scroll to focused/selected
 - native mode
 - createall/destroyall api

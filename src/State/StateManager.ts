@@ -5,9 +5,11 @@ import resolveActions      from './resolveActions';
 import State               from './State';
 
 class StateManager {
-    public static proxyActions(state: State, onAction: IOnAction): IActions {
+    public static proxyActions(state: State, injectedActions: any, onAction: IOnAction): IActions {
         const stateProxy = StateManager.createStateProxy(state, onAction);
         const actions = resolveActions(stateProxy);
+
+        Object.assign(actions, injectedActions);
 
         return actions;
     }
