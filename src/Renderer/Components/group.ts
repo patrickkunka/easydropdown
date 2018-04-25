@@ -14,7 +14,7 @@ const group = (groupState: Group, state: State, classNames: ClassNames) => {
     return (`
         <div class="${className}" data-ref="group">
             ${groupState.hasLabel ?
-                `<div class="${classNames.groupLabel}>${groupState.label}</div>` : ''
+                `<div class="${classNames.groupLabel}">${groupState.label}</div>` : ''
             }
             ${groupState.options.map(optionState => option(optionState, state, classNames)).join('')}
         </div>

@@ -1,4 +1,5 @@
 import ClassNames               from '../Config/ClassNames';
+import closestParent            from '../Shared/Util/closestParent';
 import createDomElementFromHtml from '../Shared/Util/createDomElementFromHtml';
 import State                    from '../State/State';
 import root                     from './Components/root';
@@ -20,6 +21,7 @@ class Renderer {
 
         this.dom.root = createDomElementFromHtml(html) as HTMLDivElement;
         this.dom.select = selectElement;
+        this.dom.form = closestParent(selectElement, 'form') as HTMLFormElement;
 
         this.mount(selectElement);
 
@@ -79,6 +81,8 @@ class Renderer {
     }
 
     private syncSelectWithValue(value: string): void {
+        if (this.dom.select.value === value) return;
+
         const event = new CustomEvent('change', {
             bubbles: true
         });

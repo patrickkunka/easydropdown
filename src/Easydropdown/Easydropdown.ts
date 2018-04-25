@@ -8,14 +8,14 @@ import pollForSelectChange from '../Events/pollForSelectChange';
 import detectBodyCollision from '../Events/Util/detectBodyCollision';
 import Dom                 from '../Renderer/Dom';
 import Renderer            from '../Renderer/Renderer';
+import closeOthers         from '../State/InjectedActions/closeOthers';
+import scrollToView        from '../State/InjectedActions/scrollToView';
 import IActions            from '../State/Interfaces/IActions';
 import State               from '../State/State';
 import StateManager        from '../State/StateManager';
 import StateMapper         from '../State/StateMapper';
 import cache               from './cache';
 import Timers              from './Timers';
-import closeOthers         from './Util/closeOthers';
-import scrollToView        from './Util/scrollToView';
 
 class Easydropdown {
     public actions: IActions;

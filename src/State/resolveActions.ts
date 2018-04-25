@@ -60,7 +60,13 @@ const resolveActions = (state: State): IActions => ({
     selectOption(index: number): void {
         state.selectedIndex = index;
 
-        if (!state.isSearching) {
+        if (state.isInvalid) {
+            this.validate();
+        }
+
+        if (state.isSearching) {
+            this.scrollToView(state);
+        } else {
             this.close();
         }
     },

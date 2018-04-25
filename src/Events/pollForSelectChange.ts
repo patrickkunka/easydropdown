@@ -1,7 +1,7 @@
 import IActions from '../State/Interfaces/IActions';
 import State    from '../State/State';
 
-const POLL_INTERVAL_DURATION = 200;
+const POLL_INTERVAL_DURATION = 100;
 
 function pollForSelectChange(selectElement: HTMLSelectElement, state: State, actions: IActions): number {
     let lastValue: string = selectElement.value;

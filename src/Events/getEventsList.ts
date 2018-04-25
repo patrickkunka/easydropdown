@@ -1,15 +1,14 @@
 import Dom                  from '../Renderer/Dom';
 import handleBodyClick      from './Handlers/handleBodyClick';
-import handleBodyMouseover from './Handlers/handleBodyMouseover';
+import handleBodyMouseover  from './Handlers/handleBodyMouseover';
 import handleHeadClick      from './Handlers/handleHeadClick';
 import handleHeadMousedown  from './Handlers/handleHeadMousedown';
 import handleHeadMouseup    from './Handlers/handleHeadMouseup';
 import handleSelectBlur     from './Handlers/handleSelectBlur';
-import handleSelectChange   from './Handlers/handleSelectChange';
 import handleSelectFocus    from './Handlers/handleSelectFocus';
+import handleSelectInvalid  from './Handlers/handleSelectInvalid';
 import handleSelectKeydown  from './Handlers/handleSelectKeydown';
 import handleSelectKeypress from './Handlers/handleSelectKeypress';
-import handleSelectKeyup    from './Handlers/handleSelectKeyup';
 import handleWindowClick    from './Handlers/handleWindowClick';
 import IEventBinding        from './Interfaces/IEventBinding';
 
@@ -46,18 +45,13 @@ const getEventsList = (dom: Dom): IEventBinding[] => [
     },
     {
         target: dom.select,
-        type: 'change',
-        handler: handleSelectChange
-    },
-    {
-        target: dom.select,
         type: 'keydown',
         handler: handleSelectKeydown
     },
     {
         target: dom.select,
-        type: 'keyup',
-        handler: handleSelectKeyup
+        type: 'invalid',
+        handler: handleSelectInvalid
     },
     {
         target: dom.select,

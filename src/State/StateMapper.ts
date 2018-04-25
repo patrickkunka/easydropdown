@@ -15,6 +15,7 @@ class StateMapper {
         for (let i = 0, child: Element; (child = selectElement.children[i]); i++) {
             if (i === 0 && child.getAttribute('data-placeholder') !== null) {
                 state.placeholder = child.textContent;
+                (child as HTMLOptionElement).value = '';
 
                 continue;
             }

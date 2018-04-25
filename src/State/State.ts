@@ -155,7 +155,7 @@ class State {
             }
         }
 
-        return index;
+        return -1;
     }
 }
 

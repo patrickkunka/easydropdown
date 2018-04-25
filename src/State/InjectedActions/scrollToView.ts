@@ -1,6 +1,6 @@
+import Timers from '../../Easydropdown/Timers';
 import Dom    from '../../Renderer/Dom';
 import State  from '../../State/State';
-import Timers from '../Timers';
 
 function scrollToView(dom: Dom, timers: Timers, state: State): void {
     const index = Math.max(0, state.focusedIndex > -1 ? state.focusedIndex : state.selectedIndex);

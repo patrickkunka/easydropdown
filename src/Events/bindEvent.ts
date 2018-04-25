@@ -6,6 +6,9 @@ import IHandlerParams from './Interfaces/IHandlerParams';
 
 const bindEvent = (handlerParams: IHandlerParams, eventBindingRaw: IEventBinding): EventBinding => {
     const eventBinding = new EventBinding(eventBindingRaw);
+
+    if (!eventBinding.target) return eventBinding;
+
     const boundHandler = (e) => eventBinding.handler(e, handlerParams);
 
     if (eventBinding.debounce > 0) {
