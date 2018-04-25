@@ -13,6 +13,8 @@ interface IActions {
     close(): void;
     selectOption(index: number): void;
     focusOption(index: number): void;
+    search(): void;
+    resetSearch(): void;
     closeOthers?(): void;
     scrollToView?(stateProxy: State): void;
 }

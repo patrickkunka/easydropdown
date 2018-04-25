@@ -13,6 +13,7 @@ import State               from '../State/State';
 import StateManager        from '../State/StateManager';
 import StateMapper         from '../State/StateMapper';
 import cache               from './cache';
+import Timers              from './Timers';
 import closeOthers         from './Util/closeOthers';
 import scrollToView        from './Util/scrollToView';
 
@@ -24,27 +25,29 @@ class Easydropdown {
     private dom: Dom;
     private eventBindings: EventBinding[];
     private renderer: Renderer;
-    private pollId: number;
+    private timers: Timers;
 
     constructor(selectElement: HTMLSelectElement, options: IConfig) {
         this.config = merge(new Config(), options);
         this.state = StateMapper.mapFromSelect(selectElement, this.config);
         this.renderer = new Renderer(this.config.classNames);
         this.dom = this.renderer.render(this.state, selectElement);
+        this.timers = new Timers();
 
         this.actions = StateManager.proxyActions(this.state, {
             closeOthers: closeOthers.bind(null, this, cache),
-            scrollToView: scrollToView.bind(null, this.dom)
+            scrollToView: scrollToView.bind(null, this.dom, this.timers)
         }, this.renderer.update.bind(this.renderer));
 
         this.eventBindings = EventManager.bindEvents({
             actions: this.actions,
             config: this.config,
             dom: this.dom,
-            state: this.state
+            state: this.state,
+            timers: this.timers
         });
 
-        this.pollId = pollForSelectChange(this.dom.select, this.state, this.actions);
+        this.timers.pollIntervalId = pollForSelectChange(this.dom.select, this.state, this.actions);
     }
 
     public get selectElement(): HTMLSelectElement {
@@ -64,7 +67,7 @@ class Easydropdown {
 
         this.renderer.destroy();
 
-        window.clearInterval(this.pollId);
+        this.timers.clear();
     }
 }
 

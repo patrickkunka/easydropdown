@@ -8,6 +8,8 @@ function handleHeadClick(e: MouseEvent, {state, actions, dom, config}: IHandlerP
         actions.open(detectBodyCollision(dom, config), dom.optionHeight);
 
         dom.select.focus();
+    } else {
+        actions.close();
     }
 }
 

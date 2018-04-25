@@ -8,6 +8,7 @@ import handleSelectBlur     from './Handlers/handleSelectBlur';
 import handleSelectChange   from './Handlers/handleSelectChange';
 import handleSelectFocus    from './Handlers/handleSelectFocus';
 import handleSelectKeydown  from './Handlers/handleSelectKeydown';
+import handleSelectKeypress from './Handlers/handleSelectKeypress';
 import handleSelectKeyup    from './Handlers/handleSelectKeyup';
 import handleWindowClick    from './Handlers/handleWindowClick';
 import IEventBinding        from './Interfaces/IEventBinding';
@@ -57,6 +58,11 @@ const getEventsList = (dom: Dom): IEventBinding[] => [
         target: dom.select,
         type: 'keyup',
         handler: handleSelectKeyup
+    },
+    {
+        target: dom.select,
+        type: 'keypress',
+        handler: handleSelectKeypress
     },
     {
         target: dom.select,

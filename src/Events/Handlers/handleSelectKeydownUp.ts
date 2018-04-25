@@ -1,14 +1,26 @@
 import IHandlerParams      from '../Interfaces/IHandlerParams';
 import detectBodyCollision from '../Util/detectBodyCollision';
 
-function handleSelectKeydownUp({keyCode}: KeyboardEvent, {state, config, dom, actions}: IHandlerParams): void {
+function handleSelectKeydownUp(
+    {keyCode, metaKey}: KeyboardEvent,
+    {state, config, dom, actions}: IHandlerParams
+): void {
     let focusedIndex = state.focusedIndex > -1 ?
         state.focusedIndex : state.selectedIndex;
 
     let iterations = 0;
+    let incrementAmount: number = 1;
+
+    if (metaKey) {
+        incrementAmount = Math.round(
+            Math.max(state.totalOptions / 2, config.behavior.maxVisibleOptions)
+        );
+    }
 
     do {
-        focusedIndex -= 1;
+        focusedIndex -= incrementAmount;
+
+        incrementAmount = 1;
 
         if (focusedIndex < 0) {
             focusedIndex = config.behavior.loop ? state.totalOptions - 1 : 0;

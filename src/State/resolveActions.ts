@@ -60,13 +60,23 @@ const resolveActions = (state: State): IActions => ({
     selectOption(index: number): void {
         state.selectedIndex = index;
 
-        this.close();
+        if (!state.isSearching) {
+            this.close();
+        }
     },
 
     focusOption(index: number): void {
         state.focusedIndex = index;
 
         this.scrollToView(state);
+    },
+
+    search(): void {
+        state.isSearching = true;
+    },
+
+    resetSearch(): void {
+        state.isSearching = false;
     }
 });
 

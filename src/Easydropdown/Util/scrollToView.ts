@@ -1,9 +1,8 @@
-import Dom   from '../../Renderer/Dom';
-import State from '../../State/State';
+import Dom    from '../../Renderer/Dom';
+import State  from '../../State/State';
+import Timers from '../Timers';
 
-let timeoutId: number = null;
-
-function scrollToView(dom: Dom, state: State): void {
+function scrollToView(dom: Dom, timers: Timers, state: State): void {
     const index = Math.max(0, state.focusedIndex > -1 ? state.focusedIndex : state.selectedIndex);
     const option = dom.option[index];
 
@@ -23,9 +22,9 @@ function scrollToView(dom: Dom, state: State): void {
 
     state.isScrollingToView = true;
 
-    clearTimeout(timeoutId);
+    clearTimeout(timers.scrollTimeoutId);
 
-    timeoutId = window.setTimeout(() => state.isScrollingToView = false, 100);
+    timers.scrollTimeoutId = window.setTimeout(() => state.isScrollingToView = false, 100);
 }
 
 export default scrollToView;
