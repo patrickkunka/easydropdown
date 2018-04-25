@@ -1,6 +1,6 @@
-import Mediator from '../Mediator';
+import Easydropdown from '../Easydropdown';
 
-function closeOthers(thisInstance: Mediator, cache: Mediator[]): void {
+function closeOthers(thisInstance: Easydropdown, cache: Easydropdown[]): void {
     for (const instance of cache) {
         if (instance !== thisInstance) instance.actions.close();
     }

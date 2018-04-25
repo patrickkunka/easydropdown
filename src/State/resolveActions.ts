@@ -34,9 +34,10 @@ const resolveActions = (state: State): IActions => ({
     },
 
     open(this: IActions, collision: CollisionType, optionHeight: number): void {
-        this.closeOthers();
-
         state.optionHeight = optionHeight;
+
+        this.closeOthers();
+        this.scrollToView(state);
 
         switch (collision) {
             case CollisionType.NONE:
@@ -64,6 +65,8 @@ const resolveActions = (state: State): IActions => ({
 
     focusOption(index: number): void {
         state.focusedIndex = index;
+
+        this.scrollToView(state);
     }
 });
 

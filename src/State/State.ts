@@ -7,17 +7,18 @@ import Option       from './Option';
 const {assign} = Object;
 
 class State {
-    public groups:        Group[]      = [];
-    public focusedIndex:  number       = -1;
-    public selectedIndex: number       = -1;
-    public optionHeight:  number       = -1;
-    public name:          string       = '';
-    public placeholder:   string       = 'Select';
-    public scrollStatus:  ScrollStatus = ScrollStatus.AT_TOP;
-    public bodyStatus:    BodyStatus   = BodyStatus.CLOSED;
-    public isDisabled:    boolean      = false;
-    public isInvalid:     boolean      = false;
-    public isFocused:     boolean      = false;
+    public groups:            Group[]      = [];
+    public focusedIndex:      number       = -1;
+    public selectedIndex:     number       = -1;
+    public optionHeight:      number       = -1;
+    public name:              string       = '';
+    public placeholder:       string       = 'Select';
+    public scrollStatus:      ScrollStatus = ScrollStatus.AT_TOP;
+    public bodyStatus:        BodyStatus   = BodyStatus.CLOSED;
+    public isDisabled:        boolean      = false;
+    public isInvalid:         boolean      = false;
+    public isFocused:         boolean      = false;
+    public isScrollingToView: boolean      = false;
 
     private config: Config;
 

@@ -3,6 +3,7 @@ interface IBehavior {
     openOnFocus:           boolean;
     closeOnSelect:         boolean;
     useNativeUiOnMobile:   boolean;
+    loop:                  boolean;
     maxVisibleOptions:     number;
 }
 

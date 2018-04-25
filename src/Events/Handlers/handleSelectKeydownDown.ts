@@ -11,7 +11,7 @@ function handleSelectKeydownDown({keyCode}: KeyboardEvent, {state, dom, actions,
         focusedIndex += 1;
 
         if (focusedIndex >= state.totalOptions) {
-            focusedIndex = 0;
+            focusedIndex = config.behavior.loop ? 0 : state.totalOptions - 1;
         }
 
         actions.focusOption(focusedIndex);

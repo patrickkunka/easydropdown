@@ -58,6 +58,8 @@ class StateManager {
     }
 
     private static updatePropertyValue(state: State, key: string, onAction: IOnAction, value: any): void {
+        if (state[key] === value) return;
+
         state[key] = value;
 
         onAction(state, key);

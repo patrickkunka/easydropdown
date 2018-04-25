@@ -1,11 +1,12 @@
 import * as KeyCodes           from '../Constants/Keycodes';
 import IHandlerParams          from '../Interfaces/IHandlerParams';
+import detectBodyCollision     from '../Util/detectBodyCollision';
 import handleSelectKeydownDown from './handleSelectKeydownDown';
 import handleSelectKeydownUp   from './handleSelectKeydownUp';
 
 function handleSelectKeydown(e: KeyboardEvent, handlerParams: IHandlerParams): void {
     const {keyCode} = e;
-    const {state, actions} = handlerParams;
+    const {state, actions, dom, config} = handlerParams;
 
     switch (keyCode) {
         case KeyCodes.DOWN:
@@ -18,7 +19,11 @@ function handleSelectKeydown(e: KeyboardEvent, handlerParams: IHandlerParams): v
             break;
         case KeyCodes.SPACE:
         case KeyCodes.ENTER:
-            actions.selectOption(state.focusedIndex);
+            if (state.isOpen) {
+                actions.selectOption(state.focusedIndex);
+            } else {
+                actions.open(detectBodyCollision(dom, config), dom.optionHeight);
+            }
 
             break;
         case KeyCodes.ESC:

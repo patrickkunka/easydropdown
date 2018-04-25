@@ -11,7 +11,7 @@ function handleSelectKeydownUp({keyCode}: KeyboardEvent, {state, config, dom, ac
         focusedIndex -= 1;
 
         if (focusedIndex < 0) {
-            focusedIndex = state.totalOptions - 1;
+            focusedIndex = config.behavior.loop ? state.totalOptions - 1 : 0;
         }
 
         actions.focusOption(focusedIndex);

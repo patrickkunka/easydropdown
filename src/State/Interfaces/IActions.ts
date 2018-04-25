@@ -1,4 +1,5 @@
 import CollisionType from '../Constants/CollisionType';
+import State         from '../State';
 
 interface IActions {
     focus(): void;
@@ -13,6 +14,7 @@ interface IActions {
     selectOption(index: number): void;
     focusOption(index: number): void;
     closeOthers?(): void;
+    scrollToView?(stateProxy: State): void;
 }
 
 export default IActions;

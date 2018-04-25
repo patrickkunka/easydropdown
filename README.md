@@ -1,6 +1,5 @@
 TODO:
-- facade
-- scroll to focused/selected
+- validation / reset
 - native mode
 - createall/destroyall api
 - text search

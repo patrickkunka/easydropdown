@@ -11,8 +11,8 @@ function body(state: State, classNames: ClassNames): string {
     ]);
 
     return (`
-        <div class="${className}" data-ref="body">
-            <div class="${classNames.itemsList}" data-ref="itemsList" style="max-height: ${state.maxBodyHeight}px;">
+        <div class="${className}" data-ref="body" style="max-height: ${state.maxBodyHeight}px;">
+            <div class="${classNames.itemsList}" data-ref="itemsList">
                 ${state.groups.map(groupState => group(groupState, state, classNames)).join('')}
             </div>
         </div>

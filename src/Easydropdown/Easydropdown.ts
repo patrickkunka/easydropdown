@@ -14,8 +14,9 @@ import StateManager        from '../State/StateManager';
 import StateMapper         from '../State/StateMapper';
 import cache               from './cache';
 import closeOthers         from './Util/closeOthers';
+import scrollToView        from './Util/scrollToView';
 
-class Mediator {
+class Easydropdown {
     public actions: IActions;
 
     private config: Config;
@@ -26,13 +27,14 @@ class Mediator {
     private pollId: number;
 
     constructor(selectElement: HTMLSelectElement, options: IConfig) {
-        this.config   = merge(new Config(), options);
-        this.state    = StateMapper.mapFromSelect(selectElement, this.config);
+        this.config = merge(new Config(), options);
+        this.state = StateMapper.mapFromSelect(selectElement, this.config);
         this.renderer = new Renderer(this.config.classNames);
-        this.dom      = this.renderer.render(this.state, selectElement);
+        this.dom = this.renderer.render(this.state, selectElement);
 
         this.actions = StateManager.proxyActions(this.state, {
-            closeOthers: closeOthers.bind(null, this, cache)
+            closeOthers: closeOthers.bind(null, this, cache),
+            scrollToView: scrollToView.bind(null, this.dom)
         }, this.renderer.update.bind(this.renderer));
 
         this.eventBindings = EventManager.bindEvents({
@@ -66,4 +68,4 @@ class Mediator {
     }
 }
 
-export default Mediator;
+export default Easydropdown;

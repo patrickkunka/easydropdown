@@ -5,6 +5,7 @@ class Behavior implements IBehavior {
     public openOnFocus:           boolean = false;
     public closeOnSelect:         boolean = false;
     public useNativeUiOnMobile:   boolean = true;
+    public loop:                  boolean = false;
     public maxVisibleOptions:     number  = 10;
 }
 
