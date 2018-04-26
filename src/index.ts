@@ -1,3 +1,1 @@
-import factory from './Easydropdown/factory';
-
-module.exports = factory;
+export {default as default} from './Easydropdown/factory';

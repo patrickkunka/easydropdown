@@ -1,8 +1,11 @@
-const throttle = (handler: (e: Event) => void, delay: number): (e: Event) => void => {
+function throttle(
+    handler: (e: Event) => void,
+    delay: number
+): (e: Event) => void {
     let timerId = null;
     let last: number;
 
-    return (...args) => {
+    return function(...args): void {
         const now = Date.now();
 
         const later = () => {
@@ -23,6 +26,6 @@ const throttle = (handler: (e: Event) => void, delay: number): (e: Event) => voi
             timerId = setTimeout(later, delay - difference);
         }
     };
-};
+}
 
 export default throttle;

@@ -2,8 +2,8 @@ import merge from 'helpful-merge';
 
 import Config              from '../Config/Config';
 import IConfig             from '../Config/Interfaces/IConfig';
+import bindEvents          from '../Events/bindEvents';
 import EventBinding        from '../Events/EventBinding';
-import EventManager        from '../Events/EventManager';
 import pollForSelectChange from '../Events/pollForSelectChange';
 import detectBodyCollision from '../Events/Util/detectBodyCollision';
 import setGeometry         from '../Events/Util/setGeometry';
@@ -40,7 +40,7 @@ class Easydropdown {
             scrollToView: scrollToView.bind(null, this.dom, this.timers)
         }, this.renderer.update.bind(this.renderer));
 
-        this.eventBindings = EventManager.bindEvents({
+        this.eventBindings = bindEvents({
             actions: this.actions,
             config: this.config,
             dom: this.dom,

@@ -1,5 +1,6 @@
 import throttle       from '../Shared/Util/throttle';
 import EventBinding   from './EventBinding';
+import getEventsList  from './getEventsList';
 import IEventBinding  from './Interfaces/IEventBinding';
 import IHandlerParams from './Interfaces/IHandlerParams';
 
@@ -21,4 +22,8 @@ function bindEvent(handlerParams: IHandlerParams, eventBindingRaw: IEventBinding
     return eventBinding;
 }
 
-export default bindEvent;
+function bindEvents(handlerParams: IHandlerParams): EventBinding[] {
+    return getEventsList(handlerParams.dom).map(bindEvent.bind(null, handlerParams));
+}
+
+export default bindEvents;

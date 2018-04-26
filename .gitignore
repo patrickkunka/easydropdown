@@ -3,5 +3,6 @@
 npm-debug.*
 node_modules
 dist
+bundle/dist
 coverage
 .nyc_output

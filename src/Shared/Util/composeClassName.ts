@@ -1,5 +1,5 @@
-const composeClassName = (tokens: Array<string|[boolean, string]>): string =>
-    tokens
+function composeClassName(tokens: Array<string|[boolean, string]>): string {
+    return tokens
         .reduce((classNames, token) => {
             if (typeof token === 'string') classNames.push(token);
             else {
@@ -11,5 +11,6 @@ const composeClassName = (tokens: Array<string|[boolean, string]>): string =>
             return classNames;
         }, [])
         .join(' ');
+}
 
 export default composeClassName;

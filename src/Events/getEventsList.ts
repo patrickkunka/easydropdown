@@ -3,8 +3,6 @@ import handleBodyClick      from './Handlers/handleBodyClick';
 import handleBodyMouseover  from './Handlers/handleBodyMouseover';
 import handleBodyScroll     from './Handlers/handleBodyScroll';
 import handleHeadClick      from './Handlers/handleHeadClick';
-import handleHeadMousedown  from './Handlers/handleHeadMousedown';
-import handleHeadMouseup    from './Handlers/handleHeadMouseup';
 import handleSelectBlur     from './Handlers/handleSelectBlur';
 import handleSelectFocus    from './Handlers/handleSelectFocus';
 import handleSelectInvalid  from './Handlers/handleSelectInvalid';
@@ -19,16 +17,6 @@ const getEventsList = (dom: Dom): IEventBinding[] => [
         target: dom.head,
         type: 'click',
         handler: handleHeadClick
-    },
-    {
-        target: dom.head,
-        type: 'mousedown',
-        handler: handleHeadMousedown
-    },
-    {
-        target: dom.head,
-        type: 'mouseup',
-        handler: handleHeadMouseup
     },
     {
         target: dom.body,
