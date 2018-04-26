@@ -57,6 +57,18 @@ class Easydropdown {
         return this.dom.select;
     }
 
+    public get value(): string {
+        return this.state.value;
+    }
+
+    public set value(nextValue: string) {
+        if (typeof nextValue !== 'string') {
+            throw new TypeError('[EasyDropDown] Provided value not a valid string');
+        }
+
+        this.dom.select.value = nextValue;
+    }
+
     public open(): void {
         this.actions.open(detectBodyCollision(this.dom, this.config));
     }
