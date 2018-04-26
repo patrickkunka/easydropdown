@@ -53,6 +53,13 @@
                 left: -999px;
             }
 
+            .edd-use-native .edd-select {
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+            }
+
             .edd-body {
                 max-height: 0;
                 opacity: 0;
@@ -98,6 +105,7 @@
     <body>
         <form>
             <select id="test1">
+                <option value="" data-placeholder>Country</option>
                 <option value="AF">Afghanistan</option>
                 <option value="AX">Åland Islands</option>
                 <option value="AL">Albania</option>
@@ -373,11 +381,10 @@
 
         <script src="../dist/easydropdown.js"></script>
         <script>
-            const select1 = document.querySelector('#test1');
-            const select2 = document.querySelector('#test2');
+            // const select1 = document.querySelector('#test1');
+            // const select2 = document.querySelector('#test2');
 
-            console.log(easydropdown(select1));
-            easydropdown(select2);
+            easydropdown.all();
         </script>
     </body>
 </html>

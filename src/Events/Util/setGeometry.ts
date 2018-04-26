@@ -3,6 +3,8 @@ import IActions from '../../State/Interfaces/IActions';
 import State    from '../../State/State';
 
 function setGeometry(state: State, actions: IActions, dom: Dom): void {
+    if (!dom.body) return;
+
     const {scrollHeight, offsetHeight} = dom.body;
 
     if (scrollHeight > offsetHeight && !state.isScrollable) {

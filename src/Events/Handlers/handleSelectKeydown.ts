@@ -8,6 +8,8 @@ function handleSelectKeydown(e: KeyboardEvent, handlerParams: IHandlerParams): v
     const {keyCode} = e;
     const {state, actions, dom, config} = handlerParams;
 
+    if (state.isUseNativeMode) return;
+
     switch (keyCode) {
         case KeyCodes.DOWN:
             handleSelectKeydownDown(e, handlerParams);

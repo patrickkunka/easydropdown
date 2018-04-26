@@ -11,6 +11,7 @@ class StateMapper {
 
         state.name = selectElement.name;
         state.isDisabled = selectElement.disabled;
+        state.isUseNativeMode = StateMapper.isMobilePlatform;
 
         for (let i = 0, child: Element; (child = selectElement.children[i]); i++) {
             if (i === 0 && child.getAttribute('data-placeholder') !== null) {
@@ -63,6 +64,20 @@ class StateMapper {
             value: option.value || option.textContent,
             isDisabled: option.disabled
         });
+    }
+
+    private static get isMobilePlatform(): boolean {
+        const {userAgent} = window.navigator;
+        const isIos = /(ipad|iphone|ipod)/gi.test(userAgent);
+        const isAndroid = /android/gi.test(userAgent);
+        const isOperaMini = /opera mini/gi.test(userAgent);
+        const isWindowsPhone = /windows phone/gi.test(userAgent);
+
+        if (isIos || isAndroid || isOperaMini || isWindowsPhone) {
+            return true;
+        }
+
+        return false;
     }
 }
 

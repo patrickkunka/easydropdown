@@ -18,6 +18,7 @@ interface IActions {
     focusOption(index: number): void;
     search(): void;
     resetSearch(): void;
+    useNative(): void;
     closeOthers?(): void;
     scrollToView?(stateProxy: State): void;
 }

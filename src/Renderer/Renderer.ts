@@ -41,7 +41,8 @@ class Renderer {
     }
 
     public destroy(): void {
-        this.dom.root.parentElement.replaceChild(this.dom.select, this.dom.root.parentElement);
+        this.dom.select.classList.remove(this.classNames.select);
+        this.dom.root.parentElement.replaceChild(this.dom.select, this.dom.root);
     }
 
     private mount(selectElement: HTMLSelectElement): void {

@@ -7,6 +7,7 @@ interface IClassNames {
     rootInvalid?:    string;
     rootFocused?:    string;
     rootHasValue?:   string;
+    rootUseNative?:  string;
     head?:           string;
     label?:          string;
     arrow?:          string;

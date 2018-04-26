@@ -2,8 +2,9 @@ import IConfig            from '../Config/Interfaces/IConfig';
 import cache              from './cache';
 import Easydropdown       from './Easydropdown';
 import EasydropdownFacade from './EasydropdownFacade';
+import IFactory           from './Interfaces/IFactory';
 
-function easydropdown(
+function factory(
     selectElementOrSelector: (HTMLSelectElement|string),
     options: IConfig = {}
 ): EasydropdownFacade {
@@ -30,4 +31,22 @@ function easydropdown(
     return new EasydropdownFacade(instance);
 }
 
-export default easydropdown;
+function decorateFactory(factoryFn: any): IFactory {
+    factoryFn.all = (options: IConfig = {}) => {
+        const selects = document.querySelectorAll('select');
+
+        Array.prototype.forEach.call(selects, select => factory(select, options));
+    };
+
+    factoryFn.destroy = () => {
+        const cacheCopy = cache.slice();
+
+        cacheCopy.forEach(instance => instance.destroy());
+    };
+
+    return factoryFn;
+}
+
+const decoratedFactory = decorateFactory(factory);
+
+export default decoratedFactory;

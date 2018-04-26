@@ -13,13 +13,14 @@ const root = (state: State, classNames: ClassNames) => {
         [state.isFocused, classNames.rootFocused],
         [state.hasValue, classNames.rootHasValue],
         [state.isOpenAbove, classNames.rootOpenAbove],
-        [state.isOpenBelow, classNames.rootOpenBelow]
+        [state.isOpenBelow, classNames.rootOpenBelow],
+        [state.isUseNativeMode, classNames.rootUseNative]
     ]);
 
     return (`
         <div class="${className}">
             ${head(state, classNames)}
-            ${body(state, classNames)}
+            ${state.isUseNativeMode ? '' : body(state, classNames)}
         </div>
     `);
 };

@@ -93,6 +93,10 @@ const resolveActions = (state: State): IActions => ({
 
     resetSearch(): void {
         state.isSearching = false;
+    },
+
+    useNative(): void {
+        state.isUseNativeMode = true;
     }
 });
 

@@ -83,6 +83,10 @@ class Easydropdown {
         this.renderer.destroy();
 
         this.timers.clear();
+
+        const cacheIndex = cache.indexOf(this);
+
+        cache.splice(cacheIndex, 1);
     }
 
     private init(): void {
