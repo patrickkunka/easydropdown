@@ -33,6 +33,14 @@ const resolveActions = (state: State): IActions => ({
         state.scrollStatus = ScrollStatus.SCROLLED;
     },
 
+    makeScrollable(): void {
+        state.isScrollable = true;
+    },
+
+    makeUnscrollable(): void {
+        state.isScrollable = false;
+    },
+
     setOptionHeight(optionHeight: number): void {
         state.optionHeight = optionHeight;
     },

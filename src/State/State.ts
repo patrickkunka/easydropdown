@@ -19,6 +19,7 @@ class State {
     public isInvalid:         boolean      = false;
     public isFocused:         boolean      = false;
     public isScrollingToView: boolean      = false;
+    public isScrollable:      boolean      = false;
     public isSearching:       boolean      = false;
 
     private config: Config;

@@ -12,6 +12,8 @@ interface IActions {
     setOptionHeight(optionHeight: number): void;
     open(collision: CollisionType): void;
     close(): void;
+    makeScrollable(): void;
+    makeUnscrollable(): void;
     selectOption(index: number): void;
     focusOption(index: number): void;
     search(): void;

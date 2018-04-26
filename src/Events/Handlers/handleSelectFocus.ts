@@ -5,7 +5,7 @@ function handleSelectFocus(e: Event, {actions, config, dom}: IHandlerParams): vo
     actions.focus();
 
     if (config.behavior.openOnFocus) {
-        actions.open(detectBodyCollision(dom, config), dom.optionHeight);
+        actions.open(detectBodyCollision(dom, config));
     }
 }
 

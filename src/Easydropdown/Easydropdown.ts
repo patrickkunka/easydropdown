@@ -6,6 +6,7 @@ import EventBinding        from '../Events/EventBinding';
 import EventManager        from '../Events/EventManager';
 import pollForSelectChange from '../Events/pollForSelectChange';
 import detectBodyCollision from '../Events/Util/detectBodyCollision';
+import setGeometry         from '../Events/Util/setGeometry';
 import Dom                 from '../Renderer/Dom';
 import Renderer            from '../Renderer/Renderer';
 import closeOthers         from '../State/InjectedActions/closeOthers';
@@ -57,7 +58,7 @@ class Easydropdown {
     }
 
     public open(): void {
-        this.actions.open(detectBodyCollision(this.dom, this.config), this.dom.optionHeight);
+        this.actions.open(detectBodyCollision(this.dom, this.config));
     }
 
     public close(): void {
@@ -73,7 +74,7 @@ class Easydropdown {
     }
 
     private init(): void {
-        this.actions.setOptionHeight(this.dom.optionHeight);
+        setGeometry(this.state, this.actions, this.dom);
     }
 }
 

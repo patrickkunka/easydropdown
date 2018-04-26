@@ -7,7 +7,8 @@ function body(state: State, classNames: ClassNames): string {
     const className = composeClassName([
         classNames.body,
         [state.isAtTop, classNames.bodyAtTop],
-        [state.isAtBottom, classNames.bodyAtBottom]
+        [state.isAtBottom, classNames.bodyAtBottom],
+        [state.isScrollable, classNames.bodyScrollable]
     ]);
 
     return (`
