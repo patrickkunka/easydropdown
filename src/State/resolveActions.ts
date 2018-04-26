@@ -33,9 +33,11 @@ const resolveActions = (state: State): IActions => ({
         state.scrollStatus = ScrollStatus.SCROLLED;
     },
 
-    open(this: IActions, collision: CollisionType, optionHeight: number): void {
+    setOptionHeight(optionHeight: number): void {
         state.optionHeight = optionHeight;
+    },
 
+    open(this: IActions, collision: CollisionType): void {
         this.closeOthers();
         this.scrollToView(state);
 

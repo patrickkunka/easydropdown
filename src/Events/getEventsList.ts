@@ -10,6 +10,7 @@ import handleSelectInvalid  from './Handlers/handleSelectInvalid';
 import handleSelectKeydown  from './Handlers/handleSelectKeydown';
 import handleSelectKeypress from './Handlers/handleSelectKeypress';
 import handleWindowClick    from './Handlers/handleWindowClick';
+import handleWindowResize   from './Handlers/handleWindowClick';
 import IEventBinding        from './Interfaces/IEventBinding';
 
 const getEventsList = (dom: Dom): IEventBinding[] => [
@@ -27,11 +28,6 @@ const getEventsList = (dom: Dom): IEventBinding[] => [
         target: dom.head,
         type: 'mouseup',
         handler: handleHeadMouseup
-    },
-    {
-        target: document.documentElement,
-        type: 'click',
-        handler: handleWindowClick
     },
     {
         target: dom.body,
@@ -67,6 +63,17 @@ const getEventsList = (dom: Dom): IEventBinding[] => [
         target: dom.select,
         type: 'blur',
         handler: handleSelectBlur
+    },
+    {
+        target: document.documentElement,
+        type: 'click',
+        handler: handleWindowClick
+    },
+    {
+        target: window,
+        type: 'resize',
+        handler: handleWindowResize,
+        throttle: 100
     }
 ];
 

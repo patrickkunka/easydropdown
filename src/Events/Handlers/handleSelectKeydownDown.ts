@@ -37,7 +37,7 @@ function handleSelectKeydownDown(
     );
 
     if (state.isClosed) {
-        actions.open(detectBodyCollision(dom, config), dom.optionHeight);
+        actions.open(detectBodyCollision(dom, config));
 
         return;
     }

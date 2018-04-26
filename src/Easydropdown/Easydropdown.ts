@@ -48,6 +48,8 @@ class Easydropdown {
         });
 
         this.timers.pollIntervalId = pollForSelectChange(this.dom.select, this.state, this.actions);
+
+        this.init();
     }
 
     public get selectElement(): HTMLSelectElement {
@@ -68,6 +70,10 @@ class Easydropdown {
         this.renderer.destroy();
 
         this.timers.clear();
+    }
+
+    private init(): void {
+        this.actions.setOptionHeight(this.dom.optionHeight);
     }
 }
 

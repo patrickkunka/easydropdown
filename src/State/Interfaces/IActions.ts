@@ -9,7 +9,8 @@ interface IActions {
     topOut(): void;
     bottomOut(): void;
     scroll(): void;
-    open(collision: CollisionType, optionHeight: number): void;
+    setOptionHeight(optionHeight: number): void;
+    open(collision: CollisionType): void;
     close(): void;
     selectOption(index: number): void;
     focusOption(index: number): void;

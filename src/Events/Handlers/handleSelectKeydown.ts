@@ -22,7 +22,7 @@ function handleSelectKeydown(e: KeyboardEvent, handlerParams: IHandlerParams): v
             if (state.isOpen) {
                 actions.selectOption(state.focusedIndex);
             } else {
-                actions.open(detectBodyCollision(dom, config), dom.optionHeight);
+                actions.open(detectBodyCollision(dom, config));
             }
 
             break;
