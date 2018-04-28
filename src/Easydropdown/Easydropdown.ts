@@ -89,6 +89,8 @@ class Easydropdown {
             StateMapper.mapFromSelect(this.dom.select, this.config)
         );
 
+        this.renderer.update(this.state, 'groups');
+
         this.dom.group = Array.from(this.dom.body.querySelectorAll('[data-ref="group"]'));
         this.dom.option = Array.from(this.dom.body.querySelectorAll('[data-ref="option"]'));
     }
