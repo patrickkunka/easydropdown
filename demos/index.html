@@ -3,104 +3,10 @@
     <head>
         <title>EasyDropDown Demo</title>
 
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            body {
-                padding: 1rem;
-            }
-
-            .edd {
-                position: relative;
-                width: 5rem;
-                user-select: none;
-                margin-bottom: 1rem;
-            }
-
-            .edd-head {
-                background: #eee;
-                overflow: hidden;
-                height: 1.25rem;
-            }
-
-            .edd-focused .edd-head {
-                box-shadow: 0 0 5px blue;
-            }
-
-            .edd-label,
-            .edd-option {
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                cursor: pointer;
-            }
-
-            .edd-group-has-label .edd-option {
-                padding-left: 1rem;
-            }
-
-            .edd-select {
-                position: absolute;
-                opacity: 0;
-                width: 0;
-                height: 0;
-                left: -999px;
-            }
-
-            .edd-use-native .edd-select {
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-            }
-
-            .edd-body {
-                max-height: 0;
-                opacity: 0;
-                position: absolute;
-                left: 0;
-                right: 0;
-                background: #eee;
-                pointer-events: none;
-                overflow: auto;
-                margin: 0.5rem 0;
-                z-index: 999;
-            }
-
-            .edd-open .edd-body {
-                opacity: 1;
-                max-height: 300px;
-                pointer-events: all;
-                transition: opacity 200ms, max-height 200ms ease-out;
-            }
-
-            .edd-open-above .edd-body {
-                bottom: 100%;
-            }
-
-            .edd-open-below .edd-body {
-                top: 100%;
-            }
-
-            .edd-option-focused:not(.edd-option-disabled) {
-                background: orange;
-            }
-
-            .edd-option-selected {
-                background: greenyellow;
-            }
-
-            .edd-option-disabled {
-                cursor: default;
-                color: #ccc;
-            }
-        </style>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+        <link href="./skin.css" rel="stylesheet"/>
     </head>
     <body>
         <form>
@@ -359,15 +265,17 @@
 
             <select id="test2" required>
                 <option data-placeholder value="">Select</option>
-                <option value="1">1</option>
-                <optgroup label="group">
+                <optgroup label="group 1">
+                    <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">Long long option title</option>
                     <option value="4">4</option>
                 </optgroup>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
+                <optgroup label="group 2" disabled>
+                    <option disabled value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </optgroup>
                 <option value="8">8</option>
                 <option value="9">9</option>
                 <option value="10">10</option>

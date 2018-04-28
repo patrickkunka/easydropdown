@@ -1,16 +1,16 @@
-import Dom                  from '../Renderer/Dom';
-import handleBodyClick      from './Handlers/handleBodyClick';
-import handleBodyMouseover  from './Handlers/handleBodyMouseover';
-import handleBodyScroll     from './Handlers/handleBodyScroll';
-import handleHeadClick      from './Handlers/handleHeadClick';
-import handleSelectBlur     from './Handlers/handleSelectBlur';
-import handleSelectFocus    from './Handlers/handleSelectFocus';
-import handleSelectInvalid  from './Handlers/handleSelectInvalid';
-import handleSelectKeydown  from './Handlers/handleSelectKeydown';
-import handleSelectKeypress from './Handlers/handleSelectKeypress';
-import handleWindowClick    from './Handlers/handleWindowClick';
-import handleWindowResize   from './Handlers/handleWindowClick';
-import IEventBinding        from './Interfaces/IEventBinding';
+import Dom                   from '../Renderer/Dom';
+import handleBodyClick       from './Handlers/handleBodyClick';
+import handleBodyMouseover   from './Handlers/handleBodyMouseover';
+import handleHeadClick       from './Handlers/handleHeadClick';
+import handleItemsListScroll from './Handlers/handleItemsListScroll';
+import handleSelectBlur      from './Handlers/handleSelectBlur';
+import handleSelectFocus     from './Handlers/handleSelectFocus';
+import handleSelectInvalid   from './Handlers/handleSelectInvalid';
+import handleSelectKeydown   from './Handlers/handleSelectKeydown';
+import handleSelectKeypress  from './Handlers/handleSelectKeypress';
+import handleWindowClick     from './Handlers/handleWindowClick';
+import handleWindowResize    from './Handlers/handleWindowClick';
+import IEventBinding         from './Interfaces/IEventBinding';
 
 const getEventsList = (dom: Dom): IEventBinding[] => [
     {
@@ -29,9 +29,9 @@ const getEventsList = (dom: Dom): IEventBinding[] => [
         handler: handleBodyMouseover
     },
     {
-        target: dom.body,
+        target: dom.itemsList,
         type: 'scroll',
-        handler: handleBodyScroll
+        handler: handleItemsListScroll
     },
     {
         target: dom.select,

@@ -12,6 +12,8 @@ interface IClassNames {
     label?:          string;
     arrow?:          string;
     body?:           string;
+    gradientTop?:    string;
+    gradientBottom?: string;
     bodyScrollable?: string;
     bodyAtTop?:      string;
     bodyAtBottom?:   string;

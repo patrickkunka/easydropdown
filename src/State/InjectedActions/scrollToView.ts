@@ -7,15 +7,17 @@ function scrollToView(dom: Dom, timers: Timers, state: State): void {
     const option = dom.option[index];
 
     const {offsetTop, offsetHeight} = option;
-    const min = dom.body.scrollTop;
+    const min = dom.itemsList.scrollTop;
     const max = min + state.maxBodyHeight;
 
     let remainder: number;
 
     if (offsetTop < min) {
-        dom.body.scrollTop = offsetTop;
+        dom.itemsList.scrollTop = offsetTop;
     } else if ((remainder = (offsetTop + offsetHeight) - max) > 0) {
-        dom.body.scrollTop = dom.body.scrollTop + remainder;
+        const scrollTop = dom.itemsList.scrollTop + remainder;
+
+        dom.itemsList.scrollTop = scrollTop;
     } else {
         return;
     }

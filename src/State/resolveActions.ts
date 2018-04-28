@@ -46,20 +46,23 @@ const resolveActions = (state: State): IActions => ({
     },
 
     open(this: IActions, collision: CollisionType): void {
+        if (state.isDisabled) return;
+
         this.closeOthers();
-        this.scrollToView(state);
 
         switch (collision) {
             case CollisionType.NONE:
             case CollisionType.TOP:
-                state.bodyStatus = BodyStatus.OPEN_BELOW;
+            state.bodyStatus = BodyStatus.OPEN_BELOW;
 
-                break;
+            break;
             case CollisionType.BOTTOM:
-                state.bodyStatus = BodyStatus.OPEN_ABOVE;
+            state.bodyStatus = BodyStatus.OPEN_ABOVE;
 
-                break;
+            break;
         }
+
+        this.scrollToView(state);
     },
 
     close(): void {

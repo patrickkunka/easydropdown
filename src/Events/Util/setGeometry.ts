@@ -5,7 +5,8 @@ import State    from '../../State/State';
 function setGeometry(state: State, actions: IActions, dom: Dom): void {
     if (!dom.body) return;
 
-    const {scrollHeight, offsetHeight} = dom.body;
+    const {scrollHeight} = dom.itemsList;
+    const {offsetHeight} = dom.body;
 
     if (scrollHeight > offsetHeight && !state.isScrollable) {
         actions.makeScrollable();

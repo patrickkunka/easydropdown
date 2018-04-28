@@ -11,11 +11,18 @@ function body(state: State, classNames: ClassNames): string {
         [state.isScrollable, classNames.bodyScrollable]
     ]);
 
+    const styleAttr = state.isOpen ?
+        `style="max-height: ${state.maxBodyHeight}px;"` : '';
+
     return (`
-        <div class="${className}" data-ref="body" style="max-height: ${state.maxBodyHeight}px;">
-            <div class="${classNames.itemsList}" data-ref="itemsList">
+        <div class="${className}" data-ref="body">
+            <div class="${classNames.itemsList}"
+                data-ref="itemsList"
+                ${styleAttr}>
                 ${state.groups.map(groupState => group(groupState, state, classNames)).join('')}
             </div>
+            <div class=${classNames.gradientTop}></div>
+            <div class=${classNames.gradientBottom}></div>
         </div>
     `);
 }

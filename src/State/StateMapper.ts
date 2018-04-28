@@ -37,7 +37,12 @@ class StateMapper {
                 state.groups.push(StateMapper.mapGroup(child));
 
                 for (let j = 0, groupChild: Element; (groupChild = child.children[j]); j++) {
-                    state.lastGroup.options.push(StateMapper.mapOption(groupChild as HTMLOptionElement));
+                    state.lastGroup.options.push(
+                        StateMapper.mapOption(
+                            groupChild as HTMLOptionElement,
+                            child as HTMLOptGroupElement
+                        )
+                    );
 
                     if ((groupChild as HTMLOptionElement).selected) state.selectedIndex = state.totalOptions - 1;
                 }
@@ -56,13 +61,15 @@ class StateMapper {
         });
     }
 
-    private static mapOption(option: HTMLOptionElement): Option {
+    private static mapOption(option: HTMLOptionElement, group: HTMLOptGroupElement = null): Option {
         if (!(option instanceof HTMLOptionElement)) throw new TypeError('[EasyDropDown] Invalid markup structure');
+
+        const isParentGroupDisabled = group !== null && group.disabled;
 
         return Object.assign(new Option(), {
             label: option.textContent,
             value: option.value || option.textContent,
-            isDisabled: option.disabled
+            isDisabled: option.disabled || isParentGroupDisabled
         });
     }
 

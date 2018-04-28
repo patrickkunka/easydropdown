@@ -10,6 +10,8 @@ class ClassNames implements IClassNames {
     public rootFocused:    string = 'edd-focused';
     public rootHasValue:   string = 'edd-has-value';
     public rootUseNative:  string = 'edd-use-native';
+    public gradientTop:    string = 'edd-gradient-top';
+    public gradientBottom: string = 'edd-gradient-bottom';
     public head:           string = 'edd-head';
     public value:          string = 'edd-value';
     public arrow:          string = 'edd-arrow';

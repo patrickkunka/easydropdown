@@ -1,4 +1,5 @@
 TODO:
+- refresh method?
 - tests
 - demos
 - docs
@@ -8,3 +9,19 @@ TODO:
 - pr closing
 - open issues
 - npm publish
+- dont jump on mouseover hover
+- fix height logic
+
+DEMOS:
+- Basic list
+- Groups
+- Mixed groups and no groups
+- Disabled options
+- Disabled groups
+- disabled select
+- Pre-selected value
+- Form Reset
+- Form validation
+- Show placeholder on open
+- collision detection
+- all w/ theme switch
