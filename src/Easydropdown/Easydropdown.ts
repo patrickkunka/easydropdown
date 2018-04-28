@@ -29,6 +29,7 @@ class Easydropdown {
     private eventBindings: EventBinding[];
     private renderer: Renderer;
     private timers: Timers;
+    private mutationObserver: MutationObserver;
 
     constructor(selectElement: HTMLSelectElement, options: IConfig) {
         this.config = merge(new Config(), options, true);
@@ -36,6 +37,7 @@ class Easydropdown {
         this.renderer = new Renderer(this.config.classNames);
         this.dom = this.renderer.render(this.state, selectElement);
         this.timers = new Timers();
+        this.mutationObserver = new MutationObserver(this.handleSelectMutation.bind(this));
 
         this.actions = StateManager.proxyActions(this.state, {
             closeOthers: closeOthers.bind(null, this, cache),
@@ -97,9 +99,8 @@ class Easydropdown {
 
     public destroy(): void {
         this.eventBindings.forEach(binding => binding.unbind());
-
+        this.mutationObserver.disconnect();
         this.renderer.destroy();
-
         this.timers.clear();
 
         const cacheIndex = cache.indexOf(this);
@@ -109,6 +110,12 @@ class Easydropdown {
 
     private init(): void {
         setGeometry(this.state, this.actions, this.dom);
+
+        this.mutationObserver.observe(this.dom.select, {
+            attributes: true,
+            childList: true,
+            subtree: true
+        });
     }
 
     private handleStateUpdate(state: State, key: keyof State): void {
@@ -136,6 +143,13 @@ class Easydropdown {
         }
 
         if (typeof cb === 'function') cb(arg);
+    }
+
+    private handleSelectMutation(mutation: MutationRecord): void {
+        this.mutationObserver.disconnect();
+
+        this.refresh();
+        this.init();
     }
 }
 
