@@ -11,6 +11,7 @@ function pollForSelectChange(selectElement: HTMLSelectElement, state: State, act
             const selectedIndex = state.getOptionIndexFromValue(selectElement.value);
 
             actions.selectOption(selectedIndex);
+            actions.focusOption(selectedIndex, true);
         }
 
         lastValue = selectElement.value;

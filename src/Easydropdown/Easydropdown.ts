@@ -1,6 +1,7 @@
 import merge from 'helpful-merge';
 
 import Config              from '../Config/Config';
+import ICallback           from '../Config/Interfaces/ICallback';
 import IConfig             from '../Config/Interfaces/IConfig';
 import bindEvents          from '../Events/bindEvents';
 import EventBinding        from '../Events/EventBinding';
@@ -39,7 +40,7 @@ class Easydropdown {
         this.actions = StateManager.proxyActions(this.state, {
             closeOthers: closeOthers.bind(null, this, cache),
             scrollToView: scrollToView.bind(null, this.dom, this.timers)
-        }, this.renderer.update.bind(this.renderer));
+        }, this.handleStateUpdate.bind(this));
 
         this.eventBindings = bindEvents({
             actions: this.actions,
@@ -82,6 +83,16 @@ class Easydropdown {
         this.actions.close();
     }
 
+    public refresh(): void {
+        this.state = Object.assign(
+            this.state,
+            StateMapper.mapFromSelect(this.dom.select, this.config)
+        );
+
+        this.dom.group = Array.from(this.dom.body.querySelectorAll('[data-ref="group"]'));
+        this.dom.option = Array.from(this.dom.body.querySelectorAll('[data-ref="option"]'));
+    }
+
     public destroy(): void {
         this.eventBindings.forEach(binding => binding.unbind());
 
@@ -96,6 +107,33 @@ class Easydropdown {
 
     private init(): void {
         setGeometry(this.state, this.actions, this.dom);
+    }
+
+    private handleStateUpdate(state: State, key: keyof State): void {
+        const {callbacks} = this.config;
+
+        let cb: ICallback;
+        let arg: any;
+
+        this.renderer.update(state, key);
+
+        switch (key) {
+            case 'bodyStatus':
+                if (state.isOpen) {
+                    cb = callbacks.onOpen;
+                } else if (state.isClosed) {
+                    cb = callbacks.onClose;
+                }
+
+                break;
+            case 'selectedIndex':
+                cb = callbacks.onSelect;
+                arg = state.value;
+
+                break;
+        }
+
+        if (typeof cb === 'function') cb(arg);
     }
 }
 

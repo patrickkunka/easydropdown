@@ -263,25 +263,16 @@
                 <option value="ZW">Zimbabwe</option>
             </select>
 
-            <select id="test2" required>
-                <option data-placeholder value="">Select</option>
-                <optgroup label="group 1">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">Long long option title</option>
-                    <option value="4">4</option>
+            <select>
+                <optgroup label="Swedish Cars">
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
                 </optgroup>
-                <optgroup label="group 2" disabled>
-                    <option disabled value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
+                <optgroup label="German Cars">
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
                 </optgroup>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
             </select>
-
-            <input required/>
 
             <button type="reset">Reset</button>
             <button type="submit">submit</button>
@@ -289,12 +280,14 @@
 
         <script src="../bundle/easydropdown.min.js"></script>
         <script>
-            // const select1 = document.querySelector('#test1');
-            // const select2 = document.querySelector('#test2');
-
-            easydropdown.all({
+            const edd = easydropdown('#test1', {
                 behavior: {
                     maxVisibleOptions: 20
+                },
+                callbacks: {
+                    onOpen: () => console.log('open'),
+                    onClose: () => console.log('close'),
+                    onSelect: (val) => console.log('select', val)
                 }
             });
         </script>

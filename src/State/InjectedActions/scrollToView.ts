@@ -9,16 +9,14 @@ function scrollToView(dom: Dom, timers: Timers, state: State, scrollToMiddle: bo
     const {offsetTop, offsetHeight} = option;
     const min = dom.itemsList.scrollTop;
     const max = min + state.maxBodyHeight;
+    const offset = scrollToMiddle ? (state.maxBodyHeight / 2) - (offsetHeight / 2) : 0;
 
     let remainder: number;
 
-    // TODO: scroll to middle of body
-    console.log(scrollToMiddle);
-
     if (offsetTop < min) {
-        dom.itemsList.scrollTop = offsetTop;
+        dom.itemsList.scrollTop = offsetTop - offset;
     } else if ((remainder = (offsetTop + offsetHeight) - max) > 0) {
-        const scrollTop = dom.itemsList.scrollTop + remainder;
+        const scrollTop = dom.itemsList.scrollTop + remainder + offset;
 
         dom.itemsList.scrollTop = scrollTop;
     } else {

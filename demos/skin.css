@@ -138,19 +138,16 @@ body {
 }
 
 .edd-group-label {
-    font-size: .75rem;
+    font-size: .66rem;
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 0.1em;
     padding: .75rem .5rem .25rem;
+    color: #999;
 }
 
 .edd-group-has-label {
     border-bottom: 1px solid #eee;
-}
-
-.edd-group-has-label .edd-option {
-    padding-left: .75rem;
 }
 
 .edd-option {

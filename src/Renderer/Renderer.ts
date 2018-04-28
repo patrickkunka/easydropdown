@@ -28,7 +28,7 @@ class Renderer {
         return this.dom;
     }
 
-    public update(state: State, key: string): void {
+    public update(state: State, key: keyof State): void {
         const nextHtml = root(state, this.classNames);
         const nextRoot = createDomElementFromHtml(nextHtml) as HTMLDivElement;
         const diffCommand = domDiff(this.dom.root, nextRoot);
@@ -40,12 +40,7 @@ class Renderer {
         }
     }
 
-    public destroy(): void {
-        this.dom.select.classList.remove(this.classNames.select);
-        this.dom.root.parentElement.replaceChild(this.dom.select, this.dom.root);
-    }
-
-    private mount(selectElement: HTMLSelectElement): void {
+    public mount(selectElement: HTMLSelectElement): void {
         const parent = selectElement.parentElement;
 
         if (!parent) throw new Error('[EasyDropDown] The provided `<select>` element must exist within a document');
@@ -54,7 +49,7 @@ class Renderer {
 
         Object
             .keys(this.dom)
-            .reduce((localDom, ref) => {
+            .reduce((localDom: Dom, ref: string) => {
                 const selector = `[data-ref="${ref}"]`;
                 const elements = localDom.root.querySelectorAll(selector);
 
@@ -79,6 +74,11 @@ class Renderer {
 
                 return localDom;
             }, this.dom);
+    }
+
+    public destroy(): void {
+        this.dom.select.classList.remove(this.classNames.select);
+        this.dom.root.parentElement.replaceChild(this.dom.select, this.dom.root);
     }
 
     private syncSelectWithValue(value: string): void {

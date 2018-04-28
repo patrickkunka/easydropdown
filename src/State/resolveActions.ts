@@ -104,10 +104,12 @@ const resolveActions = (state: State): IActions => ({
     },
 
     focusOption(this: IActions, index: number, shouldScrollToView: boolean = false): void {
+        const scrollToMiddle = Math.abs(index - state.focusedIndex) > 1;
+
         state.focusedIndex = index;
 
         if (shouldScrollToView) {
-            this.scrollToView(state);
+            this.scrollToView(state, scrollToMiddle);
         }
     },
 

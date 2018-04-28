@@ -21,7 +21,11 @@ function handleSelectKeydown(e: KeyboardEvent, handlerParams: IHandlerParams): v
 
             break;
         case KeyCodes.SPACE:
+            if (state.isSearching) return;
         case KeyCodes.ENTER:
+            e.stopPropagation();
+            e.preventDefault();
+
             if (state.isOpen) {
                 actions.selectOption(state.focusedIndex);
             } else {
