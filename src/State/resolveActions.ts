@@ -1,8 +1,9 @@
-import BodyStatus    from './Constants/BodyStatus';
-import CollisionType from './Constants/CollisionType';
-import ScrollStatus  from './Constants/ScrollStatus';
-import IActions      from './Interfaces/IActions';
-import State         from './State';
+import ICollisionData from '../Events/Interfaces/ICollisionData';
+import BodyStatus     from './Constants/BodyStatus';
+import CollisionType  from './Constants/CollisionType';
+import ScrollStatus   from './Constants/ScrollStatus';
+import IActions       from './Interfaces/IActions';
+import State          from './State';
 
 const resolveActions = (state: State): IActions => ({
     focus(): void {
@@ -45,24 +46,42 @@ const resolveActions = (state: State): IActions => ({
         state.optionHeight = optionHeight;
     },
 
-    open(this: IActions, collision: CollisionType): void {
+    open(
+        this: IActions,
+        collisionData: ICollisionData,
+        getIsScrollableStatus: () => boolean,
+        optionHeight: number
+    ): void {
         if (state.isDisabled) return;
 
+        this.setOptionHeight(optionHeight);
         this.closeOthers();
 
-        switch (collision) {
+        state.maxVisibleOptionsOverride = collisionData.maxVisibleOptionsOverride;
+
+        switch (collisionData.type) {
             case CollisionType.NONE:
             case CollisionType.TOP:
-            state.bodyStatus = BodyStatus.OPEN_BELOW;
+                state.bodyStatus = BodyStatus.OPEN_BELOW;
 
-            break;
+                break;
             case CollisionType.BOTTOM:
-            state.bodyStatus = BodyStatus.OPEN_ABOVE;
+                state.bodyStatus = BodyStatus.OPEN_ABOVE;
 
-            break;
+                break;
         }
 
-        this.scrollToView(state);
+        window.requestAnimationFrame(() => {
+            const isScrollable = getIsScrollableStatus();
+
+            if (isScrollable && !state.isScrollable) {
+                this.makeScrollable();
+            } else if (!isScrollable && state.isScrollable) {
+                this.makeUnscrollable();
+            }
+
+            this.scrollToView(state, true);
+        });
     },
 
     close(): void {
@@ -70,7 +89,7 @@ const resolveActions = (state: State): IActions => ({
         state.focusedIndex = -1;
     },
 
-    selectOption(index: number): void {
+    selectOption(this: IActions, index: number): void {
         state.selectedIndex = index;
 
         if (state.isInvalid) {
@@ -84,10 +103,12 @@ const resolveActions = (state: State): IActions => ({
         }
     },
 
-    focusOption(index: number): void {
+    focusOption(this: IActions, index: number, shouldScrollToView: boolean = false): void {
         state.focusedIndex = index;
 
-        this.scrollToView(state);
+        if (shouldScrollToView) {
+            this.scrollToView(state);
+        }
     },
 
     search(): void {

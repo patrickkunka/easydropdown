@@ -6,6 +6,7 @@ import bindEvents          from '../Events/bindEvents';
 import EventBinding        from '../Events/EventBinding';
 import pollForSelectChange from '../Events/pollForSelectChange';
 import detectBodyCollision from '../Events/Util/detectBodyCollision';
+import detectIsScrollable  from '../Events/Util/detectIsScrollable';
 import setGeometry         from '../Events/Util/setGeometry';
 import Dom                 from '../Renderer/Dom';
 import Renderer            from '../Renderer/Renderer';
@@ -29,7 +30,7 @@ class Easydropdown {
     private timers: Timers;
 
     constructor(selectElement: HTMLSelectElement, options: IConfig) {
-        this.config = merge(new Config(), options);
+        this.config = merge(new Config(), options, true);
         this.state = StateMapper.mapFromSelect(selectElement, this.config);
         this.renderer = new Renderer(this.config.classNames);
         this.dom = this.renderer.render(this.state, selectElement);
@@ -70,7 +71,11 @@ class Easydropdown {
     }
 
     public open(): void {
-        this.actions.open(detectBodyCollision(this.dom, this.config));
+        this.actions.open(
+            detectBodyCollision(this.state, this.dom, this.config),
+            () => detectIsScrollable(this.dom),
+            this.dom.optionHeight
+        );
     }
 
     public close(): void {

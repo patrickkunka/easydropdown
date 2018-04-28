@@ -2,7 +2,7 @@ import Timers from '../../Easydropdown/Timers';
 import Dom    from '../../Renderer/Dom';
 import State  from '../../State/State';
 
-function scrollToView(dom: Dom, timers: Timers, state: State): void {
+function scrollToView(dom: Dom, timers: Timers, state: State, scrollToMiddle: boolean = false): void {
     const index = Math.max(0, state.focusedIndex > -1 ? state.focusedIndex : state.selectedIndex);
     const option = dom.option[index];
 
@@ -11,6 +11,9 @@ function scrollToView(dom: Dom, timers: Timers, state: State): void {
     const max = min + state.maxBodyHeight;
 
     let remainder: number;
+
+    // TODO: scroll to middle of body
+    console.log(scrollToMiddle);
 
     if (offsetTop < min) {
         dom.itemsList.scrollTop = offsetTop;

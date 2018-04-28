@@ -1,5 +1,6 @@
 import IHandlerParams      from '../Interfaces/IHandlerParams';
 import detectBodyCollision from '../Util/detectBodyCollision';
+import detectIsScrollable  from '../Util/detectIsScrollable';
 
 function handleSelectKeydownUp(
     {keyCode, metaKey}: KeyboardEvent,
@@ -26,7 +27,7 @@ function handleSelectKeydownUp(
             focusedIndex = config.behavior.loop ? state.totalOptions - 1 : 0;
         }
 
-        actions.focusOption(focusedIndex);
+        actions.focusOption(focusedIndex, true);
 
         iterations++;
     }
@@ -37,7 +38,11 @@ function handleSelectKeydownUp(
     );
 
     if (state.isClosed) {
-        actions.open(detectBodyCollision(dom, config));
+        actions.open(
+            detectBodyCollision(state, dom, config),
+            () => detectIsScrollable(dom),
+            dom.optionHeight
+        );
     }
 }
 

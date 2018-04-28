@@ -1,4 +1,5 @@
 TODO:
+- if an option is pre-selected, scroll to it so its on the middle
 - refresh method?
 - tests
 - demos
@@ -9,8 +10,6 @@ TODO:
 - pr closing
 - open issues
 - npm publish
-- dont jump on mouseover hover
-- fix height logic
 
 DEMOS:
 - Basic list

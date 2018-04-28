@@ -17,7 +17,7 @@ class Dom {
     public get optionHeight(): number {
         if (!this.firstOption) return -1;
 
-        return this.firstOption.clientHeight;
+        return this.firstOption.offsetHeight;
     }
 }
 

@@ -292,7 +292,11 @@
             // const select1 = document.querySelector('#test1');
             // const select2 = document.querySelector('#test2');
 
-            easydropdown.all();
+            easydropdown.all({
+                behavior: {
+                    maxVisibleOptions: 20
+                }
+            });
         </script>
     </body>
 </html>

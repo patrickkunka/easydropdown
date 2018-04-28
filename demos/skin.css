@@ -64,7 +64,7 @@ body {
     height: 13px;
     border-right: 1px solid currentColor;
     border-bottom: 1px solid currentColor;
-    top: -4px;
+    top: -5px;
     right: 0;
     transform: rotate(45deg);
     transform-origin: 50% 25%;
@@ -155,7 +155,6 @@ body {
 
 .edd-option {
     padding: .25rem .5rem;
-    transition: color 120ms;
 }
 
 .edd-option-focused:not(.edd-option-disabled):not(.edd-option-selected) {

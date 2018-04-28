@@ -1,5 +1,5 @@
-import CollisionType from '../Constants/CollisionType';
-import State         from '../State';
+import ICollisionData from '../../Events/Interfaces/ICollisionData';
+import State          from '../State';
 
 interface IActions {
     focus(): void;
@@ -10,17 +10,21 @@ interface IActions {
     bottomOut(): void;
     scroll(): void;
     setOptionHeight(optionHeight: number): void;
-    open(collision: CollisionType): void;
+    open(
+        collisionData: ICollisionData,
+        getIsScrollableStatus: () => boolean,
+        optionHeight: number
+    ): void;
     close(): void;
     makeScrollable(): void;
     makeUnscrollable(): void;
     selectOption(index: number): void;
-    focusOption(index: number): void;
+    focusOption(index: number, shouldScrollToView?: boolean): void;
     search(): void;
     resetSearch(): void;
     useNative(): void;
     closeOthers?(): void;
-    scrollToView?(stateProxy: State): void;
+    scrollToView?(stateProxy: State, scrollToMiddle?: boolean): void;
 }
 
 export default IActions;
