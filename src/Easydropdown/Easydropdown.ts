@@ -99,8 +99,9 @@ class Easydropdown {
 
         this.renderer.update(this.state, 'groups');
 
-        this.dom.group = Array.from(this.dom.body.querySelectorAll('[data-ref="group"]'));
-        this.dom.option = Array.from(this.dom.body.querySelectorAll('[data-ref="option"]'));
+        this.dom.group.length = this.dom.option.length = 0;
+
+        Renderer.queryDomRefs(this.dom, ['group', 'option']);
     }
 
     public destroy(): void {

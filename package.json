@@ -42,6 +42,7 @@
       "**/**.test.ts",
       "**/Interfaces",
       "**/Constants",
+      "bundle",
       "dist",
       "coverage"
     ],

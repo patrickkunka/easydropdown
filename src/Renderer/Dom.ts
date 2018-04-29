@@ -1,5 +1,4 @@
 class Dom {
-    public form:      HTMLFormElement   = null;
     public select:    HTMLSelectElement = null;
     public root:      HTMLDivElement    = null;
     public head:      HTMLDivElement    = null;

@@ -1,5 +1,4 @@
 import ClassNames               from '../Config/ClassNames';
-import closestParent            from '../Shared/Util/closestParent';
 import createDomElementFromHtml from '../Shared/Util/createDomElementFromHtml';
 import State                    from '../State/State';
 import root                     from './Components/root';
@@ -18,12 +17,18 @@ class Renderer {
 
     public render(state: State, selectElement: HTMLSelectElement): Dom {
         const html = root(state, this.classNames);
+        const rootElement = createDomElementFromHtml(html) as HTMLDivElement;
 
-        this.dom.root = createDomElementFromHtml(html) as HTMLDivElement;
-        this.dom.select = selectElement;
-        this.dom.form = closestParent(selectElement, 'form') as HTMLFormElement;
+        this.dom = new Dom();
+        this.dom.root = rootElement;
 
-        this.mount(selectElement);
+        this.dom.option.length = this.dom.group.length = 0;
+
+        Renderer.queryDomRefs(this.dom);
+
+        if (!this.dom.root.contains(selectElement)) {
+            this.injectSelect(selectElement);
+        }
 
         return this.dom;
     }
@@ -40,45 +45,22 @@ class Renderer {
         }
     }
 
-    public mount(selectElement: HTMLSelectElement): void {
+    public destroy(): void {
+        this.dom.select.classList.remove(this.classNames.select);
+        this.dom.root.parentElement.replaceChild(this.dom.select, this.dom.root);
+    }
+
+    private injectSelect(selectElement: HTMLSelectElement): void {
         const parent = selectElement.parentElement;
+        const tempSelect = this.dom.select;
 
         if (!parent) throw new Error('[EasyDropDown] The provided `<select>` element must exist within a document');
 
         parent.replaceChild(this.dom.root, selectElement);
+        tempSelect.parentElement.replaceChild(selectElement, tempSelect);
+        selectElement.classList.add(this.classNames.select);
 
-        Object
-            .keys(this.dom)
-            .reduce((localDom: Dom, ref: string) => {
-                const selector = `[data-ref="${ref}"]`;
-                const elements = localDom.root.querySelectorAll(selector);
-
-                if (elements.length < 1 || ref === 'root') return localDom;
-
-                const element = elements[0];
-
-                if (ref === 'select') {
-                    element.parentElement.replaceChild(selectElement, element);
-                    selectElement.className = element.className;
-
-                    return localDom;
-                }
-
-                const value = localDom[ref];
-
-                if (value === null) {
-                    localDom[ref] = element;
-                } else if (Array.isArray(value)) {
-                    Array.prototype.push.apply(value, elements);
-                }
-
-                return localDom;
-            }, this.dom);
-    }
-
-    public destroy(): void {
-        this.dom.select.classList.remove(this.classNames.select);
-        this.dom.root.parentElement.replaceChild(this.dom.select, this.dom.root);
+        this.dom.select = selectElement;
     }
 
     private syncSelectWithValue(value: string): void {
@@ -91,6 +73,27 @@ class Renderer {
         this.dom.select.value = value;
 
         this.dom.select.dispatchEvent(event);
+    }
+
+    public static queryDomRefs(dom: Dom, keys: string[] = Object.keys(dom)): Dom {
+        return keys
+            .reduce((localDom: Dom, ref: string) => {
+                const selector = `[data-ref="${ref}"]`;
+                const elements = localDom.root.querySelectorAll(selector);
+
+                if (elements.length < 1 || ref === 'root') return localDom;
+
+                const element = elements[0];
+                const value = localDom[ref];
+
+                if (value === null) {
+                    localDom[ref] = element;
+                } else if (Array.isArray(value)) {
+                    Array.prototype.push.apply(value, elements);
+                }
+
+                return localDom;
+            }, dom);
     }
 }
 
