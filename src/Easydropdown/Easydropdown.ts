@@ -1,24 +1,25 @@
 import merge from 'helpful-merge';
 
-import Config              from '../Config/Config';
-import ICallback           from '../Config/Interfaces/ICallback';
-import IConfig             from '../Config/Interfaces/IConfig';
-import bindEvents          from '../Events/bindEvents';
-import EventBinding        from '../Events/EventBinding';
-import pollForSelectChange from '../Events/pollForSelectChange';
-import detectBodyCollision from '../Events/Util/detectBodyCollision';
-import detectIsScrollable  from '../Events/Util/detectIsScrollable';
-import setGeometry         from '../Events/Util/setGeometry';
-import Dom                 from '../Renderer/Dom';
-import Renderer            from '../Renderer/Renderer';
-import closeOthers         from '../State/InjectedActions/closeOthers';
-import scrollToView        from '../State/InjectedActions/scrollToView';
-import IActions            from '../State/Interfaces/IActions';
-import State               from '../State/State';
-import StateManager        from '../State/StateManager';
-import StateMapper         from '../State/StateMapper';
-import cache               from './cache';
-import Timers              from './Timers';
+import Config                from '../Config/Config';
+import ICallback             from '../Config/Interfaces/ICallback';
+import IConfig               from '../Config/Interfaces/IConfig';
+import bindEvents            from '../Events/bindEvents';
+import EventBinding          from '../Events/EventBinding';
+import pollForSelectChange   from '../Events/pollForSelectChange';
+import pollForSelectMutation from '../Events/pollForSelectMutation';
+import detectBodyCollision   from '../Events/Util/detectBodyCollision';
+import detectIsScrollable    from '../Events/Util/detectIsScrollable';
+import setGeometry           from '../Events/Util/setGeometry';
+import Dom                   from '../Renderer/Dom';
+import Renderer              from '../Renderer/Renderer';
+import closeOthers           from '../State/InjectedActions/closeOthers';
+import scrollToView          from '../State/InjectedActions/scrollToView';
+import IActions              from '../State/Interfaces/IActions';
+import State                 from '../State/State';
+import StateManager          from '../State/StateManager';
+import StateMapper           from '../State/StateMapper';
+import cache                 from './cache';
+import Timers                from './Timers';
 
 class Easydropdown {
     public actions: IActions;
@@ -29,7 +30,6 @@ class Easydropdown {
     private eventBindings: EventBinding[];
     private renderer: Renderer;
     private timers: Timers;
-    private mutationObserver: MutationObserver;
 
     constructor(selectElement: HTMLSelectElement, options: IConfig) {
         this.config = merge(new Config(), options, true);
@@ -37,7 +37,6 @@ class Easydropdown {
         this.renderer = new Renderer(this.config.classNames);
         this.dom = this.renderer.render(this.state, selectElement);
         this.timers = new Timers();
-        this.mutationObserver = new MutationObserver(this.handleSelectMutation.bind(this));
 
         this.actions = StateManager.proxyActions(this.state, {
             closeOthers: closeOthers.bind(null, this, cache),
@@ -52,7 +51,14 @@ class Easydropdown {
             timers: this.timers
         });
 
-        this.timers.pollIntervalId = pollForSelectChange(this.dom.select, this.state, this.actions);
+        this.timers.pollChangeIntervalId = pollForSelectChange(this.dom.select, this.state, this.actions);
+
+        if (this.config.behavior.observeMutations) {
+            this.timers.pollMutationIntervalId = pollForSelectMutation(
+                this.dom.select,
+                this.refresh.bind(this)
+            );
+        }
 
         this.init();
     }
@@ -99,7 +105,6 @@ class Easydropdown {
 
     public destroy(): void {
         this.eventBindings.forEach(binding => binding.unbind());
-        this.mutationObserver.disconnect();
         this.renderer.destroy();
         this.timers.clear();
 
@@ -110,12 +115,6 @@ class Easydropdown {
 
     private init(): void {
         setGeometry(this.state, this.actions, this.dom);
-
-        this.mutationObserver.observe(this.dom.select, {
-            attributes: true,
-            childList: true,
-            subtree: true
-        });
     }
 
     private handleStateUpdate(state: State, key: keyof State): void {
@@ -143,13 +142,6 @@ class Easydropdown {
         }
 
         if (typeof cb === 'function') cb(arg);
-    }
-
-    private handleSelectMutation(mutation: MutationRecord): void {
-        this.mutationObserver.disconnect();
-
-        this.refresh();
-        this.init();
     }
 }
 

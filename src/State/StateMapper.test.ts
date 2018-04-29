@@ -1,13 +1,25 @@
 import {assert} from 'chai';
 import 'jsdom-global/register';
 
+import Config                   from '../Config/Config';
 import createDomElementFromHtml from '../Shared/Util/createDomElementFromHtml';
 import StateMapper              from './StateMapper';
 
-describe('StateMapper', () => {
+interface ITestContext {
+    config: Config;
+}
+
+describe('StateMapper', function(): void {
+    // @ts-ignore
+    const self: ITestContext = this;
+
+    before(() => {
+        self.config = new Config();
+    });
+
     it('maps a select element\'s attributes', () => {
         const select = createDomElementFromHtml(`<select name="foo" disabled/>`);
-        const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
+        const state = StateMapper.mapFromSelect(select as HTMLSelectElement, self.config);
 
         assert.equal(state.name, 'foo');
         assert.isTrue(state.isDisabled);
@@ -21,7 +33,7 @@ describe('StateMapper', () => {
             </select>
         `);
 
-        const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
+        const state = StateMapper.mapFromSelect(select as HTMLSelectElement, self.config);
 
         assert.equal(state.totalGroups, 1);
         assert.equal(state.totalOptions, 2);
@@ -45,7 +57,7 @@ describe('StateMapper', () => {
             </select>
         `);
 
-        const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
+        const state = StateMapper.mapFromSelect(select as HTMLSelectElement, self.config);
 
         assert.equal(state.value, 'baz');
     });
@@ -58,7 +70,7 @@ describe('StateMapper', () => {
             </select>
         `);
 
-        const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
+        const state = StateMapper.mapFromSelect(select as HTMLSelectElement, self.config);
 
         assert.equal(state.value, 'Baz');
     });
@@ -71,7 +83,7 @@ describe('StateMapper', () => {
             </select>
         `);
 
-        const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
+        const state = StateMapper.mapFromSelect(select as HTMLSelectElement, self.config);
 
         assert.deepEqual(state.groups[0].options[1], {
             isDisabled: true,
@@ -88,7 +100,7 @@ describe('StateMapper', () => {
             </select>
         `);
 
-        const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
+        const state = StateMapper.mapFromSelect(select as HTMLSelectElement, self.config);
 
         assert.equal(state.placeholder, 'Select');
         assert.equal(state.totalGroups, 1);
@@ -109,7 +121,7 @@ describe('StateMapper', () => {
             </select>
         `);
 
-        const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
+        const state = StateMapper.mapFromSelect(select as HTMLSelectElement, self.config);
 
         assert.equal(state.placeholder, 'Select');
         assert.equal(state.label, 'Quux');
@@ -133,7 +145,7 @@ describe('StateMapper', () => {
             </select>
         `);
 
-        const state = StateMapper.mapFromSelect(select as HTMLSelectElement);
+        const state = StateMapper.mapFromSelect(select as HTMLSelectElement, self.config);
 
         assert.equal(state.totalGroups, 3);
         assert.equal(state.totalOptions, 4);

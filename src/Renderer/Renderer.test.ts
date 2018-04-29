@@ -7,21 +7,21 @@ import Renderer   from './Renderer';
 
 describe('Renderer', () => {
     it('renders the dropdown markup structure for a given state', () => {
+        const renderer = new Renderer(new ClassNames());
         const state = new State();
-        const classNames = new ClassNames();
         const parent = document.createElement('div');
         const select = document.createElement('select');
 
         parent.appendChild(select);
 
-        const dom = Renderer.render(state, classNames, select);
+        const dom = renderer.render(state, select);
 
         assert.isOk(dom.root);
         assert.isOk(dom.head);
         assert.isOk(dom.body);
         assert.isOk(dom.itemsList);
-        assert.isNotOk(dom.groups.length);
-        assert.isNotOk(dom.options.length);
+        assert.isNotOk(dom.group.length);
+        assert.isNotOk(dom.option.length);
         assert.equal(select, dom.select);
     });
 });

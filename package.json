@@ -21,7 +21,7 @@
     "bundle:watch": "npm run bundle:build -- --watch",
     "bundle:build": "webpack --config ./config/webpack.config.ts",
     "prepublishOnly": "npm run test && npm run build",
-    "cover": "nyc mocha ./test/unit.ts",
+    "cover": "nyc mocha './src/**/*.ts'",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "nyc": {

@@ -1,5 +1,6 @@
 class Timers {
-    public pollIntervalId: number;
+    public pollChangeIntervalId: number;
+    public pollMutationIntervalId: number;
     public searchTimoutId: number;
     public scrollTimeoutId: number;
 
