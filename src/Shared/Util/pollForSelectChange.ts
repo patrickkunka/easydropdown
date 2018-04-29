@@ -1,5 +1,5 @@
-import IActions from '../State/Interfaces/IActions';
-import State    from '../State/State';
+import IActions from '../../State/Interfaces/IActions';
+import State    from '../../State/State';
 
 const POLL_INTERVAL_DURATION = 100;
 

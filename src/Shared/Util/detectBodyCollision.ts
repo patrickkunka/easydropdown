@@ -1,8 +1,8 @@
 import Config         from '../../Config/Config';
 import Dom            from '../../Renderer/Dom';
-import CollisionType  from '../../State/Constants/CollisionType';
 import State          from '../../State/State';
-import ICollisionData from '../Interfaces/ICollisionData';
+import CollisionType  from './Constants/CollisionType';
+import ICollisionData from './Interfaces/ICollisionData';
 
 function detectBodyCollision(state: State, dom: Dom, config: Config): ICollisionData {
     const bbHead = dom.head.getBoundingClientRect();

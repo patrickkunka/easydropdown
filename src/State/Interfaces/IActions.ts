@@ -1,4 +1,4 @@
-import ICollisionData from '../../Events/Interfaces/ICollisionData';
+import ICollisionData from '../../Shared/Util/Interfaces/ICollisionData';
 import State          from '../State';
 
 interface IActions {

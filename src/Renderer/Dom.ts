@@ -2,7 +2,7 @@ class Dom {
     public select:    HTMLSelectElement = null;
     public root:      HTMLDivElement    = null;
     public head:      HTMLDivElement    = null;
-    public label:     HTMLDivElement    = null;
+    public value:     HTMLDivElement    = null;
     public body:      HTMLDivElement    = null;
     public arrow:     HTMLDivElement    = null;
     public itemsList: HTMLDivElement    = null;

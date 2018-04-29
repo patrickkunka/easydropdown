@@ -1,24 +1,39 @@
 import {assert} from 'chai';
+import merge    from 'helpful-merge';
 import 'jsdom-global/register';
 
-import ClassNames from '../Config/ClassNames';
-import BodyStatus from '../State/Constants/BodyStatus';
-import State      from '../State/State';
-import Renderer   from './Renderer';
+import ClassNames   from '../Config/ClassNames';
+import Config       from '../Config/Config';
+import IConfig      from '../Config/Interfaces/IConfig';
+import BodyStatus   from '../State/Constants/BodyStatus';
+import ScrollStatus from '../State/Constants/ScrollStatus';
+import State        from '../State/State';
+import StateMapper  from '../State/StateMapper';
+import Renderer     from './Renderer';
 
 const createSelect = (): HTMLSelectElement => {
     const parent = document.createElement('div');
-    const select = document.createElement('select');
 
-    parent.appendChild(select);
+    parent.innerHTML = (`
+        <select name="test">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+    `);
 
-    return select;
+    return parent.firstElementChild as HTMLSelectElement;
+};
+
+const createState = (select: HTMLSelectElement, options: IConfig = {}): State => {
+    const config = merge(new Config(), options, true);
+
+    return StateMapper.mapFromSelect(select, config);
 };
 
 interface ITestContext {
     classNames: ClassNames;
     renderer: Renderer;
-    createSelect: () => HTMLSelectElement;
 }
 
 describe('Renderer', function(): void {
@@ -28,11 +43,10 @@ describe('Renderer', function(): void {
     before(() => {
         self.classNames = new ClassNames();
         self.renderer = new Renderer(self.classNames);
-        self.createSelect = createSelect;
     });
 
     it('renders the dropdown markup structure for a given state', () => {
-        const select = self.createSelect();
+        const select = createSelect();
         const dom = self.renderer.render(new State(), select);
 
         assert.isOk(dom.root);
@@ -42,75 +56,258 @@ describe('Renderer', function(): void {
         assert.isNotOk(dom.group.length);
         assert.isNotOk(dom.option.length);
         assert.equal(select, dom.select);
+
+        assert.isTrue(dom.root.classList.contains(self.classNames.root));
     });
 
-    it('renders a "disabled" class for a disabled state', () => {
-        const select = self.createSelect();
-        const state = new State();
+    it('renders the appropriate markup for `state.isDisabled`', () => {
+        const select = createSelect();
+        const state = createState(select);
 
         state.isDisabled = true;
 
         const dom = self.renderer.render(state, select);
 
-        assert.isOk(dom.root.classList.contains(self.classNames.rootDisabled));
+        assert.isTrue(dom.root.classList.contains(self.classNames.rootDisabled));
     });
 
-    it('renders an "invalid" class for an invalid state', () => {
-        const select = self.createSelect();
-        const state = new State();
+    it('renders the appropriate markup for `state.isInvalid`', () => {
+        const select = createSelect();
+        const state = createState(select);
 
         state.isInvalid = true;
 
         const dom = self.renderer.render(state, select);
 
-        assert.isOk(dom.root.classList.contains(self.classNames.rootInvalid));
+        assert.isTrue(dom.root.classList.contains(self.classNames.rootInvalid));
     });
 
-    it('renders an "open" class for an open above state', () => {
-        const select = self.createSelect();
-        const state = new State();
+    it('renders the appropriate markup for a `state.bodyStatus` of `OPEN_ABOVE`', () => {
+        const select = createSelect();
+        const state = createState(select);
 
         state.bodyStatus = BodyStatus.OPEN_ABOVE;
 
         const dom = self.renderer.render(state, select);
 
-        assert.isOk(dom.root.classList.contains(self.classNames.rootOpen));
-        assert.isOk(dom.root.classList.contains(self.classNames.rootOpenAbove));
+        assert.isTrue(dom.root.classList.contains(self.classNames.rootOpen));
+        assert.isTrue(dom.root.classList.contains(self.classNames.rootOpenAbove));
     });
 
-    it('renders an "open" class for an open below state', () => {
-        const select = self.createSelect();
-        const state = new State();
+    it('renders the appropriate markup for a `state.bodyStatus` of `OPEN_BELOW`', () => {
+        const select = createSelect();
+        const state = createState(select);
 
         state.bodyStatus = BodyStatus.OPEN_BELOW;
 
         const dom = self.renderer.render(state, select);
 
-        assert.isOk(dom.root.classList.contains(self.classNames.rootOpen));
-        assert.isOk(dom.root.classList.contains(self.classNames.rootOpenBelow));
+        assert.isTrue(dom.root.classList.contains(self.classNames.rootOpen));
+        assert.isTrue(dom.root.classList.contains(self.classNames.rootOpenBelow));
     });
 
-    it('renders a "focussed" class for a focussed state', () => {
-        const select = self.createSelect();
-        const state = new State();
+    it('renders the appropriate markup for `state.isFocused`', () => {
+        const select = createSelect();
+        const state = createState(select);
 
         state.isFocused = true;
 
         const dom = self.renderer.render(state, select);
 
-        assert.isOk(dom.root.classList.contains(self.classNames.rootFocused));
+        assert.isTrue(dom.root.classList.contains(self.classNames.rootFocused));
     });
 
-    it('renders a "hasValue" class for a has value state', () => {
-        const select = self.createSelect();
-        const state = new State();
+    it('renders the appropriate markup for a state with a selected value', () => {
+        const select = createSelect();
+        const state = createState(select);
 
-        state.selectedIndex = 3;
-
-        // TODO: add some options
+        state.selectedIndex = 2;
 
         const dom = self.renderer.render(state, select);
 
-        assert.isOk(dom.root.classList.contains(self.classNames.rootFocused));
+        assert.isTrue(dom.root.classList.contains(self.classNames.rootHasValue));
+    });
+
+    it('renders the appropriate markup for "use native mode"', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        state.isUseNativeMode = true;
+
+        const dom = self.renderer.render(state, select);
+
+        assert.isTrue(dom.root.classList.contains(self.classNames.rootUseNative));
+        assert.isNotOk(dom.body);
+    });
+
+    it('renders the selected in the `value` element', () => {
+        const select = createSelect();
+        const state = createState(select);
+        const dom = self.renderer.render(state, select);
+
+        assert.isTrue(dom.value.textContent.includes('A'));
+    });
+
+    it(
+        'renders the placeholder value in the `value` element, when ' +
+        'open and when configured to do so',
+        () => {
+            const select = createSelect();
+            const state = createState(select, {
+                behavior: {
+                    showPlaceholderWhenOpen: true
+                }
+            });
+
+            state.placeholder = 'foo';
+            state.bodyStatus = BodyStatus.OPEN_ABOVE;
+
+            const dom = self.renderer.render(state, select);
+
+            assert.isTrue(dom.value.textContent.includes('foo'));
+        }
+    );
+
+    it('renders the appropriate markup for a `state.scrollStatus` of `AT_TOP`', () => {
+        const select = createSelect();
+        const state = createState(select);
+        const dom = self.renderer.render(state, select);
+
+        assert.isTrue(dom.body.classList.contains(self.classNames.bodyAtTop));
+    });
+
+    it('renders the appropriate markup for a `state.scrollStatus` of `AT_BOTTOM`', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        state.scrollStatus = ScrollStatus.AT_BOTTOM;
+
+        const dom = self.renderer.render(state, select);
+
+        assert.isTrue(dom.body.classList.contains(self.classNames.bodyAtBottom));
+    });
+
+    it('renders the appropriate markup for `state.isScrollable`', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        state.isScrollable = true;
+
+        const dom = self.renderer.render(state, select);
+
+        assert.isTrue(dom.body.classList.contains(self.classNames.bodyScrollable));
+    });
+
+    it('renders a `max-height` style attribute when the body is open', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        state.bodyStatus = BodyStatus.OPEN_BELOW;
+
+        const dom = self.renderer.render(state, select);
+
+        assert.isTrue(dom.itemsList.classList.contains(self.classNames.itemsList));
+        assert.isTrue(dom.itemsList.hasAttribute('style'));
+        assert.isTrue(dom.itemsList.getAttribute('style').includes('max-height'));
+    });
+
+    it('renders a single group by default', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        const dom = self.renderer.render(state, select);
+
+        assert.equal(dom.group.length, 1);
+
+        assert.isTrue(dom.group[0].classList.contains(self.classNames.group));
+    });
+
+    it('renders a single group by default', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        const dom = self.renderer.render(state, select);
+
+        assert.equal(dom.group.length, 1);
+    });
+
+    it('renders the appropriate markup for `group.isDisabled`', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        state.groups[0].isDisabled = true;
+
+        const dom = self.renderer.render(state, select);
+
+        assert.isTrue(dom.group[0].classList.contains(self.classNames.groupDisabled));
+    });
+
+    it('renders the appropriate markup for `group.hasLabel`', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        state.groups[0].label = 'foo';
+
+        const dom = self.renderer.render(state, select);
+
+        assert.isTrue(dom.group[0].classList.contains(self.classNames.groupHasLabel));
+    });
+
+    it('renders an option element for each option nested in a group', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        const dom = self.renderer.render(state, select);
+
+        assert.equal(dom.option.length, 3);
+        assert.isTrue(dom.option[0].classList.contains(self.classNames.option));
+    });
+
+    it('renders the appropriate markup for a selected option', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        state.selectedIndex = 0;
+
+        const dom = self.renderer.render(state, select);
+
+        const firstOption = dom.option[0];
+
+        assert.isTrue(firstOption.classList.contains(self.classNames.optionSelected));
+    });
+
+    it('renders the appropriate markup for a focused option', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        state.focusedIndex = 0;
+
+        const dom = self.renderer.render(state, select);
+
+        const firstOption = dom.option[0];
+
+        assert.isTrue(firstOption.classList.contains(self.classNames.optionFocused));
+    });
+
+    it('renders the appropriate markup for `option.isDisabled`', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        state.groups[0].options[0].isDisabled = true;
+
+        const dom = self.renderer.render(state, select);
+
+        const firstOption = dom.option[0];
+
+        assert.isTrue(firstOption.classList.contains(self.classNames.optionDisabled));
+    });
+
+    it('renders an option\'s label', () => {
+        const select = createSelect();
+        const state = createState(select);
+        const dom = self.renderer.render(state, select);
+        const firstOption = dom.option[0];
+
+        assert.isTrue(firstOption.textContent.includes('A'));
     });
 });

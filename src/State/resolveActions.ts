@@ -1,6 +1,6 @@
-import ICollisionData from '../Events/Interfaces/ICollisionData';
+import CollisionType  from '../Shared/Util/Constants/CollisionType';
+import ICollisionData from '../Shared/Util/Interfaces/ICollisionData';
 import BodyStatus     from './Constants/BodyStatus';
-import CollisionType  from './Constants/CollisionType';
 import ScrollStatus   from './Constants/ScrollStatus';
 import IActions       from './Interfaces/IActions';
 import State          from './State';
@@ -52,6 +52,8 @@ const resolveActions = (state: State): IActions => ({
         getIsScrollableStatus: () => boolean,
         optionHeight: number
     ): void {
+        console.log('open!');
+
         if (state.isDisabled) return;
 
         this.setOptionHeight(optionHeight);

@@ -47,7 +47,10 @@ class Renderer {
 
     public destroy(): void {
         this.dom.select.classList.remove(this.classNames.select);
-        this.dom.root.parentElement.replaceChild(this.dom.select, this.dom.root);
+
+        try {
+            this.dom.root.parentElement.replaceChild(this.dom.select, this.dom.root);
+        } catch (err) { /**/ }
     }
 
     private injectSelect(selectElement: HTMLSelectElement): void {
@@ -57,6 +60,7 @@ class Renderer {
         if (!parent) throw new Error('[EasyDropDown] The provided `<select>` element must exist within a document');
 
         parent.replaceChild(this.dom.root, selectElement);
+
         tempSelect.parentElement.replaceChild(selectElement, tempSelect);
         selectElement.classList.add(this.classNames.select);
 

@@ -70,7 +70,7 @@ class State {
         if (
             !this.hasValue ||
             (
-                this.config.behavior.showPlaceholderOnOpen &&
+                this.config.behavior.showPlaceholderWhenOpen &&
                 this.hasPlaceholder &&
                 this.isOpen
             )

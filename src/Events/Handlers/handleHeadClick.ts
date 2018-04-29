@@ -1,6 +1,6 @@
+import detectBodyCollision from '../../Shared/Util/detectBodyCollision';
+import detectIsScrollable  from '../../Shared/Util/detectIsScrollable';
 import IHandlerParams      from '../Interfaces/IHandlerParams';
-import detectBodyCollision from '../Util/detectBodyCollision';
-import detectIsScrollable  from '../Util/detectIsScrollable';
 
 function handleHeadClick(e: MouseEvent, {state, actions, dom, config}: IHandlerParams): void {
     if (state.isUseNativeMode) return;

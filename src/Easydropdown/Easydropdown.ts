@@ -5,13 +5,13 @@ import ICallback             from '../Config/Interfaces/ICallback';
 import IConfig               from '../Config/Interfaces/IConfig';
 import bindEvents            from '../Events/bindEvents';
 import EventBinding          from '../Events/EventBinding';
-import pollForSelectChange   from '../Events/pollForSelectChange';
-import pollForSelectMutation from '../Events/pollForSelectMutation';
-import detectBodyCollision   from '../Events/Util/detectBodyCollision';
-import detectIsScrollable    from '../Events/Util/detectIsScrollable';
-import setGeometry           from '../Events/Util/setGeometry';
 import Dom                   from '../Renderer/Dom';
 import Renderer              from '../Renderer/Renderer';
+import detectBodyCollision   from '../Shared/Util/detectBodyCollision';
+import detectIsScrollable    from '../Shared/Util/detectIsScrollable';
+import pollForSelectChange   from '../Shared/Util/pollForSelectChange';
+import pollForSelectMutation from '../Shared/Util/pollForSelectMutation';
+import setGeometry           from '../Shared/Util/setGeometry';
 import closeOthers           from '../State/InjectedActions/closeOthers';
 import scrollToView          from '../State/InjectedActions/scrollToView';
 import IActions              from '../State/Interfaces/IActions';
@@ -105,9 +105,9 @@ class Easydropdown {
     }
 
     public destroy(): void {
+        this.timers.clear();
         this.eventBindings.forEach(binding => binding.unbind());
         this.renderer.destroy();
-        this.timers.clear();
 
         const cacheIndex = cache.indexOf(this);
 

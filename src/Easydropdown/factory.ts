@@ -20,11 +20,13 @@ function factory(
 
     for (const cachedInstance of cache) {
         if (cachedInstance.selectElement === selectElement) {
-            return cachedInstance;
+            return new EasydropdownFacade(cachedInstance);
         }
     }
 
     const instance = new Easydropdown(selectElement, options);
+
+    // @ts-ignore
 
     cache.push(instance);
 
@@ -35,7 +37,11 @@ function decorateFactory(factoryFn: any): IFactory {
     factoryFn.all = (options: IConfig = {}) => {
         const selects = document.querySelectorAll('select');
 
-        Array.prototype.forEach.call(selects, select => factory(select, options));
+        Array.prototype.forEach.call(selects, select => {
+            const instance = factory(select, options);
+
+            return instance;
+        });
     };
 
     factoryFn.destroy = () => {

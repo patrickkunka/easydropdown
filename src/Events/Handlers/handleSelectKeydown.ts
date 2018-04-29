@@ -1,7 +1,7 @@
+import detectBodyCollision     from '../../Shared/Util/detectBodyCollision';
+import detectIsScrollable      from '../../Shared/Util/detectIsScrollable';
 import * as KeyCodes           from '../Constants/Keycodes';
 import IHandlerParams          from '../Interfaces/IHandlerParams';
-import detectBodyCollision     from '../Util/detectBodyCollision';
-import detectIsScrollable      from '../Util/detectIsScrollable';
 import handleSelectKeydownDown from './handleSelectKeydownDown';
 import handleSelectKeydownUp   from './handleSelectKeydownUp';
 

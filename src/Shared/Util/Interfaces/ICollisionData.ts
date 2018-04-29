@@ -1,4 +1,4 @@
-import CollisionType from '../../State/Constants/CollisionType';
+import CollisionType from '../Constants/CollisionType';
 
 interface ICollisionData {
     type: CollisionType;

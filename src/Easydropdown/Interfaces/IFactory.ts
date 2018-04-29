@@ -4,7 +4,7 @@ import EasydropdownFacade from '../EasydropdownFacade';
 interface IFactory {
     (
         selectElementOrSelector: (HTMLSelectElement|string),
-        options: IConfig
+        options?: IConfig
     ): EasydropdownFacade;
     all(): void;
     destroy(): void;
