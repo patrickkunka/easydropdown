@@ -1,7 +1,4 @@
 TODO:
-- if an option is pre-selected, scroll to it so its on the middle
-- refresh method?
-- tests
 - demos
 - docs
 - polyfill/browser testing
