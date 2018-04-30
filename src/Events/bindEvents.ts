@@ -26,4 +26,7 @@ function bindEvents(handlerParams: IHandlerParams): EventBinding[] {
     return getEventsList(handlerParams.dom).map(bindEvent.bind(null, handlerParams));
 }
 
-export default bindEvents;
+export {
+    bindEvents as default,
+    bindEvent
+};
