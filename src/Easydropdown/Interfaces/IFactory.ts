@@ -6,7 +6,7 @@ interface IFactory {
         selectElementOrSelector: (HTMLSelectElement|string),
         options?: IConfig
     ): EasydropdownFacade;
-    all(): void;
+    all(options?: IConfig): void;
     destroy(): void;
 }
 

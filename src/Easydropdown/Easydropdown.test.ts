@@ -2,17 +2,27 @@ import {assert} from 'chai';
 import 'jsdom-global/register';
 import {spy} from 'sinon';
 
-import Easydropdown from './Easydropdown';
+import Easydropdown  from './Easydropdown';
 
 const createSelect = () => {
     const parent = document.createElement('div');
 
-    parent.innerHTML = `<select></select>`;
+    parent.innerHTML = (`
+        <select>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+    `);
 
     return parent.firstElementChild as HTMLSelectElement;
 };
 
 describe('Easydropdown', () => {
+    before(() => {
+        window.requestAnimationFrame = setTimeout;
+    });
+
     it('polls for mutations on the provided select element, if configured to do so', async () => {
         const select = createSelect();
 
@@ -33,6 +43,34 @@ describe('Easydropdown', () => {
         assert.isTrue(edd.state.isDisabled);
 
         edd.destroy();
+    });
+
+    it('invokes consumer callbacks on state change', () => {
+        const select = createSelect();
+
+        const onOpenSpy = spy();
+        const onCloseSpy = spy();
+        const onSelectSpy = spy();
+
+        const edd = new Easydropdown(select, {
+            callbacks: {
+                onOpen: onOpenSpy,
+                onClose: onCloseSpy,
+                onSelect: onSelectSpy
+            }
+        });
+
+        edd.actions.selectOption(1);
+
+        assert.isTrue(onSelectSpy.calledWith('B'));
+
+        edd.open();
+
+        assert.isTrue(onOpenSpy.called);
+
+        edd.actions.close();
+
+        assert.isTrue(onCloseSpy.called);
     });
 
     describe('.open()', () => {

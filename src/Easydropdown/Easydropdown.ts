@@ -130,7 +130,7 @@ class Easydropdown {
             case 'bodyStatus':
                 if (state.isOpen) {
                     cb = callbacks.onOpen;
-                } else if (state.isClosed) {
+                } else {
                     cb = callbacks.onClose;
                 }
 

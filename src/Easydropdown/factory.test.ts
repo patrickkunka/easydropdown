@@ -75,6 +75,21 @@ describe('factory', () => {
 
             assert.equal(cache.length, cacheSize + 1);
         });
+
+        it('applies provided configuration to all instances', () => {
+            const select = document.createElement('select');
+
+            document.body.appendChild(select);
+
+            factory.all({
+                behavior: {
+                    clampMaxVisibleOptions: true
+                }
+            });
+
+            // @ts-ignore
+            assert.isTrue(cache[0].config.behavior.clampMaxVisibleOptions);
+        });
     });
 
     describe('#destroy()', () => {
