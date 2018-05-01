@@ -1,9 +1,9 @@
 function throttle(
-    handler: (e: Event) => void,
+    handler: (...args: any[]) => void,
     delay: number
-): (e: Event) => void {
+): (...args: any[]) => void {
     let timerId = null;
-    let last: number;
+    let last: number = -Infinity;
 
     return function(...args): void {
         const now = Date.now();
@@ -16,11 +16,11 @@ function throttle(
             last = now;
         };
 
-        if (timerId === null) {
+        const difference = now - last;
+
+        if (difference >= delay) {
             later();
         } else {
-            const difference = now - last;
-
             clearTimeout(timerId);
 
             timerId = setTimeout(later, delay - difference);

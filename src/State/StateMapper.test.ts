@@ -151,4 +151,50 @@ describe('StateMapper', function(): void {
         assert.equal(state.totalOptions, 4);
         assert.equal(state.selectedIndex, 3);
     });
+
+    it('throws a `TypeError` if an invalid child element is contained in the select', () => {
+        const select = createDomElementFromHtml(`
+            <select name="foo">
+                <optgroup label="bar">
+                    <option>Baz</option>
+                </optgroup>
+                <option>Corge</option>
+            </select>
+        `);
+
+        select.appendChild(document.createElement('div'));
+
+        assert.throws(() => StateMapper.mapFromSelect(select as HTMLSelectElement, self.config), TypeError, /DIV/);
+    });
+
+    describe('StateMapper.mapOption()', () => {
+        it('throws a `TypeError` if an invalid `<option>` element is provided', () => {
+            // @ts-ignore
+            assert.throws(() => StateMapper.mapOption('foo'), TypeError);
+        });
+
+        it('maps the `textContent` of an option to its `value` if value not explicitally set', () => {
+            const option = document.createElement('option');
+
+            option.textContent = 'foo';
+
+            // @ts-ignore
+            const mappedOption = StateMapper.mapOption(option);
+
+            assert.equal(mappedOption.value, 'foo');
+        });
+    });
+
+    describe('StateMapper.isMobilePlatform()', () => {
+        it('returns `true` if the user agent matches a known mobile device', () => {
+            // @ts-ignore
+            assert(StateMapper.isMobilePlatform('iphone'), true);
+            // @ts-ignore
+            assert(StateMapper.isMobilePlatform('android'), true);
+            // @ts-ignore
+            assert(StateMapper.isMobilePlatform('Windows Phone'), true);
+            // @ts-ignore
+            assert(StateMapper.isMobilePlatform('opera mini'), true);
+        });
+    });
 });

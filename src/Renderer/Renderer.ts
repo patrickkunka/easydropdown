@@ -26,9 +26,7 @@ class Renderer {
 
         Renderer.queryDomRefs(this.dom);
 
-        if (!this.dom.root.contains(selectElement)) {
-            this.injectSelect(selectElement);
-        }
+        this.injectSelect(selectElement);
 
         return this.dom;
     }

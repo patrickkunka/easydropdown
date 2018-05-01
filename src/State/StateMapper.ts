@@ -11,7 +11,7 @@ class StateMapper {
 
         state.name = selectElement.name;
         state.isDisabled = selectElement.disabled;
-        state.isUseNativeMode = StateMapper.isMobilePlatform;
+        state.isUseNativeMode = StateMapper.isMobilePlatform(window.navigator.userAgent);
 
         for (let i = 0, child: Element; (child = selectElement.children[i]); i++) {
             if (i === 0 && child.getAttribute('data-placeholder') !== null) {
@@ -48,6 +48,10 @@ class StateMapper {
                 }
 
                 isWithinGroup = false;
+            } else {
+                throw new TypeError(
+                    `[EasyDropDown] Invalid child tag "${child.tagName}" found in provided \`<select>\` element`
+                );
             }
         }
 
@@ -68,13 +72,12 @@ class StateMapper {
 
         return Object.assign(new Option(), {
             label: option.textContent,
-            value: option.value || option.textContent,
+            value: option.value,
             isDisabled: option.disabled || isParentGroupDisabled
         });
     }
 
-    private static get isMobilePlatform(): boolean {
-        const {userAgent} = window.navigator;
+    private static isMobilePlatform(userAgent: string): boolean {
         const isIos = /(ipad|iphone|ipod)/gi.test(userAgent);
         const isAndroid = /android/gi.test(userAgent);
         const isOperaMini = /opera mini/gi.test(userAgent);

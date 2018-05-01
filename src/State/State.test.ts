@@ -1,6 +1,7 @@
 import * as chai from 'chai';
 
-import State from './State';
+import Config from '../Config/Config';
+import State  from './State';
 
 const {assert} = chai;
 
@@ -27,6 +28,14 @@ describe('State', () => {
             const state = new State(createMockState());
 
             assert.equal(state.totalOptions, 4);
+        });
+    });
+
+    describe('get label()', () => {
+        it('returns an empty string if no selected option', () => {
+            const state = new State(createMockState());
+
+            assert.equal(state.label, '');
         });
     });
 
@@ -75,6 +84,46 @@ describe('State', () => {
             const state = new State(mockState);
 
             assert.isTrue(state.isGrouped);
+        });
+    });
+
+    describe('get maxBodyHeight()', () => {
+        it('returns `state.optionHeight` multiplied by `config.behavior.maxVisibleOptions`', () => {
+            const defaultMaxVisible = new Config().behavior.maxVisibleOptions;
+            const state = new State(createMockState());
+
+            state.optionHeight = 10;
+
+            assert.equal(state.maxBodyHeight, state.optionHeight * defaultMaxVisible);
+        });
+
+        it('cannot return a negative value', () => {
+            const state = new State(createMockState());
+
+            state.optionHeight = -1;
+
+            assert.equal(state.maxBodyHeight, 0);
+        });
+
+        it('applies a clamp to `maxVisibleOptions` if an override is present and if configured to do so', () => {
+            const config = new Config();
+
+            config.behavior.clampMaxVisibleOptions = true;
+
+            const state = new State(createMockState(), config);
+
+            state.optionHeight = 10;
+            state.maxVisibleOptionsOverride = 5;
+
+            assert.equal(state.maxBodyHeight, state.optionHeight * state.maxVisibleOptionsOverride);
+        });
+    });
+
+    describe('getOptionIndexFromValue', () => {
+        it('returns `-1` by default', () => {
+            const state = new State();
+
+            assert.equal(state.getOptionIndexFromValue('foo'), -1);
         });
     });
 });

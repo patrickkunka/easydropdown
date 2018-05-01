@@ -1,6 +1,8 @@
+import 'jsdom-global/register';
+
 import {assert} from 'chai';
 import merge    from 'helpful-merge';
-import 'jsdom-global/register';
+import {spy}    from 'sinon';
 
 import ClassNames   from '../Config/ClassNames';
 import Config       from '../Config/Config';
@@ -10,6 +12,7 @@ import ScrollStatus from '../State/Constants/ScrollStatus';
 import State        from '../State/State';
 import StateMapper  from '../State/StateMapper';
 import Renderer     from './Renderer';
+import Dom from './Dom';
 
 const createSelect = (): HTMLSelectElement => {
     const parent = document.createElement('div');
@@ -58,6 +61,15 @@ describe('Renderer', function(): void {
         assert.equal(select, dom.select);
 
         assert.isTrue(dom.root.classList.contains(self.classNames.root));
+    });
+
+    it('can be called multiple times without malforming the returned object', () => {
+        const select = createSelect();
+
+        let dom = self.renderer.render(new State(), select);
+        dom = self.renderer.render(new State(), select);
+
+        assert.isTrue(dom.root.contains(dom.select));
     });
 
     it('renders the appropriate markup for `state.isDisabled`', () => {
@@ -309,5 +321,67 @@ describe('Renderer', function(): void {
         const firstOption = dom.option[0];
 
         assert.isTrue(firstOption.textContent.includes('A'));
+    });
+
+    describe('.injectSelect()', () => {
+        it('throws a `TypeError` if the provided select is not attached to a parent', () => {
+            const select = document.createElement('select');
+
+            // @ts-ignore
+            assert.throws(() => self.renderer.injectSelect(select), Error);
+        });
+    });
+
+    describe('.syncSelectWithValue()', () => {
+        it('sets the `value` of the provided select, and emits a change event', () => {
+            const select = createSelect();
+            const changeSpy = spy();
+
+            select.addEventListener('change', changeSpy);
+
+            self.renderer.dom.select = select;
+
+            // @ts-ignore
+            self.renderer.syncSelectWithValue('C');
+
+            assert.isTrue(changeSpy.called);
+            assert.equal(select.value, 'C');
+        });
+
+        it('emits no change event, if the value is unchanged', () => {
+            const select = createSelect();
+            const changeSpy = spy();
+
+            select.addEventListener('change', changeSpy);
+
+            self.renderer.dom.select = select;
+
+            select.value = 'C';
+
+            // @ts-ignore
+            self.renderer.syncSelectWithValue('C');
+
+            assert.isFalse(changeSpy.called);
+        });
+    });
+
+    describe('Renderer.queryDomRefs()', () => {
+        it('silently handles values in the provided `Dom` instance that are not null or empty arrays', () => {
+            const dom = new Dom();
+            const arrow = document.createElement('div');
+
+            arrow.setAttribute('data-ref', 'arrow');
+
+            const root = document.createElement('div');
+
+            root.appendChild(arrow);
+
+            dom.root = root;
+            dom.arrow = undefined;
+
+            Renderer.queryDomRefs(dom);
+
+            assert.isOk(true);
+        });
     });
 });

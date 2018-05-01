@@ -52,8 +52,6 @@ const resolveActions = (state: State): IActions => ({
         getIsScrollableStatus: () => boolean,
         optionHeight: number
     ): void {
-        console.log('open!');
-
         if (state.isDisabled) return;
 
         this.setOptionHeight(optionHeight);
