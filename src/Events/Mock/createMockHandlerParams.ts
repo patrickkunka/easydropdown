@@ -18,6 +18,7 @@ const createMockHandlerParams = (): IHandlerParams => {
     dom.select = document.createElement('select');
 
     actions.closeOthers = () => void 0;
+    actions.scrollToView = () => void 0;
 
     return {
         actions,

@@ -16,6 +16,18 @@ describe('handleSelectKeypress()', () => {
         assert.isTrue(searchSpy.called);
     });
 
+    it('aborts if `state.isUseNativeMode` is set', () => {
+        const params = createMockHandlerParams();
+        const mockEvent = createMockEvent();
+        const searchSpy = spy(params.actions, 'search');
+
+        params.state.isUseNativeMode = true;
+
+        handleSelectKeypress(mockEvent, params);
+
+        assert.isFalse(searchSpy.called);
+    });
+
     it('resets the search timer', () => {
         const clearTimeoutStub = stub(window, 'clearTimeout');
         const params = createMockHandlerParams();

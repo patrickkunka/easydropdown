@@ -43,6 +43,7 @@
       "**/**.test.ts",
       "**/Interfaces",
       "**/Constants",
+      "**/Mock",
       "bundle",
       "dist",
       "coverage"

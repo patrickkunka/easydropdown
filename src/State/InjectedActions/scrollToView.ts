@@ -2,26 +2,42 @@ import Timers from '../../Easydropdown/Timers';
 import Dom    from '../../Renderer/Dom';
 import State  from '../../State/State';
 
-function scrollToView(dom: Dom, timers: Timers, state: State, scrollToMiddle: boolean = false): void {
-    const index = Math.max(0, state.focusedIndex > -1 ? state.focusedIndex : state.selectedIndex);
-    const option = dom.option[index];
-
-    const {offsetTop, offsetHeight} = option;
-    const min = dom.itemsList.scrollTop;
-    const max = min + state.maxBodyHeight;
-    const offset = scrollToMiddle ? (state.maxBodyHeight / 2) - (offsetHeight / 2) : 0;
+function getScrollTop(
+    currentScrollTop: number,
+    optionOffsetTop: number,
+    optionHeight: number,
+    bodyHeight: number,
+    scrollOffset: number
+): number {
+    const max = currentScrollTop + bodyHeight;
 
     let remainder: number;
 
-    if (offsetTop < min) {
-        dom.itemsList.scrollTop = offsetTop - offset;
-    } else if ((remainder = (offsetTop + offsetHeight) - max) > 0) {
-        const scrollTop = dom.itemsList.scrollTop + remainder + offset;
-
-        dom.itemsList.scrollTop = scrollTop;
-    } else {
-        return;
+    if (optionOffsetTop < currentScrollTop) {
+        return optionOffsetTop - scrollOffset;
+    } else if ((remainder = (optionOffsetTop + optionHeight) - max) > 0) {
+        return currentScrollTop + remainder + scrollOffset;
     }
+
+    return currentScrollTop;
+}
+
+function scrollToView(dom: Dom, timers: Timers, state: State, scrollToMiddle: boolean = false): void {
+    const index = Math.max(0, state.focusedIndex > -1 ? state.focusedIndex : state.selectedIndex);
+    const option = dom.option[index];
+    const offset = scrollToMiddle ? (state.maxBodyHeight / 2) - (option.offsetHeight / 2) : 0;
+
+    const scrollTop = getScrollTop(
+        dom.itemsList.scrollTop,
+        option.offsetTop,
+        option.offsetHeight,
+        state.maxBodyHeight,
+        offset
+    );
+
+    if (scrollTop === dom.itemsList.scrollTop) return;
+
+    dom.itemsList.scrollTop = scrollTop;
 
     state.isScrollingToView = true;
 
@@ -30,4 +46,7 @@ function scrollToView(dom: Dom, timers: Timers, state: State, scrollToMiddle: bo
     timers.scrollTimeoutId = window.setTimeout(() => state.isScrollingToView = false, 100);
 }
 
-export default scrollToView;
+export {
+    getScrollTop,
+    scrollToView as default
+};
