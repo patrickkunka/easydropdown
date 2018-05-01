@@ -1,6 +1,5 @@
 TODO:
-- include border in select height
-- skip selected option when keying
+- double check collision geometry
 - demos
 - docs
 - polyfill/browser testing
