@@ -5,15 +5,26 @@
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <link href="./skin.css" rel="stylesheet"/>
+        <link href="./themes/ivy.css" rel="stylesheet"/>
+
+        <style>
+            body {
+                padding: 1rem;
+                box-sizing: border-box;
+            }
+
+            .edd {
+                margin: 0 16px 16px;
+            }
+        </style>
     </head>
     <body>
         <form>
-            <select id="test1">
+            <select id="test1" required>
                 <option value="" data-placeholder>Country</option>
                 <option value="AF">Afghanistan</option>
                 <option value="AX">Åland Islands</option>
-                <option value="AL">Albania</option>
+                <option value="AL" disabled>Albania</option>
                 <option value="DZ">Algeria</option>
                 <option value="AS">American Samoa</option>
                 <option value="AD">Andorra</option>
@@ -279,7 +290,7 @@
 
         <script src="../bundle/easydropdown.min.js"></script>
         <script>
-            const edd = easydropdown('#test1', {
+            easydropdown.all({
                 behavior: {
                     maxVisibleOptions: 20,
                     observeMutations: true

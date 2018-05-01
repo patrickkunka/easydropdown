@@ -1,4 +1,6 @@
 TODO:
+- include border in select height
+- skip selected option when keying
 - demos
 - docs
 - polyfill/browser testing

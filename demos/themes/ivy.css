@@ -1,23 +1,20 @@
-@import 'https://fonts.googleapis.com/css?family=Roboto:400,700"';
-
-* {
+edd * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
 
-body {
-    padding: 1rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .edd {
     display: inline-block;
     position: relative;
-    width: 10rem;
+    width: 180px;
     user-select: none;
-    margin: 0 1rem 1rem;
-    font-family: 'Roboto', arial, helvetica, sans-serif;
-    font-size: 1rem;
+    font-family: 'Helvetica Neue', arial, helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 300;
     color: #333;
 }
 
@@ -30,19 +27,19 @@ body {
 
 .edd-head,
 .edd-body {
-    border-radius: 2px;
+    border-radius: 20px;
 }
 
 .edd-focused .edd-head {
-    box-shadow: 0 0 5px rgba(105, 215, 255, 0.4);
+    border-color: blue;
 }
 
 .edd-invalid .edd-head {
-    box-shadow: 0 0 5px rgba(255, 105, 105, 0.671);
+    border-color:rgb(255, 105, 105);
 }
 
 .edd-value {
-    padding: 0.5rem 2.2rem 0.5rem 0.5rem;
+    padding: 10px 35px 10px 10px;
 }
 
 .edd-disabled {
@@ -54,7 +51,7 @@ body {
     width: 18px;
     height: 10px;
     top: calc(50% - 5px);
-    right: calc(1.5rem - 9px);
+    right: calc(25px - 9px);
     transition: transform 150ms;
     pointer-events: none;
 }
@@ -112,7 +109,7 @@ body {
     border: 1px solid #eee;
     pointer-events: none;
     overflow: hidden;
-    margin: 0.5rem 0;
+    margin: 8px 0;
     z-index: 999;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     transform: scale(0.95);
@@ -140,28 +137,28 @@ body {
 }
 
 .edd-group-label {
-    font-size: .66rem;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    padding: .75rem .5rem .25rem;
-    color: #999;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 12px 10px 4px;
 }
 
-.edd-group-has-label {
-    border-bottom: 1px solid #eee;
+.edd-group-has-label .edd-option {
+    padding-left: 14px;
 }
 
 .edd-option {
-    padding: .25rem .5rem;
+    padding: 6px 10px;
+    border-bottom: 1px solid #eee;
 }
 
 .edd-option-focused:not(.edd-option-disabled):not(.edd-option-selected) {
-    color: #4ac5f1;
+    background: blue;
+    color: white;
 }
 
 .edd-option-selected {
-    font-weight: bold;
+    font-weight: 400;
+    color: blue;
     cursor: default;
 }
 
@@ -169,45 +166,4 @@ body {
 .edd-group-disabled .edd-option {
     cursor: default;
     color: #ccc;
-}
-
-.edd-gradient-top,
-.edd-gradient-bottom {
-    content: '';
-    position: absolute;
-    left: 2px;
-    right: 2px;
-    height: 2rem;
-    background-image: linear-gradient(
-        0deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 40%,
-      rgba(255, 255, 255, 1) 60%,
-      rgba(255, 255, 255, 0) 100%
-    );
-    background-repeat: repeat-x;
-    background-size: 100% 200%;
-    pointer-events: none;
-    transition: opacity 100ms;
-    opacity: 0;
-}
-
-.edd-gradient-top {
-    background-position: bottom;
-    top: 0;
-}
-
-.edd-gradient-bottom {
-    background-position: top;
-    bottom: 0;
-}
-
-.edd-body-scrollable .edd-gradient-top,
-.edd-body-scrollable .edd-gradient-bottom {
-    opacity: 1;
-}
-
-.edd-body-scrollable.edd-body-at-top .edd-gradient-top,
-.edd-body-scrollable.edd-body-at-bottom .edd-gradient-bottom {
-    opacity: 0;
 }
