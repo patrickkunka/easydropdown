@@ -1,13 +1,13 @@
 import AttributeChangeType  from './Constants/AttributeChangeType';
 import DomChangeType        from './Constants/DomChangeType';
-import DiffCommand          from './DiffCommand';
 import IAttributeChange     from './Interfaces/IAttributeChange';
-import IPartialDiffCommand  from './Interfaces/IPartialDiffCommand';
+import IPatchCommand        from './Interfaces/IPatchCommand';
+import PatchCommand         from './PatchCommand';
 
-function domDiff(prev: Node, next: Node): DiffCommand {
+function domDiff(prev: Node, next: Node): PatchCommand {
     let totalChildNodes = -1;
 
-    const command = new DiffCommand();
+    const command = new PatchCommand();
 
     if (prev instanceof HTMLSelectElement) {
         command.type = DomChangeType.NONE;
@@ -30,7 +30,7 @@ function domDiff(prev: Node, next: Node): DiffCommand {
             command.type = DomChangeType.NONE;
         } else if (prev.innerHTML === next.innerHTML) {
             Object.assign(command, diffAttributeChanges(prev, next));
-        } else if (prev.innerHTML !== next.innerHTML) {
+        } else {
             Object.assign(command, diffAttributeChanges(prev, next));
 
             if (command.attributeChanges.length > 0) {
@@ -55,7 +55,7 @@ function domDiff(prev: Node, next: Node): DiffCommand {
     return command;
 }
 
-function diffAttributeChanges(prev: HTMLElement, next: HTMLElement): IPartialDiffCommand {
+function diffAttributeChanges(prev: HTMLElement, next: HTMLElement): IPatchCommand {
     const totalAttributes = Math.max(prev.attributes.length, next.attributes.length);
     const attributesMap   = {};
     const undef           = void(0);

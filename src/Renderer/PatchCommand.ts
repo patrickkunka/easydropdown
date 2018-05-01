@@ -1,14 +1,14 @@
 import DomChangeType    from './Constants/DomChangeType';
 import IAttributeChange from './Interfaces/IAttributeChange';
 
-class DiffCommand {
+class PatchCommand {
     public type:             DomChangeType;
     public newNode:          Node               = null;
     public newInnerHtml:     string             = '';
     public newTextContent:   string             = '';
     public attributeChanges: IAttributeChange[] = [];
-    public childCommands:    DiffCommand[]      = [];
+    public childCommands:    PatchCommand[]      = [];
     public index:            number             = null;
 }
 
-export default DiffCommand;
+export default PatchCommand;

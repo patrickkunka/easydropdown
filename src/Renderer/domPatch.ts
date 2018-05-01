@@ -1,9 +1,9 @@
 import AttributeChangeType from './Constants/AttributeChangeType';
 import DomChangeType       from './Constants/DomChangeType';
-import DiffCommand         from './DiffCommand';
 import IAttributeChange    from './Interfaces/IAttributeChange';
+import PatchCommand        from './PatchCommand';
 
-function domPatch(node: Node, command: DiffCommand): Node {
+function domPatch(node: Node, command: PatchCommand): Node {
     switch (command.type) {
         case DomChangeType.NONE:
             return node;
@@ -16,8 +16,8 @@ function domPatch(node: Node, command: DiffCommand): Node {
                 node.textContent = command.newTextContent;
             } else if (command.childCommands.length > 0) {
                 command.childCommands.forEach((childCommand, i) => domPatch(node.childNodes[i], childCommand));
-            } else if (node instanceof HTMLElement) {
-                node.innerHTML = command.newInnerHtml;
+            } else {
+                (node as HTMLElement).innerHTML = command.newInnerHtml;
             }
 
             return node;
@@ -28,8 +28,8 @@ function domPatch(node: Node, command: DiffCommand): Node {
         case DomChangeType.FULL:
             if (command.childCommands.length > 0) {
                 command.childCommands.forEach((childCommand, i) => domPatch(node.childNodes[i], childCommand));
-            } else if (node instanceof HTMLElement && command.newInnerHtml !== '') {
-                node.innerHTML = command.newInnerHtml;
+            } else {
+                (node as HTMLElement).innerHTML = command.newInnerHtml;
             }
 
             patchAttributes(node as HTMLElement, command.attributeChanges);
@@ -39,11 +39,7 @@ function domPatch(node: Node, command: DiffCommand): Node {
 }
 
 function patchAttributes(el: HTMLElement, attributeChanges: IAttributeChange[]): void {
-    let raf: (callback: FrameRequestCallback) => number = null;
-
-    if (typeof window.requestAnimationFrame !== 'undefined') {
-        raf = window.requestAnimationFrame;
-    }
+    const raf = window.requestAnimationFrame;
 
     attributeChanges.forEach(change => {
         if (raf && ['class', 'style'].indexOf(change.name) > -1) {
