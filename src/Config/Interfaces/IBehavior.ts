@@ -5,7 +5,7 @@ interface IBehavior {
     useNativeUiOnMobile?:     boolean;
     loop?:                    boolean;
     clampMaxVisibleOptions?:  boolean;
-    observeMutations?:        boolean;
+    reactToUpdates?:          boolean;
     maxVisibleOptions?:       number;
 }
 

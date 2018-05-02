@@ -7,7 +7,7 @@ class Behavior implements IBehavior {
     public useNativeUiOnMobile:     boolean = true;
     public loop:                    boolean = false;
     public clampMaxVisibleOptions:  boolean = true;
-    public observeMutations:        boolean = false;
+    public reactToUpdates:          boolean = false;
     public maxVisibleOptions:       number  = 15;
 }
 
