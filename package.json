@@ -22,7 +22,8 @@
     "bundle:build": "webpack --config ./config/webpack.config.ts",
     "prepublishOnly": "npm run test && npm run build",
     "cover": "nyc mocha './src/**/*.ts'",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
+    "prepush": "npm run bundle:build"
   },
   "nyc": {
     "require": [

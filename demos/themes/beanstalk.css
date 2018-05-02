@@ -47,6 +47,8 @@ edd *:after {
 }
 
 .edd-value {
+    display: inline-block;
+    vertical-align: middle;
     padding: 8px 33px 8px 8px;
 }
 
