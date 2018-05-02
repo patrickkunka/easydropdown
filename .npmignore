@@ -1,7 +1,8 @@
 .nyc_output
 coverage
 src
-test
+config
+demos
 
 .travis.yml
 tsconfig.json

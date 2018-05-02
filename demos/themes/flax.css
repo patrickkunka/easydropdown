@@ -1,4 +1,4 @@
-@import '//fonts.googleapis.com/css?family=Montserrat:400,500|Open+Sans:400,600';
+@import '//fonts.googleapis.com/css?family=Roboto:300,400"';
 
 edd,
 edd *,
@@ -17,37 +17,46 @@ edd *:after {
     position: relative;
     width: 180px;
     user-select: none;
-    font-family: 'Open Sans', arial, helvetica, sans-serif;
+    font-family: 'Roboto', arial, helvetica, sans-serif;
+    font-weight: 300;
     font-size: 16px;
     color: #333;
 }
 
 .edd-head {
+    position: relative;
     overflow: hidden;
-    border: 1px solid #eee;
-    transition: box-shadow 200ms, border-color 150ms;
-    background: white;
+    border-bottom: 1px solid #ddd;
+    transition: border-color 200ms;
 }
 
-.edd:not(.edd-disabled):not(.edd-open) .edd-head:hover {
-    border-color: #ccc;
+.edd:not(.edd-disabled) .edd-head:hover {
+    border-bottom-color: #aaa;
 }
 
-.edd-head,
-.edd-body {
-    border-radius: 4px;
+.edd:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #45bce7;
+    transition: transform 150ms ease-out;
+    transform: scaleX(0);
 }
 
-.edd-focused .edd-head {
-    box-shadow: 0 0 5px rgba(105, 215, 255, 0.4);
+.edd.edd-focused:after,
+.edd.edd-invaid:after {
+    transform: scaleX(1);
 }
 
-.edd-invalid .edd-head {
-    box-shadow: 0 0 5px rgba(255, 105, 105, 0.671);
+.edd.edd-invalid:after {
+    background: rgb(255, 105, 105);
 }
 
 .edd-value {
-    padding: 8px 33px 8px 8px;
+    padding: 8px 25px 8px 0;
 }
 
 .edd-disabled {
@@ -56,22 +65,27 @@ edd *:after {
 
 .edd-arrow {
     position: absolute;
-    width: 18px;
+    width: 14px;
     height: 10px;
     top: calc(50% - 5px);
-    right: calc(24px - 9px);
+    right: 3px;
     transition: transform 150ms;
     pointer-events: none;
+    color: #666;
+}
+
+.edd-disabled .edd-arrow {
+    color: #ccc;
 }
 
 .edd-arrow::before {
     content: '';
     position: absolute;
-    width: 13px;
-    height: 13px;
-    border-right: 1px solid currentColor;
-    border-bottom: 1px solid currentColor;
-    top: -5px;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    top: -2px;
     right: 0;
     transform: rotate(45deg);
     transform-origin: 50% 25%;
@@ -114,14 +128,13 @@ edd *:after {
     position: absolute;
     left: 0;
     right: 0;
-    border: 1px solid #eee;
     pointer-events: none;
     overflow: hidden;
-    margin: 8px 0;
     z-index: 999;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    transform: scale(0.95);
-    background: white;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eee;
+    border-top: 0;
+    border-right: 0;
 }
 
 .edd-open .edd-body {
@@ -142,28 +155,50 @@ edd *:after {
 .edd-items-list {
     overflow: auto;
     max-height: 0;
-    transition: max-height 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    transition: max-height 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.edd-items-list::-webkit-scrollbar {
+    width: 12px;
+}
+
+.edd-items-list::-webkit-scrollbar-track {
+    background: #efefef;
+}
+
+.edd-items-list::-webkit-scrollbar-thumb {
+    background: #ccc;
 }
 
 .edd-group-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 0.1em;
+    font-size: 13px;
     padding: 12px 8px 4px;
-    color: #999;
+    color: #555;
 }
 
 .edd-group-has-label {
-    border-bottom: 1px solid #eee;
+    padding-left: 4px;
 }
 
 .edd-option {
-    padding: 4px 8px;
+    position: relative;
+    padding: 4px 8px 4px 22px;
 }
 
 .edd-option-selected {
-    font-weight: bold;
+    font-weight: 400;
+}
+
+.edd-option-selected::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 4px;
+    border-bottom: 2px solid #4ac5f1;
+    border-left: 2px solid #4ac5f1;
+    left: 6px;
+    top: calc(50% - 4px);
+    transform: rotate(-45deg);
 }
 
 .edd-option-focused:not(.edd-option-disabled) {
@@ -181,7 +216,7 @@ edd *:after {
     content: '';
     position: absolute;
     left: 2px;
-    right: 2px;
+    right: 12px;
     height: 32px;
     background-image: linear-gradient(
         0deg,

@@ -1,4 +1,7 @@
-edd * {
+edd,
+edd *,
+edd *:before,
+edd *:after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -54,9 +57,10 @@ edd * {
     right: calc(25px - 9px);
     transition: transform 150ms;
     pointer-events: none;
+    color: #888;
 }
 
-.edd-arrow:before {
+.edd-arrow::before {
     content: '';
     position: absolute;
     width: 13px;
@@ -73,6 +77,11 @@ edd * {
     transform: rotate(180deg);
 }
 
+.edd:not(.edd-disabled):not(.edd-open) .edd-head:hover .edd-arrow,
+.edd-open .edd-arrow {
+    color: blue;
+}
+
 .edd-value,
 .edd-option,
 .edd-group-label {
@@ -81,7 +90,7 @@ edd * {
     overflow: hidden;
 }
 
-.edd-value,
+.edd:not(.edd-disabled) .edd-value,
 .edd-option {
     cursor: pointer;
 }
@@ -120,7 +129,7 @@ edd * {
     opacity: 1;
     pointer-events: all;
     transform: scale(1);
-    transition: opacity 200ms, transform 100ms cubic-bezier(0.25, 0.46, 0.45, 0.94), max-height 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: opacity 200ms, transform 100ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .edd-open-above .edd-body {
@@ -134,6 +143,7 @@ edd * {
 .edd-items-list {
     overflow: auto;
     max-height: 0;
+    transition: max-height 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
 }
 
 .edd-group-label {
@@ -149,17 +159,17 @@ edd * {
 .edd-option {
     padding: 6px 10px;
     border-bottom: 1px solid #eee;
-}
-
-.edd-option-focused:not(.edd-option-disabled):not(.edd-option-selected) {
-    background: blue;
-    color: white;
+    transition: background-color 250ms, color 250ms;
 }
 
 .edd-option-selected {
     font-weight: 400;
     color: blue;
-    cursor: default;
+}
+
+.edd-option-focused:not(.edd-option-disabled) {
+    background: blue;
+    color: white;
 }
 
 .edd-option-disabled,
