@@ -2,7 +2,6 @@ class Timers {
     public pollChangeIntervalId: number;
     public pollMutationIntervalId: number;
     public searchTimeoutId: number;
-    public scrollTimeoutId: number;
     public keyingTimeoutId: number;
 
     public clear(): void {

@@ -28,7 +28,7 @@ describe('Easydropdown', () => {
 
         const edd = new Easydropdown(select, {
             behavior: {
-                observeMutations: true
+                reactToUpdates: true
             }
         });
 

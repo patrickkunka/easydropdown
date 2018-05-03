@@ -4,7 +4,7 @@ import createMockHandlerParams      from '../../Events/Mock/createMockHandlerPar
 import scrollToView, {getScrollTop} from './scrollToView';
 
 describe('scrollToView()', () => {
-    it('sets `state.isScrollingToView` then unsets it', async () => {
+    it('sets `itemsList.scrollTop` to the appropriate value', async () => {
         const params = createMockHandlerParams();
 
         params.dom.option = [document.createElement('div')];
@@ -12,11 +12,7 @@ describe('scrollToView()', () => {
 
         scrollToView(params.dom, params.timers, params.state);
 
-        assert.isTrue(params.state.isScrollingToView);
-
-        await new Promise(resolver => setTimeout(resolver, 100));
-
-        assert.isFalse(params.state.isScrollingToView);
+        assert.notEqual(params.dom.itemsList.scrollTop, 100);
     });
 
     describe('getScrollTop()', () => {

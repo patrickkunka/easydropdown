@@ -33,7 +33,7 @@ describe('handleSelectKeypress()', () => {
         const params = createMockHandlerParams();
         const mockEvent = createMockEvent();
 
-        params.timers.searchTimoutId = 1;
+        params.timers.searchTimeoutId = 1;
 
         handleSelectKeypress(mockEvent, params);
 

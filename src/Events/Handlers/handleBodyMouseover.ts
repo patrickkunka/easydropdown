@@ -7,7 +7,7 @@ function handleBodyMouseover(e: Event, {state, actions, dom}: IHandlerParams): v
 
     const option = closestParent(e.target as HTMLElement, Selectors.OPTION, true);
 
-    if (!option || state.isScrollingToView || state.isKeying) return;
+    if (!option || state.isKeying) return;
 
     const optionIndex = Array.prototype.indexOf.call(dom.option, option);
 

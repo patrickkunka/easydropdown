@@ -15,4 +15,16 @@ describe('handleSelectBlur()', () => {
 
         assert.isTrue(blurSpy.called);
     });
+
+    it('does not call `actions.blur()` if `state.isKeying` is set', () => {
+        const params = createMockHandlerParams();
+        const mockEvent = createMockEvent();
+        const blurSpy = spy(params.actions, 'blur');
+
+        params.state.isKeying = true;
+
+        handleSelectBlur(mockEvent, params);
+
+        assert.isFalse(blurSpy.called);
+    });
 });

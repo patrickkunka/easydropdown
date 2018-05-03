@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 import {spy} from 'sinon';
 
+import State                 from '../../State/State';
 import pollForSelectMutation from './pollForSelectMutation';
 
 describe('pollForSelectMutation()', () => {
@@ -8,7 +9,7 @@ describe('pollForSelectMutation()', () => {
         const select = document.createElement('select');
         const handleMutationSpy = spy();
 
-        pollForSelectMutation(select, handleMutationSpy);
+        pollForSelectMutation(select, new State(), handleMutationSpy);
 
         select.classList.add('foo');
 
@@ -21,7 +22,7 @@ describe('pollForSelectMutation()', () => {
         const select = document.createElement('select');
         const handleMutationSpy = spy();
 
-        pollForSelectMutation(select, handleMutationSpy);
+        pollForSelectMutation(select, new State(), handleMutationSpy);
 
         await new Promise(resolver => setTimeout(resolver, 300));
 
