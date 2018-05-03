@@ -38,12 +38,6 @@ function scrollToView(dom: Dom, timers: Timers, state: State, scrollToMiddle: bo
     if (scrollTop === dom.itemsList.scrollTop) return;
 
     dom.itemsList.scrollTop = scrollTop;
-
-    state.isScrollingToView = true;
-
-    clearTimeout(timers.scrollTimeoutId);
-
-    timers.scrollTimeoutId = window.setTimeout(() => state.isScrollingToView = false, 100);
 }
 
 export {

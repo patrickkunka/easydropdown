@@ -1,7 +1,7 @@
 import detectBodyCollision     from '../../Shared/Util/detectBodyCollision';
 import detectIsScrollable      from '../../Shared/Util/detectIsScrollable';
 import killSelectReaction      from '../../Shared/Util/killSelectReaction';
-import * as KeyCodes           from '../Constants/Keycodes';
+import * as KeyCodes           from '../Constants/KeyCodes';
 import IHandlerParams          from '../Interfaces/IHandlerParams';
 import handleSelectKeydownDown from './handleSelectKeydownDown';
 import handleSelectKeydownUp   from './handleSelectKeydownUp';
@@ -16,22 +16,24 @@ function handleSelectKeydown(e: KeyboardEvent, handlerParams: IHandlerParams): v
         case KeyCodes.DOWN:
             handleSelectKeydownDown(e, handlerParams);
 
-            killSelectReaction(target as HTMLSelectElement);
-
             break;
         case KeyCodes.UP:
             handleSelectKeydownUp(e, handlerParams);
 
-            killSelectReaction(target as HTMLSelectElement);
-
             break;
         case KeyCodes.SPACE:
-            if (state.isSearching) return;
+            if (state.isSearching) {
+                e.stopPropagation();
+                // e.preventDefault();
+
+                return;
+            }
+
         case KeyCodes.ENTER:
             e.stopPropagation();
             e.preventDefault();
 
-            killSelectReaction(target as HTMLSelectElement);
+            killSelectReaction(target as HTMLSelectElement, handlerParams);
 
             if (state.isOpen) {
                 actions.selectOption(state.focusedIndex);

@@ -1,9 +1,9 @@
 @import '//fonts.googleapis.com/css?family=Roboto:300,400"';
 
-edd,
-edd *,
-edd *:before,
-edd *:after {
+.edd,
+.edd *,
+.edd *:before,
+.edd *:after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -56,6 +56,7 @@ edd *:after {
 }
 
 .edd-value {
+    width: 100%;
     display: inline-block;
     vertical-align: middle;
     padding: 8px 25px 8px 0;
@@ -113,8 +114,6 @@ edd *:after {
 .edd-select {
     position: absolute;
     opacity: 0;
-    width: 0;
-    height: 0;
     left: -999px;
 }
 

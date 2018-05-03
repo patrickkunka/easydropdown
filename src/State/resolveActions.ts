@@ -121,6 +121,14 @@ const resolveActions = (state: State): IActions => ({
         state.isSearching = false;
     },
 
+    keying(): void {
+        state.isKeying = true;
+    },
+
+    resetKeying(): void {
+        state.isKeying = false;
+    },
+
     useNative(): void {
         state.isUseNativeMode = true;
     }

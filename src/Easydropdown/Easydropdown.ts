@@ -56,6 +56,7 @@ class Easydropdown {
         if (this.config.behavior.reactToUpdates) {
             this.timers.pollMutationIntervalId = pollForSelectMutation(
                 this.dom.select,
+                this.state,
                 this.refresh.bind(this)
             );
         }

@@ -22,6 +22,8 @@ interface IActions {
     focusOption(index: number, shouldScrollToView?: boolean): void;
     search(): void;
     resetSearch(): void;
+    keying(): void;
+    resetKeying(): void;
     useNative(): void;
     closeOthers?(): void;
     scrollToView?(stateProxy: State, scrollToMiddle?: boolean): void;

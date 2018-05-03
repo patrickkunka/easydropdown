@@ -1,16 +1,21 @@
 import detectBodyCollision from '../../Shared/Util/detectBodyCollision';
 import detectIsScrollable  from '../../Shared/Util/detectIsScrollable';
+import killSelectReaction  from '../../Shared/Util/killSelectReaction';
 import IHandlerParams      from '../Interfaces/IHandlerParams';
 
 function handleSelectKeydownDown(
-    {keyCode, metaKey}: KeyboardEvent,
-    {state, dom, actions, config}: IHandlerParams
+    {keyCode, metaKey, target}: KeyboardEvent,
+    handlerParams: IHandlerParams
 ): void {
+    const {state, dom, actions, config} = handlerParams;
+
     let focusedIndex: number = state.focusedIndex > -1 ?
-        state.focusedIndex : state.selectedIndex;
+    state.focusedIndex : state.selectedIndex;
 
     let iterations: number = 0;
     let incrementAmount: number = 1;
+
+    killSelectReaction(target as HTMLSelectElement, handlerParams);
 
     if (metaKey) {
         incrementAmount = Math.round(

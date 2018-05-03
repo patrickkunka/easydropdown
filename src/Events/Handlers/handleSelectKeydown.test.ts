@@ -2,7 +2,7 @@ import {assert} from 'chai';
 import {spy}    from 'sinon';
 
 import BodyStatus              from '../../State/Constants/BodyStatus';
-import * as KeyCodes           from '../Constants/Keycodes';
+import * as KeyCodes           from '../Constants/KeyCodes';
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
 import handleSelectKeydown     from './handleSelectKeydown';

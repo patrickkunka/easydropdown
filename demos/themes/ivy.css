@@ -1,13 +1,10 @@
-edd,
-edd *,
-edd *:before,
-edd *:after {
+.edd,
+.edd *,
+.edd *::before,
+.edd *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 .edd {
@@ -42,6 +39,7 @@ edd *:after {
 }
 
 .edd-value {
+    width: 100%;
     display: inline-block;
     vertical-align: middle;
     padding: 10px 35px 10px 10px;
@@ -100,8 +98,6 @@ edd *:after {
 .edd-select {
     position: absolute;
     opacity: 0;
-    width: 0;
-    height: 0;
     left: -999px;
 }
 

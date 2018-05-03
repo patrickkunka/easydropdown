@@ -23,6 +23,7 @@ class State {
     public isScrollingToView:         boolean      = false;
     public isScrollable:              boolean      = false;
     public isSearching:               boolean      = false;
+    public isKeying:                  boolean      = false;
 
     private config: Config;
 
