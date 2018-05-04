@@ -13,17 +13,18 @@
     "url": "https://github.com/patrickkunka/easydropdown/"
   },
   "scripts": {
-    "test": "mocha --opts ./config/mocha.opts",
-    "test:watch": "mocha --opts ./config/mocha.opts --watch",
-    "lint": "tslint -c tslint.json './src/**/*.ts'",
+    "test": "mocha --opts ./config/mocha/mocha.opts",
+    "test:watch": "npm run test -- --watch",
+    "lint": "tslint -c './config/tslint/tslint.json' './src/**/*.ts'",
     "watch": "tsc --watch",
     "build": "tsc",
-    "bundle:watch": "npm run bundle:build -- --watch",
-    "bundle:build": "webpack --config ./config/webpack.config.ts",
+    "webpack": "webpack --config ./config/webpack/config.ts",
+    "bundle:watch": "npm run webpack -- --watch",
+    "bundle:build": "npm run webpack -- --env=production",
     "prepublishOnly": "npm run test && npm run build",
     "cover": "nyc mocha './src/**/*.ts'",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
-    "prepush": "npm run bundle:build"
+    "prepush": "npm run test && npm run bundle:build"
   },
   "nyc": {
     "require": [
@@ -70,11 +71,13 @@
     "nyc": "^11.3.0",
     "sinon": "^4.5.0",
     "source-map-support": "^0.5.0",
-    "ts-loader": "^3.1.1",
+    "ts-loader": "^4.2.0",
     "ts-node": "^3.3.0",
+    "tsconfig-paths": "^3.3.1",
     "tslint": "^5.8.0",
     "tslint-eslint-rules": "^5.1.0",
     "typescript": "^2.6.1",
-    "webpack": "^3.8.1"
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.1.2"
   }
 }
