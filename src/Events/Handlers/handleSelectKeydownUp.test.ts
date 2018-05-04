@@ -5,9 +5,19 @@ import BodyStatus              from '../../State/Constants/BodyStatus';
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockGroups        from '../Mock/createMockGroups';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
-import handleSelectKeydownUp   from './handleSelectKeydownUp';
+
+import handleSelectKeydownUp from './handleSelectKeydownUp';
 
 describe('handleSelectKeydownUp()', () => {
+    it('calls `e.preventDefault()`', () => {
+        const params = createMockHandlerParams();
+        const mockEvent = createMockEvent();
+
+        handleSelectKeydownUp(mockEvent, params);
+
+        assert.isTrue(mockEvent.preventDefault.called);
+    });
+
     it('calls `actions.open()` if closed', () => {
         const params = createMockHandlerParams();
         const mockEvent = createMockEvent();
