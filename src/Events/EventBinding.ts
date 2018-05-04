@@ -1,3 +1,5 @@
+import merge from 'helpful-merge';
+
 import IEventBinding from './Interfaces/IEventBinding';
 import IEventHandler from './Interfaces/IEventHandler';
 
@@ -11,7 +13,8 @@ class EventBinding implements IEventBinding {
     public passive:      boolean       = false;
 
     constructor(eventBindingRaw: IEventBinding|string) {
-        Object.assign(this, eventBindingRaw);
+        merge(this, eventBindingRaw);
+
         Object.seal(this);
     }
 

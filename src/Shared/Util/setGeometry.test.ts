@@ -1,4 +1,5 @@
 import {assert} from 'chai';
+import merge    from 'helpful-merge';
 import {
     SinonSpy,
     spy
@@ -11,7 +12,7 @@ import {createMockDom} from './detectIsScrollable.test';
 import setGeometry     from './setGeometry';
 
 const createMockState = (initialState = {}) => {
-    const state = Object.assign(new State(), initialState);
+    const state = merge(new State(), initialState);
 
     return state;
 };

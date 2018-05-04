@@ -93,7 +93,7 @@ class Easydropdown {
     }
 
     public refresh(): void {
-        this.state = Object.assign(
+        this.state = merge(
             this.state,
             StateMapper.mapFromSelect(this.dom.select, this.config)
         );

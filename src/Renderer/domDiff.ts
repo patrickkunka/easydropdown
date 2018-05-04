@@ -1,3 +1,5 @@
+import merge from 'helpful-merge';
+
 import AttributeChangeType  from './Constants/AttributeChangeType';
 import DomChangeType        from './Constants/DomChangeType';
 import IAttributeChange     from './Interfaces/IAttributeChange';
@@ -29,9 +31,9 @@ function domDiff(prev: Node, next: Node): PatchCommand {
         } else if (prev.outerHTML === next.outerHTML) {
             command.type = DomChangeType.NONE;
         } else if (prev.innerHTML === next.innerHTML) {
-            Object.assign(command, diffAttributeChanges(prev, next));
+            merge(command, diffAttributeChanges(prev, next));
         } else {
-            Object.assign(command, diffAttributeChanges(prev, next));
+            merge(command, diffAttributeChanges(prev, next));
 
             if (command.attributeChanges.length > 0) {
                 command.type = DomChangeType.FULL;

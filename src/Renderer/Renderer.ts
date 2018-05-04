@@ -60,7 +60,7 @@ class Renderer {
         parent.replaceChild(this.dom.root, selectElement);
 
         tempSelect.parentElement.replaceChild(selectElement, tempSelect);
-        selectElement.classList.add(this.classNames.select);
+        selectElement.className = this.classNames.select;
 
         this.dom.select = selectElement;
     }

@@ -1,10 +1,10 @@
+import merge from 'helpful-merge';
+
 import Config       from '../Config/Config';
 import BodyStatus   from './Constants/BodyStatus';
 import ScrollStatus from './Constants/ScrollStatus';
 import Group        from  './Group';
 import Option       from './Option';
-
-const {assign} = Object;
 
 class State {
     public groups:                    Group[]      = [];
@@ -31,12 +31,12 @@ class State {
 
         if (!stateRaw) return;
 
-        assign(this, stateRaw);
+        merge(this, stateRaw);
 
         this.groups = this.groups.map((groupRaw) => {
-            const group = assign(new Group(), groupRaw);
+            const group = merge(new Group(), groupRaw);
 
-            group.options = group.options.map(optionRaw => assign(new Option(), optionRaw));
+            group.options = group.options.map(optionRaw => merge(new Option(), optionRaw));
 
             return group;
         });

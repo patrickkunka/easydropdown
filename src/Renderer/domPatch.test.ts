@@ -1,3 +1,5 @@
+import merge from 'helpful-merge';
+
 import {assert}          from 'chai';
 import {SinonStub, stub} from 'sinon';
 
@@ -8,7 +10,7 @@ import IPatchCommand       from './Interfaces/IPatchCommand';
 import PatchCommand        from './PatchCommand';
 
 const coerceToPatchCommand = (raw): PatchCommand => {
-    const command = Object.assign(new PatchCommand(), raw);
+    const command = merge(new PatchCommand(), raw);
 
     command.childCommands = command.childCommands.map(coerceToPatchCommand);
 

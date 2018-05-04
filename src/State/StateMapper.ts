@@ -1,3 +1,5 @@
+import merge from 'helpful-merge';
+
 import Config from '../Config/Config';
 import Group  from './Group';
 import Option from './Option';
@@ -59,7 +61,7 @@ class StateMapper {
     }
 
     private static mapGroup(group: HTMLOptGroupElement = null): Group {
-        return Object.assign(new Group(), {
+        return merge(new Group(), {
             label: group ? group.label : '',
             isDisabled: group ? group.disabled : false
         });
@@ -70,7 +72,7 @@ class StateMapper {
 
         const isParentGroupDisabled = group !== null && group.disabled;
 
-        return Object.assign(new Option(), {
+        return merge(new Option(), {
             label: option.textContent,
             value: option.value,
             isDisabled: option.disabled || isParentGroupDisabled

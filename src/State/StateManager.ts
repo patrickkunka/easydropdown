@@ -1,3 +1,5 @@
+import merge from 'helpful-merge';
+
 import IActions            from './Interfaces/IActions';
 import IOnAction           from './Interfaces/IOnAction';
 import IPropertyDescriptor from './Interfaces/IPropertyDescriptor';
@@ -9,7 +11,7 @@ class StateManager {
         const stateProxy = StateManager.createStateProxy(state, onAction);
         const actions = resolveActions(stateProxy);
 
-        Object.assign(actions, injectedActions);
+        merge(actions, injectedActions);
 
         return actions;
     }

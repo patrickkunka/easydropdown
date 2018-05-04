@@ -1,5 +1,6 @@
 TODO:
-- double check collision geometry
+- custom event polyfill / create polyfills file
+- double check collision geometry (include all items in total count)
 - demos
 - docs
 - polyfill/browser testing
