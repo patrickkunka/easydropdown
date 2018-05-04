@@ -35,7 +35,7 @@
 }
 
 .edd-invalid .edd-head {
-    border-color:rgb(255, 105, 105);
+    border-color: #ff6969;
 }
 
 .edd-value {
@@ -77,8 +77,8 @@
     transform: rotate(180deg);
 }
 
-.edd:not(.edd-disabled):not(.edd-open) .edd-head:hover .edd-arrow,
-.edd-open .edd-arrow {
+.edd-open .edd-arrow,
+.edd:not(.edd-disabled):not(.edd-open) .edd-head:hover .edd-arrow {
     color: blue;
 }
 
@@ -141,7 +141,7 @@
 .edd-items-list {
     overflow: auto;
     max-height: 0;
-    transition: max-height 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    transition: max-height 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .edd-group-label {
@@ -150,14 +150,14 @@
     padding: 12px 10px 4px;
 }
 
-.edd-group-has-label .edd-option {
-    padding-left: 14px;
-}
-
 .edd-option {
     padding: 6px 10px;
     border-bottom: 1px solid #eee;
     transition: background-color 250ms, color 250ms;
+}
+
+.edd-group-has-label .edd-option {
+    padding-left: 14px;
 }
 
 .edd-option-selected {

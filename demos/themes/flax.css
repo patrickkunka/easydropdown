@@ -2,12 +2,11 @@
 
 .edd,
 .edd *,
-.edd *:before,
-.edd *:after {
+.edd *::before,
+.edd *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -34,7 +33,7 @@
     border-bottom-color: #aaa;
 }
 
-.edd:after {
+.edd::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -46,12 +45,12 @@
     transform: scaleX(0);
 }
 
-.edd.edd-focused:after,
-.edd.edd-invaid:after {
+.edd.edd-focused::after,
+.edd.edd-invaid::after {
     transform: scaleX(1);
 }
 
-.edd.edd-invalid:after {
+.edd.edd-invalid::after {
     background: rgb(255, 105, 105);
 }
 
@@ -219,13 +218,14 @@
     left: 2px;
     right: 12px;
     height: 32px;
-    background-image: linear-gradient(
-        0deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 1) 40%,
-      rgba(255, 255, 255, 1) 60%,
-      rgba(255, 255, 255, 0) 100%
-    );
+    background-image:
+        linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 1) 40%,
+            rgba(255, 255, 255, 1) 60%,
+            rgba(255, 255, 255, 0) 100%
+        );
     background-repeat: repeat-x;
     background-size: 100% 200%;
     pointer-events: none;
