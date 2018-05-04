@@ -10,6 +10,9 @@
         "eofline": false,
         "forin": false,
         "import-spacing": false,
+        "ordered-imports": [true, {
+            "grouped-imports": true
+        }],
         "member-ordering": [true, {
             "order": [
                 "public-instance-field",

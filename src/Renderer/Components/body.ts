@@ -1,7 +1,8 @@
 import ClassNames       from '../../Config/ClassNames';
 import composeClassName from '../../Shared/Util/composeClassName';
 import State            from '../../State/State';
-import group            from './group';
+
+import group from './group';
 
 function body(state: State, classNames: ClassNames): string {
     const className = composeClassName([

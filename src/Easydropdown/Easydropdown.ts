@@ -18,8 +18,9 @@ import IActions              from '../State/Interfaces/IActions';
 import State                 from '../State/State';
 import StateManager          from '../State/StateManager';
 import StateMapper           from '../State/StateMapper';
-import cache                 from './cache';
-import Timers                from './Timers';
+
+import cache  from './cache';
+import Timers from './Timers';
 
 class Easydropdown {
     public actions: IActions;

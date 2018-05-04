@@ -1,4 +1,5 @@
-import throttle       from '../Shared/Util/throttle';
+import throttle from '../Shared/Util/throttle';
+
 import EventBinding   from './EventBinding';
 import getEventsList  from './getEventsList';
 import IEventBinding  from './Interfaces/IEventBinding';

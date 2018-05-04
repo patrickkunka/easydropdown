@@ -1,9 +1,10 @@
 import CollisionType  from '../Shared/Util/Constants/CollisionType';
 import ICollisionData from '../Shared/Util/Interfaces/ICollisionData';
-import BodyStatus     from './Constants/BodyStatus';
-import ScrollStatus   from './Constants/ScrollStatus';
-import IActions       from './Interfaces/IActions';
-import State          from './State';
+
+import BodyStatus   from './Constants/BodyStatus';
+import ScrollStatus from './Constants/ScrollStatus';
+import IActions     from './Interfaces/IActions';
+import State        from './State';
 
 const resolveActions = (state: State): IActions => ({
     focus(): void {

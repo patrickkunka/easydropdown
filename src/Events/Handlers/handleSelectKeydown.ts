@@ -1,8 +1,9 @@
-import detectBodyCollision     from '../../Shared/Util/detectBodyCollision';
-import detectIsScrollable      from '../../Shared/Util/detectIsScrollable';
-import killSelectReaction      from '../../Shared/Util/killSelectReaction';
-import * as KeyCodes           from '../Constants/KeyCodes';
-import IHandlerParams          from '../Interfaces/IHandlerParams';
+import detectBodyCollision from '../../Shared/Util/detectBodyCollision';
+import detectIsScrollable  from '../../Shared/Util/detectIsScrollable';
+import killSelectReaction  from '../../Shared/Util/killSelectReaction';
+import * as KeyCodes       from '../Constants/KeyCodes';
+import IHandlerParams      from '../Interfaces/IHandlerParams';
+
 import handleSelectKeydownDown from './handleSelectKeydownDown';
 import handleSelectKeydownUp   from './handleSelectKeydownUp';
 

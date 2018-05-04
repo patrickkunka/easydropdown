@@ -1,6 +1,7 @@
-import Dom                from '../../Renderer/Dom';
-import IActions           from '../../State/Interfaces/IActions';
-import State              from '../../State/State';
+import Dom      from '../../Renderer/Dom';
+import IActions from '../../State/Interfaces/IActions';
+import State    from '../../State/State';
+
 import detectIsScrollable from './detectIsScrollable';
 
 function setGeometry(state: State, actions: IActions, dom: Dom): void {

@@ -1,6 +1,7 @@
 import merge from 'helpful-merge';
 
 import Config from '../Config/Config';
+
 import Group  from './Group';
 import Option from './Option';
 import State  from './State';

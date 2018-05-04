@@ -1,10 +1,11 @@
 import ClassNames               from '../Config/ClassNames';
 import createDomElementFromHtml from '../Shared/Util/createDomElementFromHtml';
 import State                    from '../State/State';
-import root                     from './Components/root';
-import Dom                      from './Dom';
-import domDiff                  from './domDiff';
-import domPatch                 from './domPatch';
+
+import root     from './Components/root';
+import Dom      from './Dom';
+import domDiff  from './domDiff';
+import domPatch from './domPatch';
 
 class Renderer {
     public classNames: ClassNames;

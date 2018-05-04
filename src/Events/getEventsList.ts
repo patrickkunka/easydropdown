@@ -1,4 +1,5 @@
-import Dom                   from '../Renderer/Dom';
+import Dom from '../Renderer/Dom';
+
 import handleBodyClick       from './Handlers/handleBodyClick';
 import handleBodyMouseover   from './Handlers/handleBodyMouseover';
 import handleHeadClick       from './Handlers/handleHeadClick';

@@ -1,4 +1,5 @@
-import DomChangeType    from '../Constants/DomChangeType';
+import DomChangeType from '../Constants/DomChangeType';
+
 import IAttributeChange from './IAttributeChange';
 
 interface IPatchCommand {

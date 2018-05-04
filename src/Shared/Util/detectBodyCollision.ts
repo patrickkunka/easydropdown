@@ -1,6 +1,7 @@
-import Config         from '../../Config/Config';
-import Dom            from '../../Renderer/Dom';
-import State          from '../../State/State';
+import Config from '../../Config/Config';
+import Dom    from '../../Renderer/Dom';
+import State  from '../../State/State';
+
 import CollisionType  from './Constants/CollisionType';
 import ICollisionData from './Interfaces/ICollisionData';
 

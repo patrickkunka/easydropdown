@@ -1,6 +1,7 @@
 import merge from 'helpful-merge';
 
-import Config       from '../Config/Config';
+import Config from '../Config/Config';
+
 import BodyStatus   from './Constants/BodyStatus';
 import ScrollStatus from './Constants/ScrollStatus';
 import Group        from  './Group';

@@ -1,4 +1,5 @@
-import IConfig            from '../Config/Interfaces/IConfig';
+import IConfig from '../Config/Interfaces/IConfig';
+
 import cache              from './cache';
 import Easydropdown       from './Easydropdown';
 import EasydropdownFacade from './EasydropdownFacade';
