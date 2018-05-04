@@ -3,7 +3,8 @@ import {spy}    from 'sinon';
 
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
-import handleWindowResize      from './handleWindowResize';
+
+import handleWindowResize from './handleWindowResize';
 
 describe('handleWindowResize()', () => {
     it('calls `setGeometry()`', () => {

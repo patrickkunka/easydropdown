@@ -3,7 +3,8 @@ import {spy}    from 'sinon';
 
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
-import handleSelectBlur        from './handleSelectBlur';
+
+import handleSelectBlur from './handleSelectBlur';
 
 describe('handleSelectBlur()', () => {
     it('calls `actions.blur()`', () => {

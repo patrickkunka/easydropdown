@@ -2,7 +2,8 @@ import {assert} from 'chai';
 import {spy}    from 'sinon';
 
 import Easydropdown from '../../Easydropdown/Easydropdown';
-import closeOthers  from './closeOthers';
+
+import closeOthers from './closeOthers';
 
 describe('closeOthers()', () => {
     it('calls `close` on all instance in the provided cache, expect the caller instance', () => {

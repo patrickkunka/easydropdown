@@ -3,7 +3,8 @@ import 'jsdom-global/register';
 
 import Config                   from '../Config/Config';
 import createDomElementFromHtml from '../Shared/Util/createDomElementFromHtml';
-import StateMapper              from './StateMapper';
+
+import StateMapper from './StateMapper';
 
 interface ITestContext {
     config: Config;

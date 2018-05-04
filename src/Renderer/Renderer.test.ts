@@ -11,8 +11,9 @@ import BodyStatus   from '../State/Constants/BodyStatus';
 import ScrollStatus from '../State/Constants/ScrollStatus';
 import State        from '../State/State';
 import StateMapper  from '../State/StateMapper';
-import Dom          from './Dom';
-import Renderer     from './Renderer';
+
+import Dom      from './Dom';
+import Renderer from './Renderer';
 
 const createSelect = (): HTMLSelectElement => {
     const parent = document.createElement('div');

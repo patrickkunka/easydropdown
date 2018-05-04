@@ -6,6 +6,7 @@ chai.config.truncateThreshold = 0;
 
 import CollisionType  from '../Shared/Util/Constants/CollisionType';
 import ICollisionData from '../Shared/Util/Interfaces/ICollisionData';
+
 import BodyStatus     from './Constants/BodyStatus';
 import ScrollStatus   from './Constants/ScrollStatus';
 import IActions       from './Interfaces/IActions';

@@ -3,7 +3,8 @@ import {spy}    from 'sinon';
 
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
-import handleBodyClick         from './handleBodyClick';
+
+import handleBodyClick from './handleBodyClick';
 
 describe('handleBodyClick()', () => {
     it('calls `stopPropagation()` on the provided event', () => {

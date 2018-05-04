@@ -1,5 +1,5 @@
 import 'custom-event-polyfill';
 
-import './Shared/Polfills/Element.matches';
+import './Shared/Polyfills/Element.matches';
 
 export {default as default} from './Easydropdown/factory';

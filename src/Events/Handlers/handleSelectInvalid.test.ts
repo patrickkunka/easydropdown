@@ -3,7 +3,8 @@ import {spy}    from 'sinon';
 
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
-import handleSelectInvalid     from './handleSelectInvalid';
+
+import handleSelectInvalid from './handleSelectInvalid';
 
 describe('handleSelectInvalid()', () => {
     it('calls `actions.invalidate()`', () => {

@@ -5,9 +5,10 @@ import {
     spy
 } from 'sinon';
 
-import Dom             from '../../Renderer/Dom';
-import resolveActions  from '../../State/resolveActions';
-import State           from '../../State/State';
+import Dom            from '../../Renderer/Dom';
+import resolveActions from '../../State/resolveActions';
+import State          from '../../State/State';
+
 import {createMockDom} from './detectIsScrollable.test';
 import setGeometry     from './setGeometry';
 

@@ -1,7 +1,8 @@
 import * as chai from 'chai';
 
 import Config from '../Config/Config';
-import State  from './State';
+
+import State from './State';
 
 const {assert} = chai;
 

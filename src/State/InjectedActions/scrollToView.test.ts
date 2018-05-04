@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 
-import createMockHandlerParams      from '../../Events/Mock/createMockHandlerParams';
+import createMockHandlerParams from '../../Events/Mock/createMockHandlerParams';
+
 import scrollToView, {getScrollTop} from './scrollToView';
 
 describe('scrollToView()', () => {

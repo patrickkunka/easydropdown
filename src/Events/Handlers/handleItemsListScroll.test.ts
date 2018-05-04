@@ -3,7 +3,8 @@ import {spy}    from 'sinon';
 
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
-import handleItemsListScroll   from './handleItemsListScroll';
+
+import handleItemsListScroll from './handleItemsListScroll';
 
 describe('handleItemsListScroll()', () => {
     it('calls `stopPropagation()` on the provided event', () => {

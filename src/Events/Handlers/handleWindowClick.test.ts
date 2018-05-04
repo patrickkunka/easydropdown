@@ -4,7 +4,8 @@ import {spy}    from 'sinon';
 import BodyStatus              from '../../State/Constants/BodyStatus';
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
-import handleWindowClick       from './handleWindowClick';
+
+import handleWindowClick from './handleWindowClick';
 
 describe('handleWindowClick()', () => {
     it('calls `actions.close()` and blurs the native select if open', () => {

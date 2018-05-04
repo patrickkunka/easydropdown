@@ -4,7 +4,8 @@ import {spy}    from 'sinon';
 import BodyStatus              from '../../State/Constants/BodyStatus';
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
-import handleHeadClick         from './handleHeadClick';
+
+import handleHeadClick from './handleHeadClick';
 
 describe('handleHeadClick()', () => {
     it('calls `stopPropagation` on the provided event', () => {

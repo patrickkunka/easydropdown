@@ -1,7 +1,8 @@
 import {assert} from 'chai';
 
 import createMockHandlerParams from '../../Events/Mock/createMockHandlerParams';
-import CollisionType           from './Constants/CollisionType';
+
+import CollisionType from './Constants/CollisionType';
 import detectBodyCollision, {
     mapCollisionData
 } from './detectBodyCollision';

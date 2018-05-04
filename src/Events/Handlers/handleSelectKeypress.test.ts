@@ -3,7 +3,8 @@ import {spy, stub} from 'sinon';
 
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
-import handleSelectKeypress    from './handleSelectKeypress';
+
+import handleSelectKeypress from './handleSelectKeypress';
 
 describe('handleSelectKeypress()', () => {
     it('calls `actions.search()`', () => {

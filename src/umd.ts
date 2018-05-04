@@ -1,6 +1,6 @@
 import 'custom-event-polyfill';
 
-import './Shared/Polfills/Element.matches';
+import './Shared/Polyfills/Element.matches';
 
 import factory from './Easydropdown/factory';
 

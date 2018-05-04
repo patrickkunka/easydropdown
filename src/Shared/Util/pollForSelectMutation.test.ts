@@ -1,7 +1,8 @@
 import {assert} from 'chai';
 import {spy} from 'sinon';
 
-import State                 from '../../State/State';
+import State from '../../State/State';
+
 import pollForSelectMutation from './pollForSelectMutation';
 
 describe('pollForSelectMutation()', () => {

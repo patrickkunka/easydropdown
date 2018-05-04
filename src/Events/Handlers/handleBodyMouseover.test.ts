@@ -3,7 +3,8 @@ import {spy}    from 'sinon';
 
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
-import handleBodyMouseover     from './handleBodyMouseover';
+
+import handleBodyMouseover from './handleBodyMouseover';
 
 describe('handleBodyMouseover()', () => {
     it('calls `stopPropagation` on the provided event', () => {

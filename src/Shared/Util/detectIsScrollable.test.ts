@@ -1,6 +1,7 @@
 import {assert} from 'chai';
 
-import Dom                from '../../Renderer/Dom';
+import Dom from '../../Renderer/Dom';
+
 import detectIsScrollable from './detectIsScrollable';
 
 const createMockDom = (

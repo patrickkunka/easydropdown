@@ -3,7 +3,8 @@ import {spy}    from 'sinon';
 
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
-import handleSelectFocus       from './handleSelectFocus';
+
+import handleSelectFocus from './handleSelectFocus';
 
 describe('handleSelectFocus()', () => {
     it('calls `actions.focus()`', () => {
