@@ -4,9 +4,10 @@ import killSelectReaction  from '../../Shared/Util/killSelectReaction';
 import IHandlerParams      from '../Interfaces/IHandlerParams';
 
 function handleSelectKeydownDown(
-    {keyCode, metaKey, target}: KeyboardEvent,
+    e: KeyboardEvent,
     handlerParams: IHandlerParams
 ): void {
+    const {metaKey, target} = e;
     const {state, dom, actions, config} = handlerParams;
 
     let focusedIndex: number = state.focusedIndex > -1 ?
@@ -14,6 +15,8 @@ function handleSelectKeydownDown(
 
     let iterations: number = 0;
     let incrementAmount: number = 1;
+
+    e.preventDefault();
 
     killSelectReaction(target as HTMLSelectElement, handlerParams);
 

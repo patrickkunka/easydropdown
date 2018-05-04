@@ -25,7 +25,6 @@ function handleSelectKeydown(e: KeyboardEvent, handlerParams: IHandlerParams): v
         case KeyCodes.SPACE:
             if (state.isSearching) {
                 e.stopPropagation();
-                // e.preventDefault();
 
                 return;
             }
