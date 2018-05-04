@@ -15,6 +15,7 @@
   "scripts": {
     "test": "mocha --opts ./config/mocha/mocha.opts",
     "test:watch": "npm run test -- --watch",
+    "test:cover": "nyc npm run test",
     "lint": "npm run lint:ts && npm run lint:css",
     "lint:ts": "tslint --project tsconfig.json -c './config/tslint/tslint.json' './src/**/*.ts' './src/**/*.test.ts'",
     "lint:css": "stylelint --config './config/stylelint/.stylelintrc.json' './demos/**/*.css'",
@@ -24,36 +25,11 @@
     "bundle:watch": "npm run webpack -- --watch",
     "bundle:build": "npm run webpack -- --env=production",
     "prepublishOnly": "npm run test && npm run build",
-    "cover": "nyc mocha './src/**/*.ts'",
-    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
+    "coveralls": "npm run test:cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "prepush": "npm run test && npm run bundle:build"
   },
   "nyc": {
-    "require": [
-      "ts-node/register",
-      "source-map-support/register"
-    ],
-    "reporter": [
-      "lcov",
-      "text"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "exclude": [
-      "./config",
-      "**/index.ts",
-      "**/*.d.ts",
-      "**/**.test.ts",
-      "**/Interfaces",
-      "**/Constants",
-      "**/Polyfills",
-      "**/Mock",
-      "bundle",
-      "dist",
-      "coverage"
-    ],
-    "all": true
+    "extends": "./config/nyc/.nycrc.json"
   },
   "dependencies": {
     "custom-event-polyfill": "^0.3.0",

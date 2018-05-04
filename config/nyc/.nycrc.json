@@ -1,0 +1,28 @@
+{
+    "require": [
+      "ts-node/register",
+      "source-map-support/register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "./config",
+      "**/umd.ts",
+      "**/index.ts",
+      "**/*.d.ts",
+      "**/**.test.ts",
+      "**/Interfaces",
+      "**/Constants",
+      "**/Polyfills",
+      "**/Mock",
+      "bundle",
+      "dist",
+      "coverage"
+    ],
+    "all": true
+}
