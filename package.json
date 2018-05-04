@@ -52,6 +52,7 @@
     "all": true
   },
   "dependencies": {
+    "custom-event-polyfill": "^0.3.0",
     "helpful-merge": "^0.1.0"
   },
   "devDependencies": {
@@ -61,7 +62,6 @@
     "@types/sinon": "^4.3.1",
     "chai": "^3.5.0",
     "chai-shallow-deep-equal": "^1.4.0",
-    "core-js": "^2.5.5",
     "coveralls": "^3.0.0",
     "istanbul": "^0.4.5",
     "jsdom": "^11.8.0",

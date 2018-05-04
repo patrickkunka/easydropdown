@@ -12,9 +12,9 @@ module.exports = {
     },
     devtool: 'source-map',
     plugins: [
-        // new webpack.optimize.UglifyJsPlugin({
-        //    sourcemaps: true
-        // })
+        new webpack.optimize.UglifyJsPlugin({
+           sourcemaps: true
+        })
     ],
     resolve: {
         extensions: ['.ts', '.js']

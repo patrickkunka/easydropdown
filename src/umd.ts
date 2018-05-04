@@ -1,6 +1,6 @@
-if (!Element.prototype.matches) {
-    Element.prototype.matches = Element.prototype.msMatchesSelector;
-}
+import 'custom-event-polyfill';
+
+import './Shared/Polfills/Element.matches';
 
 import factory from './Easydropdown/factory';
 
