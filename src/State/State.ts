@@ -14,7 +14,7 @@ class State {
     public optionHeight:              number       = -1;
     public maxVisibleOptionsOverride: number       = -1;
     public name:                      string       = '';
-    public placeholder:               string       = 'Select';
+    public placeholder:               string       = '';
     public scrollStatus:              ScrollStatus = ScrollStatus.AT_TOP;
     public bodyStatus:                BodyStatus   = BodyStatus.CLOSED;
     public isDisabled:                boolean      = false;
@@ -69,7 +69,7 @@ class State {
 
     public get humanReadableValue(): string {
         if (
-            !this.hasValue ||
+            (!this.hasValue && this.hasPlaceholder) ||
             (
                 this.config.behavior.showPlaceholderWhenOpen &&
                 this.hasPlaceholder &&
