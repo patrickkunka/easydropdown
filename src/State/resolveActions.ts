@@ -91,6 +91,10 @@ const resolveActions = (state: State): IActions => ({
     },
 
     selectOption(this: IActions, index: number): void {
+        const optionAtIndex = state.getOptionFromIndex(index);
+
+        if (optionAtIndex.isDisabled) return;
+
         state.selectedIndex = index;
 
         if (state.isInvalid) {
