@@ -16,6 +16,16 @@ describe('scrollToView()', () => {
         assert.notEqual(params.dom.itemsList.scrollTop, 100);
     });
 
+    it('aborts if there are no options', async () => {
+        const params = createMockHandlerParams();
+
+        params.dom.itemsList.scrollTop = 100;
+
+        scrollToView(params.dom, params.timers, params.state);
+
+        assert.equal(params.dom.itemsList.scrollTop, 100);
+    });
+
     describe('getScrollTop()', () => {
         it(
             'scrolls to the top of the targeted option if less than the ' +

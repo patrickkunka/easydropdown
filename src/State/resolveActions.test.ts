@@ -259,6 +259,18 @@ describe('resolveActions', function(): void {
             assert.equal(self.state.selectedIndex, 2);
         });
 
+        it(
+            'it does not set `state.selectedIndex` to the provided ' +
+            'index, if the option is disabled',
+            () => {
+                self.state.groups[0].options[2].isDisabled = true;
+
+                self.actions.selectOption(2);
+
+                assert.notEqual(self.state.selectedIndex, 2);
+            }
+        );
+
         it('revalidates the instance if `state.isInvalid` is `true`', () => {
             self.state.isInvalid = true;
 
