@@ -1,13 +1,19 @@
-document.addEventListener("DOMContentLoaded", function() {
-    var themeSwitcher = document.querySelector('.theme-switcher');
-    var themeSheet = document.querySelector('#theme-sheet');
+(function() {
+    var themeSwitcher, themeSheet;
 
-    themeSwitcher.addEventListener('click', function(e) {
+    function initThemeSwitcher() {
+        themeSwitcher = document.querySelector('.theme-switcher');
+        themeSheet = document.querySelector('#theme-sheet');
+
+        themeSwitcher.addEventListener('click', handleThemeClick);
+    }
+
+    function handleThemeClick(e) {
         var all = document.querySelectorAll('[data-theme]');
         var target = e.target;
         var themeUrl = target.getAttribute('data-theme');
 
-        if (target === themeSwitcher) return;
+        if (!themeUrl) return;
 
         Array.prototype.forEach.call(all, function(link) {
             link.removeAttribute('class');
@@ -16,5 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
         themeSheet.href = themeUrl;
 
         target.className = 'active';
-    });
-});
+    }
+
+    document.addEventListener("DOMContentLoaded", initThemeSwitcher);
+})();
