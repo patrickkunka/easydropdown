@@ -47,6 +47,7 @@
 
 .edd-disabled {
     color: #ccc;
+    cursor: not-allowed;
 }
 
 .edd-arrow {

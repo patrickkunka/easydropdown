@@ -63,6 +63,7 @@
 
 .edd-disabled {
     color: #ccc;
+    cursor: not-allowed;
 }
 
 .edd-arrow {
@@ -87,8 +88,8 @@
     height: 8px;
     border-right: 2px solid currentColor;
     border-bottom: 2px solid currentColor;
-    top: -2px;
-    right: 0;
+    top: 0;
+    right: 2px;
     transform: rotate(45deg);
     transform-origin: 50% 25%;
 }
@@ -131,6 +132,7 @@
     pointer-events: none;
     overflow: hidden;
     z-index: 999;
+    background: white;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.08);
     border: 1px solid #eee;
     border-top: 0;
@@ -174,6 +176,7 @@
     font-size: 13px;
     padding: 12px 8px 4px;
     color: #555;
+    font-weight: 600;
 }
 
 .edd-group-has-label {

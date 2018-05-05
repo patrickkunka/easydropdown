@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fafafa;
+    font-family: 'Helvetica Neue', arial, helvetica, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.main {
+    padding: 16px;
+    flex: 1;
+}
+
+.heading,
+.sub-heading,
+.demo-container {
+    width: calc(100vw - 20px);
+    max-width: 400px;
+}
+
+.heading,
+.sub-heading {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.heading {
+    font-size: 24px;
+    margin-bottom: 0.8em;
+}
+
+.sub-heading {
+    font-size: 14px;
+    margin-bottom: 0.5em;
+}
+
+.demo-container {
+    display: flex;
+    height: 150px;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.03);
+}
+
+.edd-body {
+    opacity: 0;
+}
+
+.theme-switcher {
+    padding: 8px 0;
+    color: #bbb;
+    display: flex;
+    justify-content: space-between;
+}
+
+.theme-switcher-options * {
+    display: inline;
+}
+
+.theme-switcher-label {
+    color: black;
+}
+
+.theme-switcher button {
+    color: #333;
+    cursor: pointer;
+    background: transparent;
+    font-family: 'Helvetica Neue', arial, helvetica, sans-serif;
+    font-size: 16px;
+    border: 0 none;
+    outline: 0 none;
+}
+
+.theme-switcher .active {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.footer {
+    width: 100%;
+    background: #2a2a2a;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.footer a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 150ms;
+}
+
+.footer a:hover {
+    color: #fff;
+}
