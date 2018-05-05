@@ -7,13 +7,13 @@ import createMockHandlerParams from '../Mock/createMockHandlerParams';
 import handleWindowResize from './handleWindowResize';
 
 describe('handleWindowResize()', () => {
-    it('calls `setGeometry()`', () => {
+    it('calls `actions.close()`', () => {
         const params = createMockHandlerParams();
         const mockEvent = createMockEvent();
-        const setOptionHeightSpy = spy(params.actions, 'setOptionHeight');
+        const closeSpy = spy(params.actions, 'close');
 
         handleWindowResize(mockEvent, params);
 
-        assert.isTrue(setOptionHeightSpy.called);
+        assert.isTrue(closeSpy.called);
     });
 });

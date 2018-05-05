@@ -1,23 +1,21 @@
 import merge from 'helpful-merge';
 
-import Config                from '../Config/Config';
-import ICallback             from '../Config/Interfaces/ICallback';
-import IConfig               from '../Config/Interfaces/IConfig';
-import bindEvents            from '../Events/bindEvents';
-import EventBinding          from '../Events/EventBinding';
-import Dom                   from '../Renderer/Dom';
-import Renderer              from '../Renderer/Renderer';
-import detectBodyCollision   from '../Shared/Util/detectBodyCollision';
-import detectIsScrollable    from '../Shared/Util/detectIsScrollable';
-import pollForSelectChange   from '../Shared/Util/pollForSelectChange';
-import pollForSelectMutation from '../Shared/Util/pollForSelectMutation';
-import setGeometry           from '../Shared/Util/setGeometry';
-import closeOthers           from '../State/InjectedActions/closeOthers';
-import scrollToView          from '../State/InjectedActions/scrollToView';
-import IActions              from '../State/Interfaces/IActions';
-import State                 from '../State/State';
-import StateManager          from '../State/StateManager';
-import StateMapper           from '../State/StateMapper';
+import Config                 from '../Config/Config';
+import ICallback              from '../Config/Interfaces/ICallback';
+import IConfig                from '../Config/Interfaces/IConfig';
+import bindEvents             from '../Events/bindEvents';
+import EventBinding           from '../Events/EventBinding';
+import Dom                    from '../Renderer/Dom';
+import Renderer               from '../Renderer/Renderer';
+import dispatchOpen           from '../Shared/Util/dispatchOpen';
+import pollForSelectChange    from '../Shared/Util/pollForSelectChange';
+import pollForSelectMutation  from '../Shared/Util/pollForSelectMutation';
+import closeOthers            from '../State/InjectedActions/closeOthers';
+import scrollToView           from '../State/InjectedActions/scrollToView';
+import IActions               from '../State/Interfaces/IActions';
+import State                  from '../State/State';
+import StateManager           from '../State/StateManager';
+import StateMapper            from '../State/StateMapper';
 
 import cache  from './cache';
 import Timers from './Timers';
@@ -61,8 +59,6 @@ class Easydropdown {
                 this.refresh.bind(this)
             );
         }
-
-        this.init();
     }
 
     public get selectElement(): HTMLSelectElement {
@@ -82,11 +78,7 @@ class Easydropdown {
     }
 
     public open(): void {
-        this.actions.open(
-            detectBodyCollision(this.state, this.dom, this.config),
-            () => detectIsScrollable(this.dom),
-            this.dom.optionHeight
-        );
+        dispatchOpen(this.actions, this.config, this.dom);
     }
 
     public close(): void {
@@ -114,10 +106,6 @@ class Easydropdown {
         const cacheIndex = cache.indexOf(this);
 
         cache.splice(cacheIndex, 1);
-    }
-
-    private init(): void {
-        setGeometry(this.state, this.actions, this.dom);
     }
 
     private handleStateUpdate(state: State, key: keyof State): void {

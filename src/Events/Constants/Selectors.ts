@@ -1,1 +1,1 @@
-export const OPTION = '[data-ref="option"]';
+export const OPTION = '[data-ref~="option"]';

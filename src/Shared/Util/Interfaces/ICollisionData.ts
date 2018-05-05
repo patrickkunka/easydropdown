@@ -2,7 +2,7 @@ import CollisionType from '../Constants/CollisionType';
 
 interface ICollisionData {
     type: CollisionType;
-    maxVisibleOptionsOverride: number;
+    maxVisibleItemsOverride: number;
 }
 
 export default ICollisionData;

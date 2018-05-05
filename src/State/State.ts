@@ -8,22 +8,22 @@ import Group        from  './Group';
 import Option       from './Option';
 
 class State {
-    public groups:                    Group[]      = [];
-    public focusedIndex:              number       = -1;
-    public selectedIndex:             number       = -1;
-    public optionHeight:              number       = -1;
-    public maxVisibleOptionsOverride: number       = -1;
-    public name:                      string       = '';
-    public placeholder:               string       = '';
-    public scrollStatus:              ScrollStatus = ScrollStatus.AT_TOP;
-    public bodyStatus:                BodyStatus   = BodyStatus.CLOSED;
-    public isDisabled:                boolean      = false;
-    public isInvalid:                 boolean      = false;
-    public isFocused:                 boolean      = false;
-    public isUseNativeMode:           boolean      = false;
-    public isScrollable:              boolean      = false;
-    public isSearching:               boolean      = false;
-    public isKeying:                  boolean      = false;
+    public groups:                  Group[]      = [];
+    public focusedIndex:            number       = -1;
+    public selectedIndex:           number       = -1;
+    public maxVisibleItemsOverride: number       = -1;
+    public maxBodyHeight:           number       = -1;
+    public name:                    string       = '';
+    public placeholder:             string       = '';
+    public scrollStatus:            ScrollStatus = ScrollStatus.AT_TOP;
+    public bodyStatus:              BodyStatus   = BodyStatus.CLOSED;
+    public isDisabled:              boolean      = false;
+    public isInvalid:               boolean      = false;
+    public isFocused:               boolean      = false;
+    public isUseNativeMode:         boolean      = false;
+    public isScrollable:            boolean      = false;
+    public isSearching:             boolean      = false;
+    public isKeying:                boolean      = false;
 
     private config: Config;
 
@@ -120,20 +120,6 @@ class State {
 
     public get isAtBottom(): boolean {
         return this.scrollStatus === ScrollStatus.AT_BOTTOM;
-    }
-
-    public get maxBodyHeight(): number {
-        const maxVisibleOptions = (
-            this.maxVisibleOptionsOverride > -1 &&
-            this.config.behavior.clampMaxVisibleOptions
-        ) ?
-            this.maxVisibleOptionsOverride :
-            this.config.behavior.maxVisibleOptions;
-
-        return Math.max(
-            0,
-            this.optionHeight * maxVisibleOptions
-        );
     }
 
     public getOptionFromIndex(index: number): Option {

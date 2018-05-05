@@ -59,8 +59,6 @@ describe('handleSelectKeydown()', () => {
                 handleSelectKeydown(mockEvent, params);
 
                 assert.isTrue(openSpy.called);
-
-                openSpy.reset();
             });
     });
 
@@ -78,8 +76,6 @@ describe('handleSelectKeydown()', () => {
                 handleSelectKeydown(mockEvent, params);
 
                 assert.isTrue(selectOptionSpy.called);
-
-                selectOptionSpy.reset();
             });
     });
 
@@ -110,8 +106,6 @@ describe('handleSelectKeydown()', () => {
                 handleSelectKeydown(mockEvent, params);
 
                 assert.isTrue(focusOptionSpy.called);
-
-                focusOptionSpy.reset();
             });
     });
 });

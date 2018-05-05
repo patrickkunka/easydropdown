@@ -1,4 +1,4 @@
-import ICollisionData from '../../Shared/Util/Interfaces/ICollisionData';
+import CollisionType  from '../../Shared/Util/Constants/CollisionType';
 import State          from '../State';
 
 interface IActions {
@@ -9,11 +9,10 @@ interface IActions {
     topOut(): void;
     bottomOut(): void;
     scroll(): void;
-    setOptionHeight(optionHeight: number): void;
     open(
-        collisionData: ICollisionData,
-        getIsScrollableStatus: () => boolean,
-        optionHeight: number
+        maxBodyHeight: number,
+        collisionType: CollisionType,
+        isScrollable: boolean
     ): void;
     close(): void;
     makeScrollable(): void;

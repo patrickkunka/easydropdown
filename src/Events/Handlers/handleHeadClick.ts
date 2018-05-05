@@ -1,6 +1,5 @@
-import detectBodyCollision from '../../Shared/Util/detectBodyCollision';
-import detectIsScrollable  from '../../Shared/Util/detectIsScrollable';
-import IHandlerParams      from '../Interfaces/IHandlerParams';
+import dispatchOpen   from '../../Shared/Util/dispatchOpen';
+import IHandlerParams from '../Interfaces/IHandlerParams';
 
 function handleHeadClick(e: MouseEvent, {state, actions, dom, config}: IHandlerParams): void {
     if (state.isUseNativeMode) return;
@@ -8,11 +7,7 @@ function handleHeadClick(e: MouseEvent, {state, actions, dom, config}: IHandlerP
     e.stopPropagation();
 
     if (state.isClosed) {
-        actions.open(
-            detectBodyCollision(state, dom, config),
-            () => detectIsScrollable(dom),
-            dom.optionHeight
-        );
+        dispatchOpen(actions, config, dom);
 
         dom.select.focus();
     } else {

@@ -1,8 +1,7 @@
-import setGeometry    from '../../Shared/Util/setGeometry';
 import IHandlerParams from '../Interfaces/IHandlerParams';
 
-function handleWindowResize(e: Event, {state, actions, dom}: IHandlerParams): void {
-    setGeometry(state, actions, dom);
+function handleWindowResize(e: Event, {actions}: IHandlerParams): void {
+    actions.close();
 }
 
 export default handleWindowResize;

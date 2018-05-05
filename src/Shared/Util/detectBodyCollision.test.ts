@@ -10,7 +10,7 @@ import detectBodyCollision, {
 describe('detectBodyCollision()', () => {
     it('returns collision type `NONE` if the select has no options', () => {
         const params = createMockHandlerParams();
-        const collisionData = detectBodyCollision(params.state, params.dom, params.config);
+        const collisionData = detectBodyCollision(params.dom, params.config);
 
         assert.equal(collisionData.type, CollisionType.NONE);
     });
@@ -20,7 +20,7 @@ describe('detectBodyCollision()', () => {
 
         params.dom.option.push(document.createElement('div'));
 
-        const collisionData = detectBodyCollision(params.state, params.dom, params.config);
+        const collisionData = detectBodyCollision(params.dom, params.config);
 
         assert.notEqual(collisionData.type, CollisionType.NONE);
     });
@@ -50,7 +50,7 @@ describe('detectBodyCollision()', () => {
             () => {
                 const collisionData = mapCollisionData(30, 50, 100, 30);
 
-                assert.notEqual(collisionData.maxVisibleOptionsOverride, -1);
+                assert.notEqual(collisionData.maxVisibleItemsOverride, -1);
                 assert.equal(collisionData.type, CollisionType.TOP);
             }
         );
@@ -61,7 +61,7 @@ describe('detectBodyCollision()', () => {
             () => {
                 const collisionData = mapCollisionData(50, 30, 100, 30);
 
-                assert.notEqual(collisionData.maxVisibleOptionsOverride, -1);
+                assert.notEqual(collisionData.maxVisibleItemsOverride, -1);
                 assert.equal(collisionData.type, CollisionType.BOTTOM);
             }
         );

@@ -5,7 +5,6 @@ import {spy} from 'sinon';
 chai.config.truncateThreshold = 0;
 
 import CollisionType  from '../Shared/Util/Constants/CollisionType';
-import ICollisionData from '../Shared/Util/Interfaces/ICollisionData';
 
 import BodyStatus     from './Constants/BodyStatus';
 import ScrollStatus   from './Constants/ScrollStatus';
@@ -37,14 +36,6 @@ interface ITestContext {
     state: State;
     actions: IActions;
 }
-
-const createOpenParams = (): [ICollisionData, () => boolean, number] => {
-    return [
-        {type: CollisionType.NONE, maxVisibleOptionsOverride: -1},
-        () => false,
-        0
-    ];
-};
 
 describe('resolveActions', function(): void {
     // @ts-ignore
@@ -148,108 +139,48 @@ describe('resolveActions', function(): void {
         });
     });
 
-    describe('.setOptionHeight()', () => {
-        it('sets `setOptionHeight` to the provided value', () => {
-            self.actions.setOptionHeight(123);
-
-            assert.equal(self.state.optionHeight, 123);
-        });
-    });
-
     describe('.open()', () => {
         it('does nothing if disabled', () => {
             self.state.isDisabled = true;
 
-            self.actions.open.apply(self.actions, createOpenParams());
+            self.actions.open(0, CollisionType.NONE, false);
 
             assert.isTrue(self.state.isClosed);
         });
 
-        it('calls `setOptionHeight()` and `closeOthers()` when opening', () => {
-            const setOptionHeightSpy = spy(self.actions, 'setOptionHeight');
-            const closeOthersSpy = spy(self.actions, 'closeOthers');
-
-            self.actions.open.apply(self.actions, createOpenParams());
-
-            assert.isTrue(setOptionHeightSpy.called);
-            assert.isTrue(closeOthersSpy.called);
-        });
-
         it('opens "below" if a collision type of `TOP` is provided', () => {
-            const openParams = createOpenParams();
-
-            openParams[0].type = CollisionType.TOP;
-
-            self.actions.open.apply(self.actions, openParams);
+            self.actions.open(0, CollisionType.TOP, false);
 
             assert.isTrue(self.state.isOpenBelow);
         });
 
         it('opens "below" if a collision type of `NONE` is provided', () => {
-            const openParams = createOpenParams();
-
-            openParams[0].type = CollisionType.NONE;
-
-            self.actions.open.apply(self.actions, openParams);
+            self.actions.open(0, CollisionType.NONE, false);
 
             assert.isTrue(self.state.isOpenBelow);
         });
 
         it('opens "above" if a collision type of `BOTTOM` is provided', () => {
-            const openParams = createOpenParams();
-
-            openParams[0].type = CollisionType.BOTTOM;
-
-            self.actions.open.apply(self.actions, openParams);
+            self.actions.open(0, CollisionType.BOTTOM, false);
 
             assert.isTrue(self.state.isOpenAbove);
         });
 
-        it('calls `actions.makeScrollable()` if the second parameter returns `true`', async () => {
-            const openParams = createOpenParams();
-            const makeScrollableSpy = spy(self.actions, 'makeScrollable');
+        it('set `state.isScrollable()` based on the value of the last parameter', () => {
+            assert.isFalse(self.state.isScrollable);
 
-            openParams[1] = () => true;
+            self.actions.open(0, CollisionType.NONE, true);
 
-            self.actions.open.apply(self.actions, openParams);
-
-            await new Promise(resolver => setTimeout(resolver));
-
-            assert.isTrue(makeScrollableSpy.called);
+            assert.isTrue(self.state.isScrollable);
         });
 
-        it(
-            'calls `actions.makeUnscrollable()` if the second parameter returns ' +
-            '`false`, and `state.isScrollable` is set',
-            async () => {
-                const openParams = createOpenParams();
-                const makeUnscrollableSpy = spy(self.actions, 'makeUnscrollable');
+        it('calls `actions.scrollToView()`', () => {
+            const scrollToViewSpy = spy(self.actions, 'scrollToView');
 
-                openParams[1] = () => false;
+            self.actions.open(0, CollisionType.NONE, false);
 
-                self.state.isScrollable = true;
-
-                self.actions.open.apply(self.actions, openParams);
-
-                await new Promise(resolver => setTimeout(resolver));
-
-                assert.isTrue(makeUnscrollableSpy.called);
-            }
-        );
-
-        it(
-            'calls `actions.scrollToView()`',
-            async () => {
-                const openParams = createOpenParams();
-                const scrollToViewSpy = spy(self.actions, 'scrollToView');
-
-                self.actions.open.apply(self.actions, openParams);
-
-                await new Promise(resolver => setTimeout(resolver));
-
-                assert.isTrue(scrollToViewSpy.called);
-            }
-        );
+            assert.isTrue(scrollToViewSpy.called);
+        });
     });
 
     describe('.selectOption()', () => {

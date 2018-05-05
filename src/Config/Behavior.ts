@@ -6,9 +6,9 @@ class Behavior implements IBehavior {
     public closeOnSelect:           boolean = false;
     public useNativeUiOnMobile:     boolean = true;
     public loop:                    boolean = false;
-    public clampMaxVisibleOptions:  boolean = true;
+    public clampMaxVisibleItems:    boolean = true;
     public reactToUpdates:          boolean = false;
-    public maxVisibleOptions:       number  = 15;
+    public maxVisibleItems:         number  = 15;
 
     constructor() {
         Object.seal(this);

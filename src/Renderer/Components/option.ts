@@ -11,7 +11,7 @@ function option(optionState: Option, state: State, classNames: ClassNames): stri
         [optionState.isDisabled, classNames.optionDisabled]
     ]);
 
-    return `<div class="${className}" data-ref="option" title="${optionState.label}">${optionState.label}</div>`;
+    return `<div class="${className}" data-ref="option item" title="${optionState.label}">${optionState.label}</div>`;
 }
 
 export default option;

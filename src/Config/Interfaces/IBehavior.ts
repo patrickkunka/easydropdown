@@ -4,9 +4,9 @@ interface IBehavior {
     closeOnSelect?:           boolean;
     useNativeUiOnMobile?:     boolean;
     loop?:                    boolean;
-    clampMaxVisibleOptions?:  boolean;
+    clampMaxVisibleItems?:    boolean;
     reactToUpdates?:          boolean;
-    maxVisibleOptions?:       number;
+    maxVisibleItems?:         number;
 }
 
 export default IBehavior;

@@ -1,5 +1,4 @@
 import CollisionType  from '../Shared/Util/Constants/CollisionType';
-import ICollisionData from '../Shared/Util/Interfaces/ICollisionData';
 
 import BodyStatus   from './Constants/BodyStatus';
 import ScrollStatus from './Constants/ScrollStatus';
@@ -43,24 +42,17 @@ const resolveActions = (state: State): IActions => ({
         state.isScrollable = false;
     },
 
-    setOptionHeight(optionHeight: number): void {
-        state.optionHeight = optionHeight;
-    },
-
     open(
         this: IActions,
-        collisionData: ICollisionData,
-        getIsScrollableStatus: () => boolean,
-        optionHeight: number
+        maxBodyHeight: number,
+        collisionType: CollisionType,
+        isScrollable: boolean
     ): void {
         if (state.isDisabled) return;
 
-        this.setOptionHeight(optionHeight);
         this.closeOthers();
 
-        state.maxVisibleOptionsOverride = collisionData.maxVisibleOptionsOverride;
-
-        switch (collisionData.type) {
+        switch (collisionType) {
             case CollisionType.NONE:
             case CollisionType.TOP:
                 state.bodyStatus = BodyStatus.OPEN_BELOW;
@@ -72,17 +64,10 @@ const resolveActions = (state: State): IActions => ({
                 break;
         }
 
-        window.requestAnimationFrame(() => {
-            const isScrollable = getIsScrollableStatus();
+        state.isScrollable = isScrollable;
+        state.maxBodyHeight = maxBodyHeight;
 
-            if (isScrollable && !state.isScrollable) {
-                this.makeScrollable();
-            } else if (!isScrollable && state.isScrollable) {
-                this.makeUnscrollable();
-            }
-
-            this.scrollToView(state, true);
-        });
+        this.scrollToView(state, true);
     },
 
     close(): void {

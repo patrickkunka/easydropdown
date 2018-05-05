@@ -1,43 +1,45 @@
 import Config from '../../Config/Config';
 import Dom    from '../../Renderer/Dom';
-import State  from '../../State/State';
 
 import CollisionType  from './Constants/CollisionType';
 import ICollisionData from './Interfaces/ICollisionData';
 
-function mapCollisionData(deltaTop, deltaBottom, maxHeight, optionHeight): ICollisionData {
+const CLEARSPACE = 10;
+
+function mapCollisionData(deltaTop, deltaBottom, maxHeight, itemHeight): ICollisionData {
     let type = CollisionType.NONE;
-    let maxVisibleOptionsOverride = -1;
+    let maxVisibleItemsOverride = -1;
 
     if (deltaTop <= maxHeight && deltaBottom <= maxHeight) {
         const largestDelta = Math.max(deltaBottom, deltaTop);
 
-        type = deltaTop < deltaBottom ? CollisionType.TOP : CollisionType.BOTTOM,
-        maxVisibleOptionsOverride = Math.floor(largestDelta / optionHeight);
+        type = deltaTop < deltaBottom ? CollisionType.TOP : CollisionType.BOTTOM;
+        maxVisibleItemsOverride = Math.floor(largestDelta / itemHeight);
     } else if (deltaTop <= maxHeight) {
         type = CollisionType.TOP;
     } else if (deltaBottom <= maxHeight) {
         type = CollisionType.BOTTOM;
     }
 
-    return {type, maxVisibleOptionsOverride};
+    return {type, maxVisibleItemsOverride};
 }
 
-function detectBodyCollision(state: State, dom: Dom, config: Config): ICollisionData {
+function detectBodyCollision(dom: Dom, config: Config): ICollisionData {
     const bbHead = dom.head.getBoundingClientRect();
     const wh = window.innerHeight;
-    const deltaTop = bbHead.top;
-    const deltaBottom = wh - bbHead.bottom;
+    const deltaTop = bbHead.top - CLEARSPACE;
+    const deltaBottom = wh - bbHead.bottom - CLEARSPACE;
 
-    if (!dom.firstOption) return {
+    if (dom.option.length < 1) return {
         type: CollisionType.NONE,
-        maxVisibleOptionsOverride: -1
+        maxVisibleItemsOverride: -1
     };
 
-    const visibleOptions = Math.min(config.behavior.maxVisibleOptions, state.totalOptions);
-    const maxHeight = visibleOptions * dom.optionHeight;
+    const maxVisibleItems = Math.min(config.behavior.maxVisibleItems, dom.item.length);
+    const maxHeight = dom.sumItemsHeight(maxVisibleItems);
+    const itemHeight = dom.sumItemsHeight(1);
 
-    return mapCollisionData(deltaTop, deltaBottom, maxHeight, dom.optionHeight);
+    return mapCollisionData(deltaTop, deltaBottom, maxHeight, itemHeight);
 }
 
 export {

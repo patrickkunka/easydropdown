@@ -1,7 +1,6 @@
-import detectBodyCollision from '../../Shared/Util/detectBodyCollision';
-import detectIsScrollable  from '../../Shared/Util/detectIsScrollable';
-import killSelectReaction  from '../../Shared/Util/killSelectReaction';
-import IHandlerParams      from '../Interfaces/IHandlerParams';
+import dispatchOpen       from '../../Shared/Util/dispatchOpen';
+import killSelectReaction from '../../Shared/Util/killSelectReaction';
+import IHandlerParams     from '../Interfaces/IHandlerParams';
 
 function handleSelectKeydownUp(
     e: KeyboardEvent,
@@ -22,7 +21,7 @@ function handleSelectKeydownUp(
 
     if (metaKey) {
         incrementAmount = Math.round(
-            Math.max(state.totalOptions / 2, config.behavior.maxVisibleOptions)
+            Math.max(state.totalOptions / 2, config.behavior.maxVisibleItems)
         );
     }
 
@@ -46,11 +45,7 @@ function handleSelectKeydownUp(
     );
 
     if (state.isClosed) {
-        actions.open(
-            detectBodyCollision(state, dom, config),
-            () => detectIsScrollable(dom),
-            dom.optionHeight
-        );
+        dispatchOpen(actions, config, dom);
     }
 }
 

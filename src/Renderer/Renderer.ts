@@ -81,7 +81,7 @@ class Renderer {
     public static queryDomRefs(dom: Dom, keys: string[] = Object.keys(dom)): Dom {
         return keys
             .reduce((localDom: Dom, ref: string) => {
-                const selector = `[data-ref="${ref}"]`;
+                const selector = `[data-ref~="${ref}"]`;
                 const elements = localDom.root.querySelectorAll(selector);
 
                 if (elements.length < 1 || ref === 'root') return localDom;

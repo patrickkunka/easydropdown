@@ -1,8 +1,7 @@
-import detectBodyCollision from '../../Shared/Util/detectBodyCollision';
-import detectIsScrollable  from '../../Shared/Util/detectIsScrollable';
-import killSelectReaction  from '../../Shared/Util/killSelectReaction';
-import * as KeyCodes       from '../Constants/KeyCodes';
-import IHandlerParams      from '../Interfaces/IHandlerParams';
+import dispatchOpen       from '../../Shared/Util/dispatchOpen';
+import killSelectReaction from '../../Shared/Util/killSelectReaction';
+import * as KeyCodes      from '../Constants/KeyCodes';
+import IHandlerParams     from '../Interfaces/IHandlerParams';
 
 import handleSelectKeydownDown from './handleSelectKeydownDown';
 import handleSelectKeydownUp   from './handleSelectKeydownUp';
@@ -38,11 +37,7 @@ function handleSelectKeydown(e: KeyboardEvent, handlerParams: IHandlerParams): v
             if (state.isOpen) {
                 actions.selectOption(state.focusedIndex);
             } else {
-                actions.open(
-                    detectBodyCollision(state, dom, config),
-                    () => detectIsScrollable(dom),
-                    dom.optionHeight
-                );
+                dispatchOpen(actions, config, dom);
             }
 
             break;

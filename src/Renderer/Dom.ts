@@ -6,17 +6,20 @@ class Dom {
     public body:      HTMLDivElement    = null;
     public arrow:     HTMLDivElement    = null;
     public itemsList: HTMLDivElement    = null;
+    public item:      HTMLDivElement[]  = [];
     public group:     HTMLDivElement[]  = [];
     public option:    HTMLDivElement[]  = [];
 
-    public get firstOption(): HTMLDivElement {
-        return this.option[0] || null;
-    }
+    public sumItemsHeight(max: number = Infinity): number {
+        let totalHeight = 0;
 
-    public get optionHeight(): number {
-        if (!this.firstOption) return -1;
+        for (let i = 0, item; (item = this.item[i]); i++) {
+            if (i === max) break;
 
-        return this.firstOption.offsetHeight;
+            totalHeight += item.offsetHeight;
+        }
+
+        return totalHeight;
     }
 }
 

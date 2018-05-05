@@ -83,12 +83,12 @@ describe('factory', () => {
 
             factory.all({
                 behavior: {
-                    clampMaxVisibleOptions: true
+                    clampMaxVisibleItems: true
                 }
             });
 
             // @ts-ignore
-            assert.isTrue(cache[0].config.behavior.clampMaxVisibleOptions);
+            assert.isTrue(cache[0].config.behavior.clampMaxVisibleItems);
         });
     });
 
