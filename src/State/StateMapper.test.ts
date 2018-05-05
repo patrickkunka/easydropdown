@@ -124,7 +124,7 @@ describe('StateMapper', function(): void {
 
         const state = StateMapper.mapFromSelect(select as HTMLSelectElement, self.config);
 
-        assert.equal(state.placeholder, 'Select');
+        assert.equal(state.placeholder, '');
         assert.equal(state.label, 'Quux');
         assert.equal(state.value, 'Quux');
         assert.equal(state.totalGroups, 2);

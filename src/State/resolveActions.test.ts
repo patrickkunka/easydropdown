@@ -15,6 +15,24 @@ import State          from './State';
 
 const {assert} = chai;
 
+const createMockState = () => new State({
+    groups: [
+        {
+            options: [
+                {
+                    value: 'A'
+                },
+                {
+                    value: 'B'
+                },
+                {
+                    value: 'C'
+                }
+            ]
+        }
+    ]
+});
+
 interface ITestContext {
     state: State;
     actions: IActions;
@@ -33,7 +51,7 @@ describe('resolveActions', function(): void {
     const self: ITestContext = this;
 
     beforeEach(() => {
-        self.state = new State();
+        self.state = createMockState();
         self.actions = resolveActions(self.state);
 
         self.actions.closeOthers = () => void 0;
@@ -236,15 +254,15 @@ describe('resolveActions', function(): void {
 
     describe('.selectOption()', () => {
         it('sets `state.selectedIndex` to the provided index', () => {
-            self.actions.selectOption(3);
+            self.actions.selectOption(2);
 
-            assert.equal(self.state.selectedIndex, 3);
+            assert.equal(self.state.selectedIndex, 2);
         });
 
-        it('revalidates the instance is `state.isInvalid` is `true`', () => {
+        it('revalidates the instance if `state.isInvalid` is `true`', () => {
             self.state.isInvalid = true;
 
-            self.actions.selectOption(3);
+            self.actions.selectOption(2);
 
             assert.isFalse(self.state.isInvalid);
         });
@@ -252,7 +270,7 @@ describe('resolveActions', function(): void {
         it('closes the instance if open', () => {
             self.state.bodyStatus = BodyStatus.CLOSED;
 
-            self.actions.selectOption(3);
+            self.actions.selectOption(2);
 
             assert.isFalse(self.state.isOpen);
         });
@@ -262,7 +280,7 @@ describe('resolveActions', function(): void {
 
             self.state.isSearching = true;
 
-            self.actions.selectOption(3);
+            self.actions.selectOption(2);
 
             assert.isTrue(scrollToViewSpy.called);
         });
