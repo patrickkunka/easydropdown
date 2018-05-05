@@ -9,6 +9,10 @@ class Behavior implements IBehavior {
     public clampMaxVisibleOptions:  boolean = true;
     public reactToUpdates:          boolean = false;
     public maxVisibleOptions:       number  = 15;
+
+    constructor() {
+        Object.seal(this);
+    }
 }
 
 export default Behavior;
