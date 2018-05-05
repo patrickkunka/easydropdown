@@ -1,7 +1,7 @@
 <!doctype HTML>
 <html>
     <head>
-        <title>Basic List with Placeholder | EasyDropDown Demo</title>
+        <title>Show Placeholder When Open | EasyDropDown Demo</title>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -16,7 +16,7 @@
         <main class="main">
             <h2 class="sub-heading">EasyDropDown Demo</h1>
 
-            <h1 class="heading">02. Basic List with Placeholder</h1>
+            <h1 class="heading">11. Show Placeholder When Open</h1>
 
             <div class="demo-container">
                 <label class="label">Country</label>
@@ -293,7 +293,11 @@
 
         <script src="../bundle/easydropdown.min.js"></script>
         <script>
-            easydropdown.all();
+            easydropdown.all({
+                behavior: {
+                    showPlaceholderWhenOpen: true
+                }
+            });
         </script>
     </body>
 </html>

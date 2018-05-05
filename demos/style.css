@@ -1,3 +1,8 @@
+/*
+ * The following styles pertain to the demo elements only, and are
+ * not related to or necessary for any EasyDropDown functionality.
+ */
+
 * {
     margin: 0;
     padding: 0;
@@ -58,13 +63,40 @@ body {
     visibility: hidden;
 }
 
+.label {
+    font-size: 13px;
+    width: 180px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
 .edd-body {
     opacity: 0;
 }
 
+.button {
+    background-color: #333;
+    padding: 10px;
+    min-width: 180px;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    border: 3px solid #333;
+    border-radius: 0;
+    margin-top: 20px;
+    cursor: pointer;
+    outline: 0 none;
+    transition: background-color 150ms, color 150ms;
+}
+
+.button:hover {
+    background-color: white;
+    color: #333;
+}
+
 .theme-switcher {
     padding: 8px 0;
-    color: #bbb;
+    color: #ddd;
     display: flex;
     justify-content: space-between;
 }

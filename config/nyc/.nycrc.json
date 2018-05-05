@@ -11,6 +11,7 @@
       ".ts"
     ],
     "exclude": [
+      "./demos",
       "./config",
       "**/umd.ts",
       "**/index.ts",

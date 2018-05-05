@@ -46,7 +46,7 @@
 }
 
 .edd.edd-focused::after,
-.edd.edd-invaid::after {
+.edd.edd-invalid::after {
     transform: scaleX(1);
 }
 
