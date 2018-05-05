@@ -2,6 +2,8 @@ import {assert} from 'chai';
 import 'jsdom-global/register';
 import {spy} from 'sinon';
 
+import Renderer from '../Renderer/Renderer';
+
 import Easydropdown  from './Easydropdown';
 
 const createSelect = () => {
@@ -102,6 +104,38 @@ describe('Easydropdown', () => {
             edd.close();
 
             assert.isTrue(closeSpy.called);
+        });
+    });
+
+    describe('.refresh()', () => {
+        it('calls `Renderer.queryDomRefs()` with the keys `group`, `option`, and `item`', () => {
+            const select = createSelect();
+
+            const edd = new Easydropdown(select, {});
+
+            const queryDomRefsSpy = spy(Renderer, 'queryDomRefs');
+
+            edd.refresh();
+
+            assert.deepEqual(queryDomRefsSpy.firstCall.args[1], ['group', 'option', 'item']);
+        });
+
+        it('empties the `dom.option`, `dom.group`, and `dom.item` arrays', () => {
+            const select = createSelect();
+
+            const edd = new Easydropdown(select, {});
+
+            // @ts-ignore
+            edd.dom.group = edd.dom.item = edd.dom.option = ['foo'];
+
+            edd.refresh();
+
+            // @ts-ignore
+            assert.equal(edd.dom.group.length, 7);
+            // @ts-ignore
+            assert.equal(edd.dom.option.length, 7);
+            // @ts-ignore
+            assert.equal(edd.dom.item.length, 7);
         });
     });
 });

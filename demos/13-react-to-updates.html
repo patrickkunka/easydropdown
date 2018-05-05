@@ -1,0 +1,68 @@
+<!doctype HTML>
+<html>
+    <head>
+        <title>React to Updates | EasyDropDown Demo</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+        <link href="./style.css" rel="stylesheet"/>
+        <link id="theme-sheet" href="./themes/flax.css" rel="stylesheet"/>
+        <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEUAAABCiZtUyORUyORCiZtUyORCiZtUyORCiZtUyORUyORCiZtUyORCiZtUyOREkKNUyORUyORUyORCiZtUyORUyORCiZtUyORCiZtUyORCiZtDjaBFlalHma1KpbtLqcBOtM1QuNJSwNtTxN9UyOQlYZhqAAAAGnRSTlMAEBAgMDBAQFBQYHBwgICPj5+vv7/P39/v793jxf8AAACqSURBVHja1ZJdF4IgDIYnZaaVpWbKrCzl///GIokYH3btc/fuPBwGGywCQeH5HyEVyaxwAsHZjFDLfA4LfPXJeVBIVU4CQvHNDfMKNdO59Ak8NvLeI2Qkx45Q0NwwSxiO1oHSEq64ta8kwh2xjeymDeGBbyrn2bowdCg5+D4OpgYmNlQQmRJ6VLSRMzxZeKKmcscPYuzwx85ZIBA3NFnbKwg9Ei4jFTgsgRepVztePP0rPgAAAABJRU5ErkJggg==">
+
+        <script src="./theme-switcher.js"></script>
+    </head>
+    <body>
+        <main class="main">
+            <h2 class="sub-heading">EasyDropDown Demo</h1>
+
+            <h1 class="heading">13. React to Updates</h1>
+
+            <div class="demo-container">
+                <select id="demo-select">
+                    <option value="" data-placeholder>Select</option>
+                </select>
+
+                <button type="button" class="button" id="add-option">Add new option</button>
+            </div>
+
+            <div class="theme-switcher">
+                <div class="theme-switcher-label">Theme:</div>
+
+                <div class="theme-switcher-options">
+                    <button type="button" data-theme="./themes/flax.css" class="active">Flax</button> |
+                    <button type="button" data-theme="./themes/beanstalk.css">Beanstalk</button> |
+                    <button type="button" data-theme="./themes/ivy.css">Ivy</button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <a target="_blank" href="https://github.com/patrickkunka/easydropdown">EasyDropDown v4</a>
+            <a target="_blank" href="https://www.kunkalabs.com">&copy; KunkaLabs Ltd</a>
+        </footer>
+
+        <script src="../bundle/easydropdown.min.js"></script>
+        <script>
+            var addOptionButton = document.getElementById('add-option');
+            var select = document.getElementById('demo-select');
+
+            addOptionButton.addEventListener('click', function() {
+                var totalOptions = select.options.length;
+
+                var newOption = document.createElement('option');
+
+                newOption.textContent = 'Option ' + totalOptions;
+
+                select.appendChild(newOption);
+            });
+        </script>
+        <script>
+            easydropdown.all({
+                behavior: {
+                    reactToUpdates: true
+                }
+            });
+        </script>
+    </body>
+</html>

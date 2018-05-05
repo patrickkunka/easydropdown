@@ -91,11 +91,11 @@ class Easydropdown {
             StateMapper.mapFromSelect(this.dom.select, this.config)
         );
 
-        this.renderer.update(this.state, 'groups');
+        this.renderer.update(this.state);
 
-        this.dom.group.length = this.dom.option.length = 0;
+        this.dom.group.length = this.dom.option.length = this.dom.item.length = 0;
 
-        Renderer.queryDomRefs(this.dom, ['group', 'option']);
+        Renderer.queryDomRefs(this.dom, ['group', 'option', 'item']);
     }
 
     public destroy(): void {

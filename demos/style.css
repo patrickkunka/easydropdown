@@ -26,6 +26,12 @@ body {
     flex: 1;
 }
 
+.main--at-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
 .heading,
 .sub-heading,
 .demo-container {

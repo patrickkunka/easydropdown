@@ -32,7 +32,7 @@ class Renderer {
         return this.dom;
     }
 
-    public update(state: State, key: keyof State): void {
+    public update(state: State, key?: keyof State): void {
         const nextHtml = root(state, this.classNames);
         const nextRoot = createDomElementFromHtml(nextHtml) as HTMLDivElement;
         const diffCommand = domDiff(this.dom.root, nextRoot);
