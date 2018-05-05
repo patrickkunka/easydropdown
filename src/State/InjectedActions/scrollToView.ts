@@ -25,6 +25,9 @@ function getScrollTop(
 function scrollToView(dom: Dom, timers: Timers, state: State, scrollToMiddle: boolean = false): void {
     const index = Math.max(0, state.focusedIndex > -1 ? state.focusedIndex : state.selectedIndex);
     const option = dom.option[index];
+
+    if (!option) return;
+
     const offset = scrollToMiddle ? (state.maxBodyHeight / 2) - (option.offsetHeight / 2) : 0;
 
     const scrollTop = getScrollTop(
