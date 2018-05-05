@@ -3,9 +3,15 @@ import Dom      from '../../Renderer/Dom';
 import IActions from '../../State/Interfaces/IActions';
 
 import detectBodyCollision from './detectBodyCollision';
+import IDispatchOpen       from './Interfaces/IDispatchOpen';
 
-function dispatchOpen(actions: IActions, config: Config, dom: Dom): void {
-    const collisionData = detectBodyCollision(dom, config);
+function dispatchOpen(
+    injectedDetectBodyCollision,
+    actions: IActions,
+    config: Config,
+    dom: Dom
+): void {
+    const collisionData = injectedDetectBodyCollision(dom, config);
 
     const maxVisibleItems = collisionData.maxVisibleItemsOverride > -1 ?
         collisionData.maxVisibleItemsOverride : config.behavior.maxVisibleItems;
@@ -16,4 +22,9 @@ function dispatchOpen(actions: IActions, config: Config, dom: Dom): void {
     actions.open(maxBodyHeight, collisionData.type, isScrollable);
 }
 
-export default dispatchOpen;
+const boundDispatchOpen: IDispatchOpen = dispatchOpen.bind(null, detectBodyCollision);
+
+export {
+    boundDispatchOpen as default,
+    dispatchOpen
+};
