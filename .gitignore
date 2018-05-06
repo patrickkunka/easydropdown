@@ -4,5 +4,6 @@ npm-debug.*
 node_modules
 dist
 bundle/dist
+bundle/easydropdown.js
 coverage
 .nyc_output
