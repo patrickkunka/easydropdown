@@ -16,7 +16,12 @@ function body(state: State, classNames: ClassNames): string {
         `style="max-height: ${state.maxBodyHeight}px;"` : '';
 
     return (`
-        <div class="${className}" data-ref="body">
+        <div
+            class="${className}"
+            data-ref="body"
+            role="listbox"
+            ${state.isOpen ? '' : 'aria-hidden'}
+        >
             <div class="${classNames.itemsList}"
                 data-ref="itemsList"
                 ${styleAttr}>

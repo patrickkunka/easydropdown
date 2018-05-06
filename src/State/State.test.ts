@@ -1,5 +1,6 @@
 import * as chai from 'chai';
 
+import BodyStatus from './Constants/BodyStatus';
 import State from './State';
 
 const {assert} = chai;
@@ -83,6 +84,20 @@ describe('State', () => {
             const state = new State(mockState);
 
             assert.isTrue(state.isGrouped);
+        });
+    });
+
+    describe('get humanReadableValue()', () => {
+        it('returns `state.placeholder` if a placeholder exists', () => {
+            const state = new State(createMockState());
+
+            state.placeholder = 'foo';
+            // @ts-ignore
+            state.config.behavior.showPlaceholderWhenOpen = true;
+            state.selectedIndex = 2;
+            state.bodyStatus = BodyStatus.OPEN_ABOVE;
+
+            assert.equal(state.humanReadableValue, state.placeholder);
         });
     });
 

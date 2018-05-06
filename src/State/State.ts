@@ -18,6 +18,7 @@ class State {
     public scrollStatus:            ScrollStatus = ScrollStatus.AT_TOP;
     public bodyStatus:              BodyStatus   = BodyStatus.CLOSED;
     public isDisabled:              boolean      = false;
+    public isRequired:              boolean      = false;
     public isInvalid:               boolean      = false;
     public isFocused:               boolean      = false;
     public isUseNativeMode:         boolean      = false;
@@ -88,6 +89,10 @@ class State {
 
     public get hasPlaceholder(): boolean {
         return this.placeholder !== '';
+    }
+
+    public get isPlaceholderShown(): boolean {
+        return this.hasPlaceholder && !this.hasValue;
     }
 
     public get hasValue(): boolean {

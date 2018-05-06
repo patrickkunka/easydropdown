@@ -19,7 +19,15 @@ const root = (state: State, classNames: ClassNames) => {
     ]);
 
     return (`
-        <div class="${className}">
+        <div
+            class="${className}"
+            role="widget combobox"
+            aria-haspopup="listbox"
+            ${state.isOpen ? 'aria-expanded="true"' : ''}
+            ${state.isRequired ? 'aria-required="true"' : ''}
+            ${state.isDisabled ? 'aria-disabled="true"' : ''}
+            ${state.isInvalid ? 'aria-invalid="true"' : ''}
+        >
             ${head(state, classNames)}
             ${state.isUseNativeMode ? '' : body(state, classNames)}
         </div>

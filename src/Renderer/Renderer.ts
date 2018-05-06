@@ -62,6 +62,7 @@ class Renderer {
 
         tempSelect.parentElement.replaceChild(selectElement, tempSelect);
         selectElement.className = this.classNames.select;
+        selectElement.setAttribute('aria-hidden', 'true');
 
         this.dom.select = selectElement;
     }

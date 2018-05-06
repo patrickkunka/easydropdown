@@ -14,6 +14,7 @@ class StateMapper {
 
         state.name = selectElement.name;
         state.isDisabled = selectElement.disabled;
+        state.isRequired = selectElement.required;
         state.isUseNativeMode = StateMapper.isMobilePlatform(window.navigator.userAgent);
 
         for (let i = 0, child: Element; (child = selectElement.children[i]); i++) {

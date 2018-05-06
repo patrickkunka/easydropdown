@@ -130,6 +130,17 @@ describe('Renderer', function(): void {
         assert.isTrue(dom.root.classList.contains(self.classNames.rootFocused));
     });
 
+    it('renders the appropriate markup for `state.isRequired`', () => {
+        const select = createSelect();
+        const state = createState(select);
+
+        state.isRequired = true;
+
+        const dom = self.renderer.render(state, select);
+
+        assert.equal(dom.root.getAttribute('aria-required'), 'true');
+    });
+
     it('renders the appropriate markup for a state with a selected value', () => {
         const select = createSelect();
         const state = createState(select);
@@ -174,10 +185,12 @@ describe('Renderer', function(): void {
 
             state.placeholder = 'foo';
             state.bodyStatus = BodyStatus.OPEN_ABOVE;
+            state.selectedIndex = -1;
 
             const dom = self.renderer.render(state, select);
 
             assert.isTrue(dom.value.textContent.includes('foo'));
+            assert.equal(dom.value.getAttribute('aria-placeholder'), state.placeholder);
         }
     );
 
