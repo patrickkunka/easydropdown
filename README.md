@@ -43,13 +43,13 @@ Firstly, install the package using your package manager of choice.
 npm install easydropdown --save
 ```
 
-You may then import `easydropdown()` factory function into your project's modules.
+You may then import the `easydropdown()` factory function into your project's modules.
 
 ```js
 import easydropdown from 'easydropdown';
 ```
 
-### Script Tag
+#### Script Tag
 
 For basic projects without modular scoping or a build process, the most simple way to use EasyDropDown is via a `<script>` tag before your closing body tag. A pre-built "UMD" bundle is provided for this purpose which can be found in the `./bundle/easydropdown.min.js` file.
 
@@ -67,9 +67,9 @@ Because EasyDropDown is an enhancement on top of native `<select>` elements, the
 
 Next, you need to instantiate EasyDropDown on your native select element(s). There are two possible ways to do this:
 
-### Single Select Instantiations
+### Single Select Instantiation
 
-Firstly, obtain a reference the select DOM element. You can then pass this reference to the `easydropdown()` factory function. The factory function also accepts an optional second argument of configuration options which will be described later.
+Firstly, obtain a reference the select DOM element. You can then pass this reference to the `easydropdown()` factory function as the first parameter. The factory function also accepts an optional second parameter of configuration options which will be described later.
 
 ```js
 import easydropdown from 'easydropdown';
