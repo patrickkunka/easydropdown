@@ -10,6 +10,12 @@
     "extension": [
       ".ts"
     ],
+    "watermarks": {
+      "lines": [100, 100],
+      "functions": [100, 100],
+      "branches": [100, 100],
+      "statements": [100, 100]
+    },
     "exclude": [
       "./demos",
       "./config",
