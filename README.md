@@ -1,25 +1,11 @@
-TODO:
-- custom event polyfill / create polyfills file
-- double check collision geometry (include all items in total count)
-- demos
-- docs
-- polyfill/browser testing
-- branch cleaning
-- tags
-- pr closing
-- open issues
-- npm publish
+# EasyDropDown
 
-DEMOS:
-- Basic list
-- Groups
-- Mixed groups and no groups
-- Disabled options
-- Disabled groups
-- disabled select
-- Pre-selected value
-- Form Reset
-- Form validation
-- Show placeholder on open
-- collision detection
-- all w/ theme switch
+[![Build Status](https://img.shields.io/travis/patrickkunka/easydropdown.svg?style=flat-square)](https://travis-ci.org/patrickkunka/easydropdown)
+[![Coverage Status](https://img.shields.io/coveralls/patrickkunka/easydropdown.svg?style=flat-square)](https://coveralls.io/github/patrickkunka/easydropdown)
+[![Latest Release](https://img.shields.io/npm/v/easydropdown.svg?style=flat-square)](https://www.npmjs.com/package/easydropdown)
+[![Apache License](https://img.shields.io/npm/l/easydropdown.svg?style=flat-square)](https://www.apache.org/licenses/)
+
+TODO:
+- docs
+- release
+- npm publish

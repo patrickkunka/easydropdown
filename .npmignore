@@ -1,9 +1,9 @@
 .nyc_output
-coverage
-src
+.vscode
 config
+coverage
 demos
+src
 
 .travis.yml
 tsconfig.json
-tslint.json
