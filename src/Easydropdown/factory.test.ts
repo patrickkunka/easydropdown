@@ -41,10 +41,18 @@ describe('factory', () => {
         instance.destroy();
     });
 
-    it('throws a TypeError if no valid select element is provided', () => {
+    it('throws a `TypeError` if no valid select element is provided', () => {
         const select: any = document.createElement('div');
 
         assert.throws(() => factory(select), TypeError);
+    });
+
+    it('throws an `Error` if a `multiple` attribute is present on the select', () => {
+        const select: any = document.createElement('select');
+
+        select.multiple = true;
+
+        assert.throws(() => factory(select), Error);
     });
 
     it('will return a cached instance if called twice with the same select element', () => {

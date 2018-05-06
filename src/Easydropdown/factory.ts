@@ -19,6 +19,13 @@ function factory(
         throw new TypeError('[EasyDropDown] Invalid select element provided');
     }
 
+    if (selectElement.multiple) {
+        throw new Error(
+            '[EasyDropDown] EasyDropDown does not support the `multiple`' +
+            ' attribute on select elements.'
+        );
+    }
+
     for (const cachedInstance of cache) {
         if (cachedInstance.selectElement === selectElement) {
             return new EasydropdownFacade(cachedInstance);
