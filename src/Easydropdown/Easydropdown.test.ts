@@ -30,7 +30,7 @@ describe('Easydropdown', () => {
 
         const edd = new Easydropdown(select, {
             behavior: {
-                reactToUpdates: true
+                liveUpdates: true
             }
         });
 

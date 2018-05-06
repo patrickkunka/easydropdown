@@ -7,7 +7,7 @@ class Behavior implements IBehavior {
     public useNativeUiOnMobile:     boolean = true;
     public loop:                    boolean = false;
     public clampMaxVisibleItems:    boolean = true;
-    public reactToUpdates:          boolean = false;
+    public liveUpdates:             boolean = false;
     public maxVisibleItems:         number  = 15;
 
     constructor() {
