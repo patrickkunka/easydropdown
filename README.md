@@ -154,11 +154,11 @@ EasyDropDown enhances this pattern with the ability to add a `data-placeholder` 
 </select>
 ```
 
-Check out the [Basic List with Placeholder]() demo to see an example of this feature.
+Check out the [Basic List with Placeholder](https://demos.kunkalabs.com/easydropdown/02-basic-list-with-placeholder.html) demo to see an example of this feature.
 
 *NB: This feature should not be used if you want the user to be able to leave the field blank.*
 
-Additionally, EasyDropDown can be configured to reshow the placeholder value after a value has been selected as a hint to the user whenever the dropdown is open. This is available via the `behavior.showPlaceholderWhenOpen` configuration option, and can be seen in the [Show Placeholder When Open]() demo.
+Additionally, EasyDropDown can be configured to reshow the placeholder value after a value has been selected as a hint to the user whenever the dropdown is open. This is available via the `behavior.showPlaceholderWhenOpen` configuration option, and can be seen in the [Show Placeholder When Open](https://demos.kunkalabs.com/easydropdown/11-show-placeholder-when-open.html) demo.
 
 ## Anatomy of EasyDropDown
 
@@ -491,6 +491,8 @@ This should be enabled in dynamic applications where we expect changes to the dr
 
 If you know exactly when the `<select>` element has been updated, you may wish to use the `.refresh()` API method as an imperative alternative.
 
+See the [Live Updates](https://demos.kunkalabs.com/easydropdown/13-live-updates.html) demo for a working example.
+
 ##### Example: Enabling `liveUpdates`
 
 ```js
@@ -510,6 +512,8 @@ const edd = easydropdown(selectElement, {
 A boolean dictating whether or not the user should be able to loop from the top of the menu to the bottom (and vice-versa) when changing the focused option by pressing the up/down arrow keys.
 
 This may be desirable in longer lists as a quick way of returning the user to the start of the list without the need for excessive scrolling.
+
+See the [Loop](https://demos.kunkalabs.com/easydropdown/14-loop.html) demo for a working example.
 
 ##### Example: Enabling `loop`
 
@@ -573,6 +577,8 @@ const edd = easydropdown(selectElement, {
 
 An optional callback function to be invoked whenever the dropdown is closed.
 
+See the [Callbacks](https://demos.kunkalabs.com/easydropdown/15-callbacks.html) demo for a working example.
+
 ##### Example: Adding an `onClose` callback
 
 ```js
@@ -590,6 +596,8 @@ const edd = easydropdown(selectElement, {
 | `function` | `null`  |
 
 An optional callback function to be invoked whenever the dropdown is opened.
+
+See the [Callbacks](https://demos.kunkalabs.com/easydropdown/15-callbacks.html) demo for a working example.
 
 ##### Example: Adding an `onOpen` callback
 
@@ -610,6 +618,8 @@ const edd = easydropdown(selectElement, {
 An optional callback function to be invoked whenever an option is selected. The selected option's value is passed as the first argument to the callback.
 
 You may wish to use this callback as a more concise alternative to attaching a `change` event handler to the underlying select element in order to read the select value and update your application state.
+
+See the [Callbacks](https://demos.kunkalabs.com/easydropdown/15-callbacks.html) demo for a working example.
 
 ##### Example: Adding an `onSelect` callback
 
