@@ -80,7 +80,7 @@ This will attach the `easydropdown` factory function to the `window` as a global
 Because EasyDropDown is an enhancement on top of native the `<select>` element, we must firstly create the underlying select element in our project's HTML:
 
 ```html
-<select name="foo">
+<select name="foo" class="my-select">
     <option value="">Select</option>
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
@@ -93,23 +93,25 @@ Next, we instantiate EasyDropDown by passing a reference to the select element(s
 
 #### Single-instance Instantiation
 
-Firstly, obtain a reference the select DOM element. You can then pass this reference to the `easydropdown()` factory function as the first parameter. The factory function also accepts an optional second parameter of configuration options. See [Configuration Options](#configuration-options) for more information.
+We can instantiate EasyDropDown by passing a reference to the `<select>` element, to the `easydropdown()` factory function:
 
 ```js
-const select = document.querySelector('[name="foo"]');
+const select = document.querySelector('.my-select');
 
 const edd = easydropdown(select);
 ```
 
-Or, passing a selector string directly:
+Or, by passing a selector string directly:
 
 ```js
-const edd = easydropdown('[name="foo"]');
+const edd = easydropdown('.my-select');
 ```
 
-As shown above, a reference to the dropdown instance  (`edd`) can be held onto in order to destroy it later, or interact with the dropdown programmatically.
+As shown above, a reference to the dropdown instance  (`edd`) can be held onto in order to destroy it later, or interact with the dropdown programmatically. See [API Methods](#api-methods) for more information.
 
 This approach is recommended for any component-based architecture where only the component is concerned with the dropdown instance.
+
+The factory function also accepts an optional second parameter of configuration options. See [Configuration Options](#configuration-options) for more information.
 
 #### Batch Instantiation
 
@@ -128,7 +130,7 @@ With the exception of the [multiple attribute](#multiple-attribute), EasyDropDow
 A common pattern when working with `<select>` elements, is to use the first `<option>` element as a placeholder value by giving it an empty `""` value, as the first option will always be selected by default. For example:
 
 ```html
-<select name="foo">
+<select>
     <option value="">Select an option</option>
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
@@ -140,7 +142,7 @@ A common pattern when working with `<select>` elements, is to use the first `<op
 EasyDropDown enhances this pattern with the ability to add a `data-placeholder` attribute to this element to inform EasyDropDown that the option is a placeholder only and should *not* be an available selection once the user has selected a value.
 
 ```html
-<select name="foo">
+<select>
     <option value="" data-placeholder>Select an option</option>
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
@@ -291,7 +293,113 @@ The focused state is added on mouseover, or on keyboard focus (via the up/down a
 
 ## Configuration Options
 
-...
+When using either the `easydropdown()` factory function, or the `.all()` static method, an optional configuration object may be passed containing zero or more configuration options with the following defaults.
+
+```js
+{
+    behavior: {
+        clampMaxVisibleItems:    true;
+        closeOnSelect:           false;
+        openOnFocus:             false;
+        showPlaceholderWhenOpen: false;
+        liveUpdates:             false;
+        loop:                    false;
+        maxVisibleItems:         15;
+        useNativeUiOnMobile:     true;
+    },
+    callbacks: {
+        onClose:  null,
+        onOpen:   null,
+        onSelect: null
+    },
+    classNames: {
+        root:           'edd';
+        rootOpen:       'edd-open';
+        rootOpenAbove:  'edd-open-above';
+        rootOpenBelow:  'edd-open-below';
+        rootDisabled:   'edd-disabled';
+        rootInvalid:    'edd-invalid';
+        rootFocused:    'edd-focused';
+        rootHasValue:   'edd-has-value';
+        rootNative:     'edd-native';
+        gradientTop:    'edd-gradient-top';
+        gradientBottom: 'edd-gradient-bottom';
+        head:           'edd-head';
+        value:          'edd-value';
+        arrow:          'edd-arrow';
+        select:         'edd-select';
+        body:           'edd-body';
+        bodyScrollable: 'edd-body-scrollable';
+        bodyAtTop:      'edd-body-at-top';
+        bodyAtBottom:   'edd-body-at-bottom';
+        itemsList:      'edd-items-list';
+        group:          'edd-group';
+        groupDisabled:  'edd-group-disabled';
+        groupHasLabel:  'edd-group-has-label';
+        groupLabel:     'edd-group-label';
+        option:         'edd-option';
+        optionDisabled: 'edd-option-disabled';
+        optionFocused:  'edd-option-focused';
+        optionSelected: 'edd-option-selected';
+    }
+}
+```
+
+Depending on the entry point, the configuration object is passed as either the second or first parameter.
+
+```js
+const edd = easydropdown('.my-select', {
+    behavior: {
+        openOnFocus: true
+    }
+});
+```
+> Factory function with configuration object
+
+```js
+const edd = easydropdown.all({
+    behavior: {
+        openOnFocus: true
+    }
+});
+```
+> Batch instantiation with configuration object
+
+### Available Options
+
+#### `behavior`
+
+- [clampMaxVisibleItems](#clampMaxVisibleItems)
+- [closeOnSelect](#closeOnSelect)
+- [openOnFocus](#openOnFocus)
+- [showPlaceholderWhenOpen](#showPlaceholderWhenOpen)
+- [liveUpdates](#liveUpdates)
+- [loop](#loop)
+- [maxVisibleItems](#maxVisibleItems)
+- [useNativeUiOnMobile](#useNativeUiOnMobile)
+
+#### `callbacks`
+
+- [onClose](#onClose)
+- [onOpen](#onOpen)
+- [onSelect](#onSelect)
+
+#### `classNames`
+
+Please see the [Anatomy of EasyDropDown](#anatomy-of-easydropdown) section for information on each configurable class name.
+
+### `prop`
+
+| Type      | Default |
+|-----------|---------|
+| `boolean` | `false` |
+
+Lorem ipsum.
+
+##### Example 1: Lorem ipsum
+```js
+// code
+```
 
 ## API Methods
 
