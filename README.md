@@ -64,7 +64,7 @@ import easydropdown from 'easydropdown';
 var easydropdown = require('easydropdown');
 
 // AMD/RequireJS
-define(['easydropdown/bundles/easydropdown.js'] , function (easydropdown) {
+define(['easydropdown/bundles/easydropdown.js'] , function(easydropdown) {
     ...
 });
 ```
@@ -99,7 +99,7 @@ Next, we instantiate EasyDropDown by passing a reference to the select element(s
 
 #### Single-instance Instantiation
 
-We can instantiate EasyDropDown by passing a reference to the `<select>` element, to the `easydropdown()` factory function:
+We can create an instance of EasyDropDown by passing a reference to a `<select>` element to the `easydropdown()` factory function:
 
 ```js
 const selectElement = document.querySelector('#my-select');
