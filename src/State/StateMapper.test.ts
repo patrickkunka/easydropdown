@@ -185,17 +185,4 @@ describe('StateMapper', function(): void {
             assert.equal(mappedOption.value, 'foo');
         });
     });
-
-    describe('StateMapper.isMobilePlatform()', () => {
-        it('returns `true` if the user agent matches a known mobile device', () => {
-            // @ts-ignore
-            assert(StateMapper.isMobilePlatform('iphone'), true);
-            // @ts-ignore
-            assert(StateMapper.isMobilePlatform('android'), true);
-            // @ts-ignore
-            assert(StateMapper.isMobilePlatform('Windows Phone'), true);
-            // @ts-ignore
-            assert(StateMapper.isMobilePlatform('opera mini'), true);
-        });
-    });
 });

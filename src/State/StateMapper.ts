@@ -1,6 +1,7 @@
 import merge from 'helpful-merge';
 
-import Config from '../Config/Config';
+import Config           from '../Config/Config';
+import isMobilePlatform from '../Shared/Util/isMobilePlatform';
 
 import Group  from './Group';
 import Option from './Option';
@@ -15,7 +16,11 @@ class StateMapper {
         state.name = selectElement.name;
         state.isDisabled = selectElement.disabled;
         state.isRequired = selectElement.required;
-        state.isUseNativeMode = StateMapper.isMobilePlatform(window.navigator.userAgent);
+
+        state.isUseNativeMode = (
+            config.behavior.useNativeUiOnMobile &&
+            isMobilePlatform(window.navigator.userAgent)
+        );
 
         for (let i = 0, child: Element; (child = selectElement.children[i]); i++) {
             if (i === 0 && child.getAttribute('data-placeholder') !== null) {
@@ -79,19 +84,6 @@ class StateMapper {
             value: option.value,
             isDisabled: option.disabled || isParentGroupDisabled
         });
-    }
-
-    private static isMobilePlatform(userAgent: string): boolean {
-        const isIos = /(ipad|iphone|ipod)/gi.test(userAgent);
-        const isAndroid = /android/gi.test(userAgent);
-        const isOperaMini = /opera mini/gi.test(userAgent);
-        const isWindowsPhone = /windows phone/gi.test(userAgent);
-
-        if (isIos || isAndroid || isOperaMini || isWindowsPhone) {
-            return true;
-        }
-
-        return false;
     }
 }
 

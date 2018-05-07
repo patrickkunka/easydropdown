@@ -1,7 +1,19 @@
-import IHandlerParams from '../Interfaces/IHandlerParams';
+import isMobilePlatform from '../../Shared/Util/isMobilePlatform';
+import IHandlerParams   from '../Interfaces/IHandlerParams';
 
-function handleWindowResize(e: Event, {actions}: IHandlerParams): void {
+function handleWindowResize(
+    injectedIsMobilePlatform: (ua: string) => boolean,
+    e: Event,
+    {actions}: IHandlerParams
+): void {
+    if (injectedIsMobilePlatform(window.navigator.userAgent)) return;
+
     actions.close();
 }
 
-export default handleWindowResize;
+const boundHandleWindowResize = handleWindowResize.bind(null, isMobilePlatform);
+
+export {
+    boundHandleWindowResize as default,
+    handleWindowResize
+};
