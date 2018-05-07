@@ -9,7 +9,7 @@ EasyDropDown transforms the humble `<select>` element into a blank canvas for yo
 
 EasyDropDown comes bundled with three ready-made [themes](./demos/themes) which can be used as a starting point for custom styling.
 
-Check out the following [demos](https://demos.kunkalabs.com/easydropdown/) to see what's possible.
+Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what's possible.
 
 ### Features
 - Respects the native `<select>` element API*
@@ -99,7 +99,12 @@ Firstly, obtain a reference the select DOM element. You can then pass this refer
 const select = document.querySelector('[name="foo"]');
 
 const edd = easydropdown(select);
-// or: const edd = easydropdown('[name="foo"]');
+```
+
+Or, passing a selector string directly:
+
+```js
+const edd = easydropdown('[name="foo"]');
 ```
 
 As shown above, a reference to the dropdown instance  (`edd`) can be held onto in order to destroy it later, or interact with the dropdown programmatically.
