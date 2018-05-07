@@ -395,8 +395,6 @@ Please see the [Anatomy of EasyDropDown](#anatomy-of-easydropdown) section for i
 
 If you do not wish to use the default class names, or wish to use locally-scoped class names (e.g, via CSS-modules), you may use the `classNames` configuration object to override the classNames in the generated markup with your own.
 
-See the [CSS Modules Example](#css-modules-example) section for an example.
-
 ## Behavior
 
 ### `clampMaxVisibleItems`
