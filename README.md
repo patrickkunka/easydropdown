@@ -10,7 +10,7 @@ EasyDropDown transforms the humble `<select>` element into a blank canvas for yo
 Check out the following [demos](https://demos.kunkalabs.com/easydropdown/) to see what's possible.
 
 ### Features
-- Respects the native `<select>` element API
+- Respects the native `<select>` element API[*]
 - Full keyboard support (navigation, search and select)
 - Emits native `change` events
 - Enhanced placeholder support
@@ -23,6 +23,8 @@ Check out the following [demos](https://demos.kunkalabs.com/easydropdown/) to se
 - Support for IE9+, and all modern browsers.
 - Lightweight at only 9kb gzipped
 
+**EasyDropDown [does not support](#multiple-attribute-support) the `multiple` attribute.*
+
 #### Contents
 
 - [Installation](#installation)
@@ -31,6 +33,7 @@ Check out the following [demos](https://demos.kunkalabs.com/easydropdown/) to se
 - [Configuration Options](#configuration-options)
 - [React Example](#react-example)
 - [CSS Modules Example](#css-modules-example)
+- [Multiple Attribute Support](#multiple-attribute-support)
 
 ## Installation
 
@@ -71,6 +74,7 @@ Because EasyDropDown is an enhancement on top of native the `<select>` element, 
 
 ```html
 <select name="foo">
+    <option value="">Select</option>
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
     <option value="3">Option 3</option>
@@ -106,11 +110,25 @@ import easydropdown from 'easydropdown';
 easydropdown.all();
 ```
 
+### Placeholder Functionality
+
+With the exception of the [`multiple` attribute](#multiple-attribute), EasyDropDown supports all the available attributes of the native `<select>` element, such as `disabled`, `required`, `selected`, etc. In addition to these, EasyDropDown adds a new "placeholder" attribute.
+
+A common pattern when working with `<select>` elements, is to use the first `<option>` element as a placeholder value by giving it an empty `""` value, as the first option will always be selected by default.
+
+EasyDropDown enhances this pattern with the ability to add a `data-placeholder` attribute to this element to inform EasyDropDown that the option is a placeholder only and should not be an available selection once the user has selected a value.
+
+Check out the [Basic List with Placeholder]() demo to see an example of this feature.
+
+*NB: This feature should not be used if you want the user to be able to leave the field blank.*
+
+Additionally, EasyDropDown can be configured to reshow the placeholder value after a value has been selected as a hint to the user whenever the dropdown is open. This is available via the `behavior.showPlaceholderWhenOpen` configuration option, and can be seen in the [Show Placeholder When Open]() demo.
+
 ## Anatomy of EasyDropDown
 
 The DOM structure created by EasyDropDown is broken into 12 semantic components each with a unique class name which can be targeted for styling. Each component may also have one or more states which can again be used for styling via class names which are added and removed in response to interactions.
 
-Each of the 12 components are their respective states are shown on the following diagram, and described in detail below.
+Each of the 12 components are shown on the following diagram, and described in detail below along with their respective states.
 
 ![](./docs/easydropdown-anatomy.png)
 
@@ -256,8 +274,8 @@ The focused state is added on mouseover, or on keyboard focus (via the up/down a
 
 ...
 
-## Multiple Attribute
+## Multiple Attribute Support
 
-EasyDropDown does not support the `<select multple>` attribute by design. As anyone who's ever used the native browser implementation will know, a single vertical list is a very poor user interface for a selecting multiple options from a menu. It lacks any concept of ordering, and requires non-intuitive keyboard interaction.
+EasyDropDown **does not support** the `<select multple>` attribute by design. As anyone who's ever used the native browser implementation will know, a single vertical list is a very poor user interface for a selecting multiple options from a menu. It lacks any concept of ordering, and requires non-intuitive keyboard interaction.
 
 There are far better solutions to this problem, typically involving two parallel lists, with drag-to-reorder functionality. EasyDropDown is not intended to solve this problem and was created to function as a simple **lightweight** solution for styling single-option select menus only. As such you should look elsewhere if you require multi-select functionality.
