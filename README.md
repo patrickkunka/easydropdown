@@ -337,9 +337,11 @@ edd.refresh();
 
 ### destroy()
 
-`.destory()`
+`.destroy()`
 
 Destroys the instance by removing all EasyDropDown-generated elements from the DOM, and unbinding all event handlers. The underlying select is returned to the root position.
+
+When using any kind of component-based framework (e.g. React), this method should always be called at the end of the lifecycle of your component in order to clean up (e.g, `componentWillUnmount()`).
 
 ```js
 
