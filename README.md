@@ -7,6 +7,8 @@
 
 EasyDropDown transforms the humble `<select>` element into a blank canvas for your design and brand. As a drop-in enhancement, EasyDropDown maintains all the functionality and accessibility of a standard single-option select menu, while exposing a semantic DOM-structure that's easy to style and customize to the needs of your design.
 
+EasyDropDown comes bundled with three ready-made [themes](./demos/themes) which can be used as a starting point for custom styling.
+
 Check out the following [demos](https://demos.kunkalabs.com/easydropdown/) to see what's possible.
 
 ### Features
@@ -30,6 +32,7 @@ Check out the following [demos](https://demos.kunkalabs.com/easydropdown/) to se
 - [Installation](#installation)
 - [Usage](#usage)
 - [Anatomy of EasyDropDown](#anatomy-of-easydropdown)
+- [API Methods](#configuration-options)
 - [Configuration Options](#configuration-options)
 - [React Example](#react-example)
 - [CSS Modules Example](#css-modules-example)
@@ -82,11 +85,11 @@ Because EasyDropDown is an enhancement on top of native the `<select>` element, 
 </select>
 ```
 
-Next, we instantiate EasyDropDown by passing a reference to the select element(s), or a selector string. There are two ways to do this:
+Next, we instantiate EasyDropDown by passing a reference to the select element(s), or a selector string. We can either instantiate a single instance at a time, or a batch of instances.
 
-### Single Instance Instantiation
+#### Single-instance Instantiation
 
-Firstly, obtain a reference the select DOM element. You can then pass this reference to the `easydropdown()` factory function as the first parameter. The factory function also accepts an optional second parameter of configuration options which will be described later.
+Firstly, obtain a reference the select DOM element. You can then pass this reference to the `easydropdown()` factory function as the first parameter. The factory function also accepts an optional second parameter of configuration options. See [Configuration Options](#configuration-options) for more information.
 
 ```js
 import easydropdown from 'easydropdown';
@@ -100,9 +103,9 @@ As shown above, a reference to the dropdown instance  (`edd`) can be held onto i
 
 This approach is recommended for any component-based architecture where only the component is concerned with the dropdown instance.
 
-### Batch Instantiation
+#### Batch Instantiation
 
-For simple static pages/applications, we can use the `.all()` static method of the factory function to crawl the DOM for *all* `<select>` elements found in the document, andvthen batch instantiate EasyDropDown on each one.
+For simple static pages/applications, we can use the `.all()` static method of the factory function to crawl the DOM for *all* `<select>` elements found in the document, and then batch instantiate EasyDropDown on each one.
 
 ```js
 import easydropdown from 'easydropdown';
@@ -110,13 +113,35 @@ import easydropdown from 'easydropdown';
 easydropdown.all();
 ```
 
+The `all()` method also accepts an optional parameter of configuration options to be passed to each instance. See [Configuration Options](#configuration-options) for more information.
+
 ### Placeholder Functionality
 
-With the exception of the [`multiple` attribute](#multiple-attribute), EasyDropDown supports all the available attributes of the native `<select>` element, such as `disabled`, `required`, `selected`, etc. In addition to these, EasyDropDown adds a new "placeholder" attribute.
+With the exception of the [multiple attribute](#multiple-attribute), EasyDropDown supports all the available attributes of the native `<select>` element, such as `disabled`, `required` and `selected`. In addition to these, EasyDropDown adds a new "placeholder" attribute.
 
-A common pattern when working with `<select>` elements, is to use the first `<option>` element as a placeholder value by giving it an empty `""` value, as the first option will always be selected by default.
+A common pattern when working with `<select>` elements, is to use the first `<option>` element as a placeholder value by giving it an empty `""` value, as the first option will always be selected by default. For example:
 
-EasyDropDown enhances this pattern with the ability to add a `data-placeholder` attribute to this element to inform EasyDropDown that the option is a placeholder only and should not be an available selection once the user has selected a value.
+```html
+<select name="foo">
+    <option value="">Select an option</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+    ...
+</select>
+```
+
+EasyDropDown enhances this pattern with the ability to add a `data-placeholder` attribute to this element to inform EasyDropDown that the option is a placeholder only and should *not* be an available selection once the user has selected a value.
+
+```html
+<select name="foo">
+    <option value="" data-placeholder>Select an option</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+    ...
+</select>
+```
 
 Check out the [Basic List with Placeholder]() demo to see an example of this feature.
 
@@ -132,7 +157,7 @@ Each of the 12 components are shown on the following diagram, and described in d
 
 ![](./docs/easydropdown-anatomy.png)
 
-#### Root
+### Root
 
 The "root" component forms the top level container of the dropdown, and supports several states which can be used to target the styling of child components.
 
@@ -148,7 +173,7 @@ The "root" component forms the top level container of the dropdown, and supports
 | HasValue    | `edd-root-has-value`  | `classNames.rootHasValue`  |
 | Native      | `edd-root-native`     | `classNames.rootNative`    |
 
-#### Head
+### Head
 
 The "head" component forms the top portion of the dropdown, and contains the current "value" and a presentational "arrow". When the head is clicked the "body" opens. When the dropdown is closed, only the head is visible.
 
@@ -156,7 +181,7 @@ The "head" component forms the top portion of the dropdown, and contains the cur
 | ----------- | --------------------- | -------------------------- |
 | Base        | `edd-head`            | `classNames.head`          |
 
-#### Value
+### Value
 
 The "value" component contains the current (human-readable) value of the the dropdown. This may be a placeholder value, or the text content of the currently selected option.
 
@@ -164,7 +189,7 @@ The "value" component contains the current (human-readable) value of the the dro
 | ----------- | --------------------- | -------------------------- |
 | Base        | `edd-value`           | `classNames.value`         |
 
-#### Arrow
+### Arrow
 
 The "arrow" component can be used to communicate the open/closed state of the dropdown and also to provide an additional affordance for opening the dropdown. By using the "open" state on the "root" parent above, we can adjust the styling of the arrow based on whether or not the dropdown is open or closed.
 
@@ -172,7 +197,7 @@ The "arrow" component can be used to communicate the open/closed state of the dr
 | ----------- | --------------------- | -------------------------- |
 | Base        | `edd-arrow`           | `classNames.arrow`         |
 
-#### Select
+### Select
 
 This is the actual select element passed to the `easydropdown()` factory function on instantiation. Once the dropdown markup has been generated, the original `select` element is appended to the head, and given the class name shown below (`'edd-select'` by default).
 
@@ -184,7 +209,7 @@ When in native mode, we can target the select element using the "native" state o
 | ----------- | --------------------- | -------------------------- |
 | Base        | `edd-select`          | `classNames.select`        |
 
-#### Body
+### Body
 
 The "body" forms the lower menu portion of the dropdown, and is shown and hidden based on whether the dropdown is open or closed.
 
@@ -197,7 +222,7 @@ The body should be hidden by default, and shown using a combination of the `open
 | At top      | `edd-body-at-top`     | `classNames.bodyAtTop`      |
 | At bottom   | `edd-body-at-bottom`  | `classNames.bodyAtBotom`    |
 
-#### Gradient Top
+### Gradient Top
 
 The "gradient top" component can be used to apply a gradation to the top of the body to indicate that there are additional items above the visible area and create a scroll affordance. This can be shown or hidden based on the `bodyAtTop` class name applied to the "body" component above.
 
@@ -205,7 +230,7 @@ The "gradient top" component can be used to apply a gradation to the top of the 
 | ----------- | --------------------- | -------------------------- |
 | Base        | `edd-gradient-top`    | `classNames.gradientTop`   |
 
-#### Gradient Bottom
+### Gradient Bottom
 
 The "gradient bottom" component can be used to apply a gradation to the bottom of the body to indicate that there are additional items below the visible area and create a scroll affordance. This can be shown or hidden based on the `bodyAtBottom` class name applied to the "body" component above.
 
@@ -213,7 +238,7 @@ The "gradient bottom" component can be used to apply a gradation to the bottom o
 | ----------- | --------------------- | --------------------------- |
 | Base        | `edd-gradient-bottom` | `classNames.gradientBottom` |
 
-#### Items List
+### Items List
 
 The "items list" component holds all items in the dropdown, and is used to restrict the scrollable height of the body by applying `max-height` and `overflow: auto` styles.
 
@@ -223,7 +248,7 @@ When open, EasyDropDown will apply an inline `max-height` style to the items lis
 | ----------- | --------------------- | -------------------------- |
 | Base        | `edd-items-list`      | `classNames.itemsList`     |
 
-#### Group
+### Group
 
 "Group" components are used to wrap arbitrary groups of options, equivalent to the `<optgroup>` elements in the underyling `<select>` element.
 
@@ -237,7 +262,7 @@ When a group is present intentionally, it will typically include a "group label"
 | Disabled    | `edd-group-disabled`  | `classNames.groupDisabled` |
 | Has label   | `edd-group-has-label` | `classNames.groupHasLabel` |
 
-#### Group Label
+### Group Label
 
 "Group label" components are added to groups derived from `<optgroup>` elements in the provided `<select>` element, and contain the value of the `label` attribute of the `<optgroup>`.
 
@@ -245,7 +270,7 @@ When a group is present intentionally, it will typically include a "group label"
 | ----------- | --------------------- | -------------------------- |
 | Base        | `edd-group-label`     | `classNames.groupLabel`    |
 
-#### Option
+### Option
 
 "Option" components make up the individual options of the dropdown menu. Additional classes are added when the option is in a "disabled", "focused", or "selected" state.
 
@@ -259,6 +284,10 @@ The focused state is added on mouseover, or on keyboard focus (via the up/down a
 | Selected    | `edd-option-selected` | `classNames.optionSelected` |
 
 ## Configuration Options
+
+...
+
+## API Methods
 
 ...
 
