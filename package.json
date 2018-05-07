@@ -23,7 +23,8 @@
     "build": "tsc",
     "bundle": "webpack --config ./config/webpack/config.ts",
     "bundle:watch": "npm run bundle -- --watch",
-    "bundle:build": "npm run bundle -- --env=production",
+    "bundle:build": "npm run bundle -- --env=production && npm run copy:bundle",
+    "copy:bundle": "cp ./bundle/easydropdown.js ./demos/easydropdown.js && cp ./bundle/easydropdown.js.map ./demos/easydropdown.js.map",
     "prepublishOnly": "npm run test && npm run lint && npm run bundle:build && npm run build",
     "coveralls": "npm run test:cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
