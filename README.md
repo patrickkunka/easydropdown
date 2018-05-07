@@ -71,7 +71,7 @@ define(['easydropdown/bundles/easydropdown.js'] , function (easydropdown) {
 
 #### Script Tag
 
-For basic projects without modular scoping or a build process, the most simple way to use EasyDropDown is via a `<script>` tag before your closing body tag. A pre-built "UMD" bundle is provided for this purpose which can be found in the `./bundle/easydropdown.js` file.
+Alternatively, for basic projects without modular scoping or a build process, the most simple way to use EasyDropDown is via a `<script>` tag before your closing body tag. A pre-built "UMD" bundle is provided for this purpose which can be found at `./bundle/easydropdown.js`.
 
 ```html
     ...
