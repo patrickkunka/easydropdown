@@ -160,7 +160,7 @@ describe('Renderer', function(): void {
 
         const dom = self.renderer.render(state, select);
 
-        assert.isTrue(dom.root.classList.contains(self.classNames.rootUseNative));
+        assert.isTrue(dom.root.classList.contains(self.classNames.rootNative));
         assert.isNotOk(dom.body);
     });
 
