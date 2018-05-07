@@ -12,7 +12,7 @@ EasyDropDown comes bundled with three ready-made [themes](./demos/themes) which 
 Check out the following [demos](https://demos.kunkalabs.com/easydropdown/) to see what's possible.
 
 ### Features
-- Respects the native `<select>` element API[*]
+- Respects the native `<select>` element API*
 - Full keyboard support (navigation, search and select)
 - Emits native `change` events
 - Enhanced placeholder support
@@ -92,11 +92,10 @@ Next, we instantiate EasyDropDown by passing a reference to the select element(s
 Firstly, obtain a reference the select DOM element. You can then pass this reference to the `easydropdown()` factory function as the first parameter. The factory function also accepts an optional second parameter of configuration options. See [Configuration Options](#configuration-options) for more information.
 
 ```js
-import easydropdown from 'easydropdown';
-
 const select = document.querySelector('[name="foo"]');
 
 const edd = easydropdown(select);
+// or: const edd = easydropdown('[name="foo"]');
 ```
 
 As shown above, a reference to the dropdown instance  (`edd`) can be held onto in order to destroy it later, or interact with the dropdown programmatically.
@@ -108,8 +107,6 @@ This approach is recommended for any component-based architecture where only the
 For simple static pages/applications, we can use the `.all()` static method of the factory function to crawl the DOM for *all* `<select>` elements found in the document, and then batch instantiate EasyDropDown on each one.
 
 ```js
-import easydropdown from 'easydropdown';
-
 easydropdown.all();
 ```
 
@@ -203,7 +200,7 @@ This is the actual select element passed to the `easydropdown()` factory functio
 
 It is held inside the head in order to maintain tab-to-focus and various other keyboard-related functionality. For this reason, the `<select>` element must be invisible (e.g `opacity: 0`) but not hidden (e.g. `display: none`).
 
-When in native mode, we can target the select element using the "native" state on the "root" parent above in order to ensure that the select UI is visible when open.
+When in native mode, we can target the select element using the "native" state on the "root" parent above in order to ensure that the select element is clickable, and visible when open.
 
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
@@ -252,7 +249,7 @@ When open, EasyDropDown will apply an inline `max-height` style to the items lis
 
 "Group" components are used to wrap arbitrary groups of options, equivalent to the `<optgroup>` elements in the underyling `<select>` element.
 
-Even when there are no `<optgroup>` elements present in the provided select, a single wrapping `group` component will still be present. Internally, this simplifies component logic providing a consistent component hierarchy.
+Even when there are no `<optgroup>` elements present in the provided select, a single wrapping `group` component will still be present. Internally, this simplifies component logic by providing a consistent component hierarchy.
 
 When a group is present intentionally, it will typically include a "group label" element describing the purpose of the group. Groups that contain a label have a `groupHasLabel` class which can be used to target the styling of their child options (adding indentation, for example).
 
@@ -307,4 +304,4 @@ The focused state is added on mouseover, or on keyboard focus (via the up/down a
 
 EasyDropDown **does not support** the `<select multple>` attribute by design. As anyone who's ever used the native browser implementation will know, a single vertical list is a very poor user interface for a selecting multiple options from a menu. It lacks any concept of ordering, and requires non-intuitive keyboard interaction.
 
-There are far better solutions to this problem, typically involving two parallel lists, with drag-to-reorder functionality. EasyDropDown is not intended to solve this problem and was created to function as a simple **lightweight** solution for styling single-option select menus only. As such you should look elsewhere if you require multi-select functionality.
+There are far better solutions to this problem, typically involving two parallel lists, with drag-to-reorder functionality which is far beyond the scope of this library. EasyDropDown is not intended to solve this problem and was created to function as a simple **lightweight** solution for styling single-option select menus only. As such you should look elsewhere if you require multi-select functionality.
