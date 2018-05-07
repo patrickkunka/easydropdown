@@ -12,10 +12,9 @@ Check out the following [demos](https://demos.kunkalabs.com/easydropdown/) to se
 ### Features
 - Respects the native `<select>` element API
 - Full keyboard support (navigation, search and select)
-- Emits native `change` event
-- Form `reset` and validation support
-- `<optgroup>` support
-- `<option>`, `<optgroup>`, and `<select>`-level `disable` support
+- Emits native `change` events
+- Enhanced placeholder support
+- Form reset and validation support
 - Collision detection
 - Live updates
 - Falls back to native UI on mobile devices
@@ -113,6 +112,8 @@ The DOM structure created by EasyDropDown is broken into 12 semantic components 
 
 Each of the 12 components are their respective states are shown on the following diagram, and described in detail below.
 
+![](./docs/easydropdown-anatomy.png)
+
 #### Root
 
 The "root" component forms the top level container of the dropdown, and supports several states which can be used to target the styling of child components.
@@ -131,7 +132,7 @@ The "root" component forms the top level container of the dropdown, and supports
 
 #### Head
 
-The "head" component forms the top portion of the dropdown, and contains the current "value", and a presentational "arrow". When the head is clicked, the "body" opens. When the dropdown is closed, only the head is visible.
+The "head" component forms the top portion of the dropdown, and contains the current "value" and a presentational "arrow". When the head is clicked the "body" opens. When the dropdown is closed, only the head is visible.
 
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
@@ -139,7 +140,7 @@ The "head" component forms the top portion of the dropdown, and contains the cur
 
 #### Value
 
-The "value" component contains the current (human-readable) value of the the dropdown. The may be a placeholder value, or the text content of the currently selected option.
+The "value" component contains the current (human-readable) value of the the dropdown. This may be a placeholder value, or the text content of the currently selected option.
 
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
@@ -147,7 +148,7 @@ The "value" component contains the current (human-readable) value of the the dro
 
 #### Arrow
 
-The "arrow" component can be used to communicate the open/closed state of the dropdown and also to provide an additional affordance for opening the dropdown. By using the `open` state on the "root" parent above, we can adjust the styling of the  arrow based on whether or not the dropdown is open or closed.
+The "arrow" component can be used to communicate the open/closed state of the dropdown and also to provide an additional affordance for opening the dropdown. By using the "open" state on the "root" parent above, we can adjust the styling of the arrow based on whether or not the dropdown is open or closed.
 
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
@@ -155,11 +156,11 @@ The "arrow" component can be used to communicate the open/closed state of the dr
 
 #### Select
 
-This is the actual select element passed to the `easydropdown()` factory function on instantiation. Once the dropdown markup has been generated, the original `select` element is injected inside the head after the "value" component, and given the class name shown below (`'edd-select'` by default).
+This is the actual select element passed to the `easydropdown()` factory function on instantiation. Once the dropdown markup has been generated, the original `select` element is appended to the head, and given the class name shown below (`'edd-select'` by default).
 
-It is held inside the head so that we can give the dropdown tab focus, and support various other keyboard functionality. For this reason, the `<select>` element must be invisible but not hidden.
+It is held inside the head in order to maintain tab-to-focus and various other keyboard-related functionality. For this reason, the `<select>` element must be invisible (e.g `opacity: 0`) but not hidden (e.g. `display: none`).
 
-When in native mode, we can target the select element using the `native` state on the "root" parent above in order to ensure that the select UI is visible when open.
+When in native mode, we can target the select element using the "native" state on the "root" parent above in order to ensure that the select UI is visible when open.
 
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
