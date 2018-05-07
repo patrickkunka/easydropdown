@@ -65,7 +65,7 @@ define(['easydropdown/bundles/easydropdown.js'] , function (easydropdown) {
 
 #### Script Tag
 
-For basic projects without modular scoping or a build process, the most simple way to use EasyDropDown is via a `<script>` tag before your closing body tag. A pre-built "UMD" bundle is provided for this purpose which can be found in the `./bundle/easydropdown.min.js` file.
+For basic projects without modular scoping or a build process, the most simple way to use EasyDropDown is via a `<script>` tag before your closing body tag. A pre-built "UMD" bundle is provided for this purpose which can be found in the `./bundle/easydropdown.js` file.
 
 ```html
     ...
@@ -73,7 +73,7 @@ For basic projects without modular scoping or a build process, the most simple w
 </body>
 ```
 
-This will attach the `easydropdown` factory function to the `window` as a global. If you require AMD support for RequireJS, this bundle may be also be directly imported for that purpose.
+This will attach the `easydropdown` factory function to the `window` as a global.
 
 ## Usage
 
@@ -290,7 +290,63 @@ The focused state is added on mouseover, or on keyboard focus (via the up/down a
 
 ## API Methods
 
-...
+The easydropdown instances returned from the factory function expose several API methods for programmatic control of the dropdown, and instance destruction.
+
+### open()
+
+`.open()`
+
+Programmatically opens the dropdown. Closes any other open instances.
+
+
+```js
+
+const edd = easydropdown('[name="foo"]');
+
+edd.open();
+```
+
+### close()
+
+`.close()`
+
+Programmatically closes the dropdown.
+
+
+```js
+
+const edd = easydropdown('[name="foo"]');
+
+edd.close();
+```
+
+### refresh()
+
+`.refresh()`
+
+Refreshes the instance and updates the DOM in response to a change in the underlying `<select>` element (for example, adding or removing an option).
+
+When `behavior.liveUpdates` configuration option is set, this method is not neccessary, but can be used as a less-expensive alternative to polling the select for updates when we know exactly when it has been updated.
+
+```js
+
+const edd = easydropdown('[name="foo"]');
+
+edd.refresh();
+```
+
+### destroy()
+
+`.destory()`
+
+Destroys the instance by removing all EasyDropDown-generated elements from the DOM, and unbinding all event handlers. The underlying select is returned to the root position.
+
+```js
+
+const edd = easydropdown('[name="foo"]');
+
+edd.destroy();
+```
 
 ## React Example
 
