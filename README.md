@@ -96,9 +96,9 @@ Next, we instantiate EasyDropDown by passing a reference to the select element(s
 We can instantiate EasyDropDown by passing a reference to the `<select>` element, to the `easydropdown()` factory function:
 
 ```js
-const select = document.querySelector('#my-select');
+const selectElement = document.querySelector('#my-select');
 
-const edd = easydropdown(select);
+const edd = easydropdown(selectElement);
 ```
 
 Or, by passing a selector string directly:
@@ -388,11 +388,13 @@ const edd = easydropdown.all({
 
 Please see the [Anatomy of EasyDropDown](#anatomy-of-easydropdown) section for information on each configurable class name.
 
+## Behavior
+
 ### `clampMaxVisibleItems`
 
 | Type      | Default |
 |-----------|---------|
-| `boolean` | `true` |
+| `boolean` | `true`  |
 
 A boolean dictating whether or not to further reduce the `maxVisibleItems` value of the dropdown menu when a collision occurs.
 
@@ -403,7 +405,7 @@ You may wish to disable this option if your select UI will always appear within 
 ##### Example: Disabling `clampMaxVisibleItems`
 
 ```js
-const edd = easydropdown('#my-select', {
+const edd = easydropdown(selectElement, {
     behavior: {
         clampMaxVisibleItems: false
     }
@@ -423,7 +425,7 @@ This is default behavior, but may be disabled if you wish the dropdown to stay o
 ##### Example: Disabling `closeOnSelect`
 
 ```js
-const edd = easydropdown('#my-select', {
+const edd = easydropdown(selectElement, {
     behavior: {
         closeOnSelect: false
     }
@@ -443,7 +445,7 @@ By default, the dropdown will only open when the head is clicked, or the user pr
 ##### Example: Enabling `openOnFocus`
 
 ```js
-const edd = easydropdown('#my-select', {
+const edd = easydropdown(selectElement, {
     behavior: {
         openOnFocus: true
     }
@@ -463,7 +465,7 @@ This can provide an additional hint to the user during the process of selection,
 ##### Example: Enabling `showPlaceholderWhenOpen`
 
 ```js
-const edd = easydropdown('#my-select', {
+const edd = easydropdown(selectElement, {
     behavior: {
         showPlaceholderWhenOpen: true
     }
@@ -485,7 +487,7 @@ If you know exactly when the `<select>` element has been updated, you may wish t
 ##### Example: Enabling `liveUpdates`
 
 ```js
-const edd = easydropdown('#my-select', {
+const edd = easydropdown(selectElement, {
     behavior: {
         liveUpdates: true
     }
@@ -500,14 +502,114 @@ const edd = easydropdown('#my-select', {
 
 A boolean dictating whether or not the user should be able to loop from the top of the menu to the bottom (and vice-versa) when changing the focused option by pressing the up/down arrow keys.
 
-This may be desirable in longer lists as a quick way of returning to start of the list without the need for excessive scrolling.
+This may be desirable in longer lists as a quick way of returning to the start of the list without the need for excessive scrolling.
 
 ##### Example: Enabling `loop`
 
 ```js
-const edd = easydropdown('#my-select', {
+const edd = easydropdown(selectElement, {
     behavior: {
         loop: true
+    }
+});
+```
+
+### `maxVisibleItems`
+
+| Type      | Default |
+|-----------|---------|
+| `number`  | `15`    |
+
+An integer dictating the maximum visible options that should be visible in the dropdown body before limiting its height and forcing the user to scroll.
+
+It may be desirable to increase this value when dealing with long lists and when we can be sure that collision with the viewport edge will not occur (if collision does occur the value will be clamped anyway, providing `clampMaxVisibleItems` is set).
+
+##### Example: Changing `maxVisibleOptions`
+
+```js
+const edd = easydropdown(selectElement, {
+    behavior: {
+        maxVisibleOptions: 25
+    }
+});
+```
+
+### `useNativeUiOnMobile`
+
+| Type      | Default |
+|-----------|---------|
+| `boolean` | `true`  |
+
+A boolean dictating whether or not to fall back to the native `<select>` UI on mobile devices (while maintaing a styled "head").
+
+All mobile browsers implement an optimized OS-level interface for open `<select>` elements, which is generally deemed to provide a superior user experience to anything that can be created with CSS and JavaScript. For this reason, this setting is enabled by default and activated based on user-agent sniffing.
+
+You may however decide that you want to create a completely consistent user experience across all platforms, in which case this setting can be disabled and EasyDropDown will render the "body" when open, just as on desktop.
+
+##### Example: Disabling `useNativeUiOnMobile`
+
+```js
+const edd = easydropdown(selectElement, {
+    behavior: {
+        useNativeUiOnMobile: false
+    }
+});
+```
+
+## Callbacks
+
+### `onClose`
+
+| Type       | Default |
+|------------|---------|
+| `function` | `null`  |
+
+An optional callback function to be invoked whenever the dropdown is closed.
+
+##### Example: Adding an `onClose` callback
+
+```js
+const edd = easydropdown(selectElement, {
+    callbacks: {
+        onClose: () => console.log('closed!')
+    }
+});
+```
+
+### `onOpen`
+
+| Type       | Default |
+|------------|---------|
+| `function` | `null`  |
+
+An optional callback function to be invoked whenever the dropdown is opened.
+
+##### Example: Adding an `onOpen` callback
+
+```js
+const edd = easydropdown(selectElement, {
+    callbacks: {
+        onOpen: () => console.log('opened!')
+    }
+});
+```
+
+### `onSelect`
+
+| Type       | Default |
+|------------|---------|
+| `function` | `null`  |
+
+An optional callback function to be invoked whenever an option is selected. The selected option's value is passed as the first argument to the callback.
+
+You may wish to use this callback as a more concise alternative to attaching a `change` event handler to the underlying select element in order to read the select value and update your application state.
+
+##### Example: Adding an `onSelect` callback
+
+```js
+const edd = easydropdown(selectElement, {
+    callbacks: {
+        onSelect: value => console.log(`selected ${value}`)
     }
 });
 ```
@@ -525,7 +627,7 @@ Programmatically opens the dropdown. Closes any other open instances.
 
 ```js
 
-const edd = easydropdown('#my-select');
+const edd = easydropdown(selectElement);
 
 edd.open();
 ```
@@ -539,7 +641,7 @@ Programmatically closes the dropdown.
 
 ```js
 
-const edd = easydropdown('#my-select');
+const edd = easydropdown(selectElement);
 
 edd.close();
 ```
@@ -554,7 +656,7 @@ When `behavior.liveUpdates` configuration option is set, this method is not necc
 
 ```js
 
-const edd = easydropdown('#my-select');
+const edd = easydropdown(selectElement);
 
 edd.refresh();
 ```
@@ -569,7 +671,7 @@ When using any kind of component-based framework (e.g. React), this method shoul
 
 ```js
 
-const edd = easydropdown('#my-select');
+const edd = easydropdown(selectElement);
 
 edd.destroy();
 ```
