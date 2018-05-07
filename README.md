@@ -83,7 +83,7 @@ This will attach the `easydropdown` factory function to the `window` as a global
 
 ## Usage
 
-Because EasyDropDown is an enhancement on top of native the `<select>` element, we must firstly create the underlying select element in our project's HTML:
+Because EasyDropDown is an enhancement on top of native the `<select>` element, we must firstly create an underlying select element in our project's HTML, just as we normally would:
 
 ```html
 <select name="foo" id="my-select">
