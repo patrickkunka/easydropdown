@@ -11,7 +11,7 @@ const config = (env: Environment = Environment.DEVELOPMENT): Configuration => {
         mode: env,
         entry: './src/umd.ts',
         output: {
-            filename: isProductionEnvironment ? 'easydropdown.min.js' : 'easydropdown.js',
+            filename: isProductionEnvironment ? 'easydropdown.js' : 'easydropdown.dev.js',
             path: resolve(__dirname, '..', '..', 'bundle'),
             library: 'easydropdown',
             libraryTarget: 'umd'

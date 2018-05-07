@@ -51,12 +51,16 @@ npm install easydropdown --save
 You may then import the `easydropdown()` factory function into your project's modules.
 
 ```js
+// ES Modules
 import easydropdown from 'easydropdown';
-```
 
+// CommonJS
+var easydropdown = require('easydropdown');
 
-```js
-var easydropdown = = require('easydropdown');
+// AMD/RequireJS
+define(['easydropdown/bundles/easydropdown.js'] , function (easydropdown) {
+    ...
+});
 ```
 
 #### Script Tag
