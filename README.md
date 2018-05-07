@@ -80,7 +80,7 @@ This will attach the `easydropdown` factory function to the `window` as a global
 Because EasyDropDown is an enhancement on top of native the `<select>` element, we must firstly create the underlying select element in our project's HTML:
 
 ```html
-<select name="foo" class="my-select">
+<select name="foo" id="my-select">
     <option value="">Select</option>
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
@@ -96,7 +96,7 @@ Next, we instantiate EasyDropDown by passing a reference to the select element(s
 We can instantiate EasyDropDown by passing a reference to the `<select>` element, to the `easydropdown()` factory function:
 
 ```js
-const select = document.querySelector('.my-select');
+const select = document.querySelector('#my-select');
 
 const edd = easydropdown(select);
 ```
@@ -104,7 +104,7 @@ const edd = easydropdown(select);
 Or, by passing a selector string directly:
 
 ```js
-const edd = easydropdown('.my-select');
+const edd = easydropdown('#my-select');
 ```
 
 As shown above, a reference to the dropdown instance  (`edd`) can be held onto in order to destroy it later, or interact with the dropdown programmatically. See [API Methods](#api-methods) for more information.
@@ -178,7 +178,7 @@ The "root" component forms the top level container of the dropdown, and supports
 | Disabled    | `edd-root-disabled`   | `classNames.rootDisabled`  |
 | Invalid     | `edd-root-invalid`    | `classNames.rootInvalid`   |
 | Focused     | `edd-root-focused`    | `classNames.rootFocused`   |
-| HasValue    | `edd-root-has-value`  | `classNames.rootHasValue`  |
+| Has value   | `edd-root-has-value`  | `classNames.rootHasValue`  |
 | Native      | `edd-root-native`     | `classNames.rootNative`    |
 
 ### Head
@@ -388,17 +388,128 @@ const edd = easydropdown.all({
 
 Please see the [Anatomy of EasyDropDown](#anatomy-of-easydropdown) section for information on each configurable class name.
 
-### `prop`
+### `clampMaxVisibleItems`
+
+| Type      | Default |
+|-----------|---------|
+| `boolean` | `true` |
+
+A boolean dictating whether or not to further reduce the `maxVisibleItems` value of the dropdown menu when a collision occurs.
+
+By default, EasyDropDown will reduce the number of visible items until at least 10px of clearspace is created between the nearest viewport edge and the bottom or top of the dropdown body. This prevents the need to scroll the window to view the dropdown body when a collision occurs.
+
+You may wish to disable this option if your select UI will always appear within a collision zone, and you do not wish to reduce the number of visible options beyond the defined `maxVisibleOptions` value.
+
+##### Example: Disabling `clampMaxVisibleItems`
+
+```js
+const edd = easydropdown('#my-select', {
+    behavior: {
+        clampMaxVisibleItems: false
+    }
+});
+```
+
+### `closeOnSelect`
+
+| Type      | Default |
+|-----------|---------|
+| `boolean` | `true`  |
+
+A boolean dictating whether or not the dropdown should close when a value is selected.
+
+This is default behavior, but may be disabled if you wish the dropdown to stay open until the dropdown is explicitally closed by the user (by clicking the head, pressing "esc", or clicking outside of the dropdown).
+
+##### Example: Disabling `closeOnSelect`
+
+```js
+const edd = easydropdown('#my-select', {
+    behavior: {
+        closeOnSelect: false
+    }
+});
+```
+
+### `openOnFocus`
 
 | Type      | Default |
 |-----------|---------|
 | `boolean` | `false` |
 
-Lorem ipsum.
+A boolean dictating whether or not the dropdown should open automatically whenever it gains focus.
 
-##### Example 1: Lorem ipsum
+By default, the dropdown will only open when the head is clicked, or the user presses the up or down arrow key.
+
+##### Example: Enabling `openOnFocus`
+
 ```js
-// code
+const edd = easydropdown('#my-select', {
+    behavior: {
+        openOnFocus: true
+    }
+});
+```
+
+### `showPlaceholderWhenOpen`
+
+| Type      | Default |
+|-----------|---------|
+| `boolean` | `false` |
+
+A boolean dictating whether or not the placeholder text (if provided) should be shown whenever the dropdown is open (even once a value has been selected).
+
+This can provide an additional hint to the user during the process of selection, once the placeholder has already been lost due to an initial selection taking place.
+
+##### Example: Enabling `showPlaceholderWhenOpen`
+
+```js
+const edd = easydropdown('#my-select', {
+    behavior: {
+        showPlaceholderWhenOpen: true
+    }
+});
+```
+
+### `liveUpdates`
+
+| Type      | Default |
+|-----------|---------|
+| `boolean` | `false` |
+
+A boolean dictating whether or not the dropdown should watch for updates to the underyling `<select>` element. For example, and option being added or removed, or the disabled attribute being toggled on.
+
+This should be enabled in dynamic applications where we expect changes to the dropdown to occur during the course of a session but incurs a small overhead of periodically polling the provided `<select>` element for updates, and as such is disabled by default.
+
+If you know exactly when the `<select>` element has been updated, you may wish to use the `.refresh()` API method instead.
+
+##### Example: Enabling `liveUpdates`
+
+```js
+const edd = easydropdown('#my-select', {
+    behavior: {
+        liveUpdates: true
+    }
+});
+```
+
+### `loop`
+
+| Type      | Default |
+|-----------|---------|
+| `boolean` | `false` |
+
+A boolean dictating whether or not the user should be able to loop from the top of the menu to the bottom (and vice-versa) when changing the focused option by pressing the up/down arrow keys.
+
+This may be desirable in longer lists as a quick way of returning to start of the list without the need for excessive scrolling.
+
+##### Example: Enabling `loop`
+
+```js
+const edd = easydropdown('#my-select', {
+    behavior: {
+        loop: true
+    }
+});
 ```
 
 ## API Methods
@@ -414,7 +525,7 @@ Programmatically opens the dropdown. Closes any other open instances.
 
 ```js
 
-const edd = easydropdown('[name="foo"]');
+const edd = easydropdown('#my-select');
 
 edd.open();
 ```
@@ -428,7 +539,7 @@ Programmatically closes the dropdown.
 
 ```js
 
-const edd = easydropdown('[name="foo"]');
+const edd = easydropdown('#my-select');
 
 edd.close();
 ```
@@ -439,11 +550,11 @@ edd.close();
 
 Refreshes the instance and updates the DOM in response to a change in the underlying `<select>` element (for example, adding or removing an option).
 
-When `behavior.liveUpdates` configuration option is set, this method is not neccessary, but can be used as a less-expensive alternative to polling the select for updates when we know exactly when it has been updated.
+When `behavior.liveUpdates` configuration option is set, this method is not neccessary, as EasyDropDown will react automatically. However, when we know exactly when the select element has been updated, we may want to use the `.refresh()` method as a less-expensive (albeit more imperative) alternative.
 
 ```js
 
-const edd = easydropdown('[name="foo"]');
+const edd = easydropdown('#my-select');
 
 edd.refresh();
 ```
@@ -458,7 +569,7 @@ When using any kind of component-based framework (e.g. React), this method shoul
 
 ```js
 
-const edd = easydropdown('[name="foo"]');
+const edd = easydropdown('#my-select');
 
 edd.destroy();
 ```
@@ -477,6 +588,6 @@ edd.destroy();
 
 ## Multiple Attribute Support
 
-EasyDropDown **does not support** the `<select multple>` attribute by design. As anyone who's ever used the native browser implementation will know, a single vertical list is a very poor user interface for a selecting multiple options from a menu. It lacks any concept of ordering, and requires non-intuitive keyboard interaction.
+EasyDropDown **does not support** the `<select multiple>` attribute by design. A single vertical list is a very poor user interface for a selecting multiple options from a menu as it lacks any concept of ordering, and requires non-intuitive keyboard interaction.
 
-There are far better solutions to this problem, typically involving two parallel lists, with drag-to-reorder functionality which is far beyond the scope of this library. EasyDropDown is not intended to solve this problem and was created to function as a simple **lightweight** solution for styling single-option select menus only. As such you should look elsewhere if you require multi-select functionality.
+There are many UI libraries aimed at solving this problem specifically, which typically involve two parallel lists, with drag-to-select and drag-to-reorder functionality. EasyDropDown is not intended to solve this problem and was created to function as a simple **lightweight** solution for styling single-option select menus only. The added functionality required for the above would far beyond the scope of this library, and as such you should look elsewhere if you require multi-select UI.

@@ -154,7 +154,7 @@
 .edd-option {
     padding: 6px 10px;
     border-bottom: 1px solid #eee;
-    transition: background-color 250ms, color 250ms;
+    transition: background-color 250ms, color 250ms, border-color 250ms;
 }
 
 .edd-group-has-label .edd-option {
@@ -168,6 +168,7 @@
 
 .edd-option-focused:not(.edd-option-disabled) {
     background: blue;
+    border-bottom-color: blue;
     color: white;
 }
 
