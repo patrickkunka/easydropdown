@@ -694,7 +694,7 @@ edd.destroy();
 
 ## TypeScript Support
 
-EasyDropDown is written in [TypeScript](https://www.typescriptlang.org), and as such exports types for all API entry points and configuration interfaces, and providing full intellisense in compatible editors for a great developer experience.
+EasyDropDown is written in [TypeScript](https://www.typescriptlang.org), and as such exports types for all API entry points and configuration interfaces, providing full intellisense in compatible editors for a great developer experience.
 
 Additionally, if you are using CSS modules with TypeScript, a `theme.css.d.ts` type definition is provided in the [`themes`](./themes/) directory enumerating the entire `classNames` configuration object interface to help you author custom themes.
 
