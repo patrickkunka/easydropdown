@@ -31,9 +31,11 @@ Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what
 
 - [Installation](#installation)
 - [Usage](#usage)
+    - [Placeholder Functionality](#placeholder-functionality)
 - [Anatomy of EasyDropDown](#anatomy-of-easydropdown)
-- [API Methods](#configuration-options)
 - [Configuration Options](#configuration-options)
+    - [Available Options](#available-options)
+- [API Methods](#configuration-options)
 - [React Example](#react-example)
 - [CSS Modules Example](#css-modules-example)
 - [Multiple Attribute Support](#multiple-attribute-support)
@@ -388,6 +390,10 @@ const edd = easydropdown.all({
 
 Please see the [Anatomy of EasyDropDown](#anatomy-of-easydropdown) section for information on each configurable class name.
 
+If you do not wish to use the default class names, or wish to use locally-scoped class names (e.g, via CSS-modules), you may use the `classNames` configuration object to override the classNames in the generated markup with your own.
+
+See the [CSS Modules Example](#css-modules-example) section for an example.
+
 ## Behavior
 
 ### `clampMaxVisibleItems`
@@ -458,7 +464,7 @@ const edd = easydropdown(selectElement, {
 |-----------|---------|
 | `boolean` | `false` |
 
-A boolean dictating whether or not the placeholder text (if provided) should be shown whenever the dropdown is open (even once a value has been selected).
+A boolean dictating whether or not the [placeholder](#placeholder-functionality) text (if provided) should be shown whenever the dropdown is open (even once a value has been selected).
 
 This can provide an additional hint to the user during the process of selection, once the placeholder has already been lost due to an initial selection taking place.
 
@@ -478,11 +484,11 @@ const edd = easydropdown(selectElement, {
 |-----------|---------|
 | `boolean` | `false` |
 
-A boolean dictating whether or not the dropdown should watch for updates to the underyling `<select>` element. For example, and option being added or removed, or the disabled attribute being toggled on.
+A boolean dictating whether or not the dropdown should watch for updates to the underyling `<select>` element and reactively update itself. For example, when an `<option>` is added or removed, or the `disabled` attribute is toggled on.
 
-This should be enabled in dynamic applications where we expect changes to the dropdown to occur during the course of a session but incurs a small overhead of periodically polling the provided `<select>` element for updates, and as such is disabled by default.
+This should be enabled in dynamic applications where we expect changes to the dropdown to occur during the course of a session. This does however incur the small overhead of periodically polling the provided `<select>` element for updates, and as such is disabled by default.
 
-If you know exactly when the `<select>` element has been updated, you may wish to use the `.refresh()` API method instead.
+If you know exactly when the `<select>` element has been updated, you may wish to use the `.refresh()` API method as an imperative alternative.
 
 ##### Example: Enabling `liveUpdates`
 
@@ -502,7 +508,7 @@ const edd = easydropdown(selectElement, {
 
 A boolean dictating whether or not the user should be able to loop from the top of the menu to the bottom (and vice-versa) when changing the focused option by pressing the up/down arrow keys.
 
-This may be desirable in longer lists as a quick way of returning to the start of the list without the need for excessive scrolling.
+This may be desirable in longer lists as a quick way of returning the user to the start of the list without the need for excessive scrolling.
 
 ##### Example: Enabling `loop`
 
@@ -616,14 +622,13 @@ const edd = easydropdown(selectElement, {
 
 ## API Methods
 
-The easydropdown instances returned from the factory function expose several API methods for programmatic control of the dropdown, and instance destruction.
+The `EasydropdownFacade` instance returned from the factory function exposes several API methods for programmatic control of the dropdown, and instance destruction.
 
 ### open()
 
 `.open()`
 
 Programmatically opens the dropdown. Closes any other open instances.
-
 
 ```js
 
@@ -693,3 +698,7 @@ edd.destroy();
 EasyDropDown **does not support** the `<select multiple>` attribute by design. A single vertical list is a very poor user interface for a selecting multiple options from a menu as it lacks any concept of ordering, and requires non-intuitive keyboard interaction.
 
 There are many UI libraries aimed at solving this problem specifically, which typically involve two parallel lists, with drag-to-select and drag-to-reorder functionality. EasyDropDown is not intended to solve this problem and was created to function as a simple **lightweight** solution for styling single-option select menus only. The added functionality required for the above would far beyond the scope of this library, and as such you should look elsewhere if you require multi-select UI.
+
+---
+
+© 2018 Patrick Kunka / KunkaLabs Ltd
