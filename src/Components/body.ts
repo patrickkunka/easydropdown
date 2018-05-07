@@ -27,8 +27,8 @@ function body(state: State, classNames: ClassNames): string {
                 ${styleAttr}>
                 ${state.groups.map(groupState => group(groupState, state, classNames)).join('')}
             </div>
-            <div class=${classNames.gradientTop}></div>
-            <div class=${classNames.gradientBottom}></div>
+            <div class=${classNames.gradientTop} role="presentation"></div>
+            <div class=${classNames.gradientBottom} role="presentation"></div>
         </div>
     `);
 }

@@ -15,7 +15,7 @@ const root = (state: State, classNames: ClassNames) => {
         [state.hasValue, classNames.rootHasValue],
         [state.isOpenAbove, classNames.rootOpenAbove],
         [state.isOpenBelow, classNames.rootOpenBelow],
-        [state.isUseNativeMode, classNames.rootUseNative]
+        [state.isUseNativeMode, classNames.rootNative]
     ]);
 
     return (`
