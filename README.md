@@ -374,20 +374,20 @@ const edd = easydropdown.all({
 
 #### `behavior`
 
-- [clampMaxVisibleItems](#clampMaxVisibleItems)
-- [closeOnSelect](#closeOnSelect)
-- [openOnFocus](#openOnFocus)
-- [showPlaceholderWhenOpen](#showPlaceholderWhenOpen)
-- [liveUpdates](#liveUpdates)
+- [clampMaxVisibleItems](#clampmaxvisibleitems)
+- [closeOnSelect](#closeonselect)
+- [openOnFocus](#openonfocus)
+- [showPlaceholderWhenOpen](#showplaceholderwhenopen)
+- [liveUpdates](#liveupdates)
 - [loop](#loop)
-- [maxVisibleItems](#maxVisibleItems)
-- [useNativeUiOnMobile](#useNativeUiOnMobile)
+- [maxVisibleItems](#maxvisibleitems)
+- [useNativeUiOnMobile](#usenativeuionmobile)
 
 #### `callbacks`
 
-- [onClose](#onClose)
-- [onOpen](#onOpen)
-- [onSelect](#onSelect)
+- [onClose](#onclose)
+- [onOpen](#onopen)
+- [onSelect](#onselect)
 
 #### `classNames`
 
