@@ -36,6 +36,7 @@ Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what
     - [Single-instance instantiation](#single-instance-instantiation)
     - [Batch instantiation](#batch-instantiation)
     - [Placeholder Functionality](#placeholder-functionality)
+    - [Reading and Writing Values](#reading-and-writing-values)
 - [Anatomy of EasyDropDown](#anatomy-of-easydropdown)
 - [Configuration Options](#configuration-options)
     - [Available Options](#available-options)
@@ -161,6 +162,40 @@ Check out the [Basic List with Placeholder](https://demos.kunkalabs.com/easydrop
 *NB: This feature should not be used if you want the user to be able to leave the field blank.*
 
 Additionally, EasyDropDown can be configured to reshow the placeholder value after a value has been selected as a hint to the user whenever the dropdown is open. This is available via the `behavior.showPlaceholderWhenOpen` configuration option, and can be seen in the [Show Placeholder When Open](https://demos.kunkalabs.com/easydropdown/11-show-placeholder-when-open.html) demo.
+
+### Reading and Writing Values
+
+As en enhancement on top of native `<select>` elements, EasyDropDown always keeps the underyling `<select>` element in sync with the current selection (emitting a `change` event on value change), and conversely, always updates itself in response to a programmatic change in value to the underlying select.
+
+As such, you can read and write the `value` of the underlying select, just as you normally would.
+
+```js
+const selectElement = document.querySelector('#my-select');
+
+const edd = easydropdown(selectElement);
+
+selectElement.value = 'foo';
+
+console.log(edd.value); // foo
+```
+> Writing a value to the select element
+
+```js
+const selectElement = document.querySelector('#my-select');
+
+const edd = easydropdown(selectElement);
+
+edd.value = 'foo';
+
+console.log(selectElement.value); // foo
+```
+> Reading a value from the select element
+
+As seen in the above examples, the `EasydropdownFacade` instance returned from the factory function does expose a `.value` getter/setter property for convenience, but there should never be any reason to use this over the native interface.
+
+Likewise, if we need to listen for a change in value to the underyling select, we can attach a `change` event handler to it just as we normally would. EasyDropDown also provides the ability to provide an optional `callbacks.onSelect` callback via the configuration object as an alternative to manually attaching a change handler.
+
+See the `onSelect` [configuration option](#onselect) documentation for more information.
 
 ## Anatomy of EasyDropDown
 
