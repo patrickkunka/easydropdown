@@ -11,7 +11,7 @@ EasyDropDown comes bundled with three ready-made [themes](./demos/themes) which 
 
 Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what's possible. The source code for the demos can be found in the [`demos`](./demos/) directory.
 
-*NB: If you are viewing the demos on a mobile device, you will see the native UI only as per the default configuration.*
+*NB: If you are viewing the demos on a mobile device, you will see the device's native select UI as per the [default configuration](#usenativeuiwhenopen).*
 
 ### Features
 - Respects the native `<select>` element API*
