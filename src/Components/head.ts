@@ -1,5 +1,5 @@
-import ClassNames from '../../Config/ClassNames';
-import State      from '../../State/State';
+import ClassNames from '../Config/ClassNames';
+import State      from '../State/State';
 
 import arrow from './arrow';
 import value from './value';

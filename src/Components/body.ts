@@ -1,6 +1,6 @@
-import ClassNames       from '../../Config/ClassNames';
-import composeClassName from '../../Shared/Util/composeClassName';
-import State            from '../../State/State';
+import ClassNames       from '../Config/ClassNames';
+import composeClassName from '../Shared/Util/composeClassName';
+import State            from '../State/State';
 
 import group from './group';
 
