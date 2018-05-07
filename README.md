@@ -7,7 +7,7 @@
 
 EasyDropDown transforms the humble `<select>` element into a blank canvas for your design and brand. As a drop-in enhancement, EasyDropDown maintains all the functionality and accessibility of a standard single-option select menu, while exposing a semantic DOM-structure that's easy to style and customize to the needs of your design.
 
-EasyDropDown comes bundled with three ready-made [themes](./demos/themes) which can be used as a starting point for custom styling.
+EasyDropDown comes bundled with three [ready-made themes](./demos/themes) which can be used as a starting point for custom styling.
 
 Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what's possible. The source code for the demos can be found in the [./demos/](./demos/) directory.
 
