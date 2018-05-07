@@ -165,6 +165,10 @@
     padding: 4px 8px;
 }
 
+.edd-group-has-label .edd-option {
+    padding-left: 20px;
+}
+
 .edd-option-selected {
     font-weight: bold;
 }

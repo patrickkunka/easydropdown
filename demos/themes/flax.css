@@ -175,13 +175,13 @@
 
 .edd-group-label {
     font-size: 13px;
-    padding: 12px 8px 4px;
+    padding: 4px 8px 4px 0;
     color: #555;
     font-weight: 600;
 }
 
 .edd-group-has-label {
-    padding-left: 4px;
+    padding-left: 22px;
 }
 
 .edd-option {
