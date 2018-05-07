@@ -4,6 +4,7 @@ config
 coverage
 demos
 docs
+bundle/dist
 src
 
 .travis.yml
