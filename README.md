@@ -9,7 +9,7 @@ EasyDropDown transforms the humble `<select>` element into a blank canvas for yo
 
 EasyDropDown comes bundled with three ready-made [themes](./demos/themes) which can be used as a starting point for custom styling.
 
-Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what's possible.
+Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what's possible. The source code for the demos can be found in the [`demos`](./demos/) directory.
 
 ### Features
 - Respects the native `<select>` element API*
@@ -31,13 +31,14 @@ Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what
 
 - [Installation](#installation)
 - [Usage](#usage)
+    - [Single-instance instantiation](#single-instance-instantiation)
+    - [Batch instantiation](#batch-instantiation)
     - [Placeholder Functionality](#placeholder-functionality)
 - [Anatomy of EasyDropDown](#anatomy-of-easydropdown)
 - [Configuration Options](#configuration-options)
     - [Available Options](#available-options)
 - [API Methods](#configuration-options)
-- [React Example](#react-example)
-- [CSS Modules Example](#css-modules-example)
+- [TypeScript Support](#typescript-support)
 - [Multiple Attribute Support](#multiple-attribute-support)
 
 ## Installation
@@ -681,17 +682,11 @@ const edd = easydropdown(selectElement);
 edd.destroy();
 ```
 
-## React Example
+## TypeScript Support
 
-...
+EasyDropDown is written in [TypeScript](https://www.typescriptlang.org), and as such exports types for all API entry points and configuration interfaces, and providing full intellisense in compatible editors for a great developer experience.
 
-## CSS Modules Example
-
-...
-
-## Typescript Support
-
-...
+Additionally, if you are using CSS modules with TypeScript, a `theme.css.d.ts` type definition is provided in the [`themes`](./themes/) directory enumerating the entire `classNames` configuration object interface to help you author custom themes.
 
 ## Multiple Attribute Support
 
