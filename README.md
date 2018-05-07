@@ -19,7 +19,7 @@ Check out the following [demos](https://demos.kunkalabs.com/easydropdown/) to se
 - Collision detection
 - Live updates
 - Falls back to native UI on mobile devices
-- Full Typescript/Intellisense Support
+- Typescript/intellisense support
 - ARIA-compliant-markup
 - Support for IE9+, and all modern browsers.
 - Lightweight at only 9kb gzipped
@@ -115,6 +115,8 @@ Each of the 12 components are their respective states are shown on the following
 
 #### Root
 
+The "root" component forms the top level container of the dropdown, and supports several states which can be used to target the styling of child components.
+
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------  | -------------------------- |
 | Base        | `edd-root`            | `classNames.root`          |
@@ -129,11 +131,15 @@ Each of the 12 components are their respective states are shown on the following
 
 #### Head
 
+The "head" component forms the top portion of the dropdown, and contains the current "value", and a presentational "arrow". When the head is clicked, the "body" opens. When the dropdown is closed, only the head is visible.
+
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
 | Base        | `edd-head`            | `classNames.head`          |
 
 #### Value
+
+The "value" component contains the current (human-readable) value of the the dropdown. The may be a placeholder value, or the text content of the currently selected option.
 
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
@@ -141,11 +147,19 @@ Each of the 12 components are their respective states are shown on the following
 
 #### Arrow
 
+The "arrow" component can be used to communicate the open/closed state of the dropdown and also to provide an additional affordance for opening the dropdown. By using the `open` state on the "root" parent above, we can adjust the styling of the  arrow based on whether or not the dropdown is open or closed.
+
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
 | Base        | `edd-arrow`           | `classNames.arrow`         |
 
 #### Select
+
+This is the actual select element passed to the `easydropdown()` factory function on instantiation. Once the dropdown markup has been generated, the original `select` element is injected inside the head after the "value" component, and given the class name shown below (`'edd-select'` by default).
+
+It is held inside the head so that we can give the dropdown tab focus, and support various other keyboard functionality. For this reason, the `<select>` element must be invisible but not hidden.
+
+When in native mode, we can target the select element using the `native` state on the "root" parent above in order to ensure that the select UI is visible when open.
 
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
@@ -153,14 +167,20 @@ Each of the 12 components are their respective states are shown on the following
 
 #### Body
 
+The "body" forms the lower menu portion of the dropdown, and is shown and hidden based on whether the dropdown is open or closed.
+
+The body should be hidden by default, and shown using a combination of the `open`, `openBelow` or `openAbove` class names added to the "root" component above. EasyDropDown will determine whether to apply the `openBelow` or `openAbove` class names based on collision detection using the height of the body.
+
 | State       | Default Class         | Configuration Option        |
 | ----------- | --------------------- | --------------------------- |
 | Base        | `edd-body`            | `classNames.body`           |
 | Scrollable  | `edd-body-scrollable` | `classNames.bodyScrollable` |
-| At top      | `edd-body-at-top`     | `classNames.atTop`          |
-| At bottom   | `edd-body-at-bottom`  | `classNames.atBotom`        |
+| At top      | `edd-body-at-top`     | `classNames.bodyAtTop`      |
+| At bottom   | `edd-body-at-bottom`  | `classNames.bodyAtBotom`    |
 
 #### Gradient Top
+
+The "gradient top" component can be used to apply a gradation to the top of the body to indicate that there are additional items above the visible area and create a scroll affordance. This can be shown or hidden based on the `bodyAtTop` class name applied to the "body" component above.
 
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
@@ -168,17 +188,29 @@ Each of the 12 components are their respective states are shown on the following
 
 #### Gradient Bottom
 
+The "gradient bottom" component can be used to apply a gradation to the bottom of the body to indicate that there are additional items below the visible area and create a scroll affordance. This can be shown or hidden based on the `bodyAtBottom` class name applied to the "body" component above.
+
 | State       | Default Class         | Configuration Option        |
 | ----------- | --------------------- | --------------------------- |
 | Base        | `edd-gradient-bottom` | `classNames.gradientBottom` |
 
 #### Items List
 
+The "items list" component holds all items in the dropdown, and is used to restrict the scrollable height of the body by applying `max-height` and `overflow: auto` styles.
+
+When open, EasyDropDown will apply an inline `max-height` style to the items list component which is calculated based on the desired maximum visible items defined via the `behavior.maxVisibleItems` configuration option. This value may be further reduced to avoid collisions between the body and the viewport edge when the `behavior.clampMaxVisibleItems` configuration option is set.
+
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
 | Base        | `edd-items-list`      | `classNames.itemsList`     |
 
 #### Group
+
+"Group" components are used to wrap arbitrary groups of options, equivalent to the `<optgroup>` elements in the underyling `<select>` element.
+
+Even when there are no `<optgroup>` elements present in the provided select, a single wrapping `group` component will still be present. Internally, this simplifies component logic providing a consistent component hierarchy.
+
+When a group is present intentionally, it will typically include a "group label" element describing the purpose of the group. Groups that contain a label have a `groupHasLabel` class which can be used to target the styling of their child options (adding indentation, for example).
 
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
@@ -188,11 +220,17 @@ Each of the 12 components are their respective states are shown on the following
 
 #### Group Label
 
+"Group label" components are added to groups derived from `<optgroup>` elements in the provided `<select>` element, and contain the value of the `label` attribute of the `<optgroup>`.
+
 | State       | Default Class         | Configuration Option       |
 | ----------- | --------------------- | -------------------------- |
 | Base        | `edd-group-label`     | `classNames.groupLabel`    |
 
 #### Option
+
+"Option" components make up the individual options of the dropdown menu. Additional classes are added when the option is in a "disabled", "focused", or "selected" state.
+
+The focused state is added on mouseover, or on keyboard focus (via the up/down arrow keys). If an option is disabled, it is no longer focusable or selectable.
 
 | State       | Default Class         | Configuration Option        |
 | ----------- | --------------------- | --------------------------- |
