@@ -357,15 +357,15 @@ When using either the `easydropdown()` factory function, or the `.all()` static 
         onSelect: null
     },
     classNames: {
-        root:           'edd';
-        rootOpen:       'edd-open';
-        rootOpenAbove:  'edd-open-above';
-        rootOpenBelow:  'edd-open-below';
-        rootDisabled:   'edd-disabled';
-        rootInvalid:    'edd-invalid';
-        rootFocused:    'edd-focused';
-        rootHasValue:   'edd-has-value';
-        rootNative:     'edd-native';
+        root:           'edd-root';
+        rootOpen:       'edd-root-open';
+        rootOpenAbove:  'edd-root-open-above';
+        rootOpenBelow:  'edd-root-open-below';
+        rootDisabled:   'edd-root-disabled';
+        rootInvalid:    'edd-root-invalid';
+        rootFocused:    'edd-root-focused';
+        rootHasValue:   'edd-root-has-value';
+        rootNative:     'edd-root-native';
         gradientTop:    'edd-gradient-top';
         gradientBottom: 'edd-gradient-bottom';
         head:           'edd-head';
@@ -810,7 +810,7 @@ class Select extends React.Component {
 }
 ```
 
-Provided your styles respect the interface defined in [IClassNames](./src/Config/Interfaces/IClassNames.ts), you should be able to pass a reference to the imported `styles` object directly into the EasyDropDown configuration.
+Provided your styles respect the interface defined in [IClassNames](./src/Config/Interfaces/IClassNames.ts), you should be able to pass a reference to the imported `styles` object directly into the EasyDropDown configuration. The `IClassNames` interface is equivalent to the default class names with the `edd-` namespace prefix removed (and automatically converted to camel case on import).
 
 If you are using TypeScript and CSS Modules, an EasyDropDown [CSS type definition](./demos/themes/theme.css.d.ts) is provided to assist you in authoring custom styles, in which case you would import your styles using `import * as styles from './styles.css'`.
 
