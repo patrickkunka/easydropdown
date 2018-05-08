@@ -1,14 +1,14 @@
 import IClassNames from './Interfaces/IClassNames';
 
 class ClassNames implements IClassNames {
-    public root:           string = 'edd';
-    public rootOpen:       string = 'edd-open';
-    public rootOpenAbove:  string = 'edd-open-above';
-    public rootOpenBelow:  string = 'edd-open-below';
-    public rootDisabled:   string = 'edd-disabled';
-    public rootInvalid:    string = 'edd-invalid';
-    public rootFocused:    string = 'edd-focused';
-    public rootHasValue:   string = 'edd-has-value';
+    public root:           string = 'edd-root';
+    public rootOpen:       string = 'edd-root-open';
+    public rootOpenAbove:  string = 'edd-root-open-above';
+    public rootOpenBelow:  string = 'edd-root-open-below';
+    public rootDisabled:   string = 'edd-root-disabled';
+    public rootInvalid:    string = 'edd-root-invalid';
+    public rootFocused:    string = 'edd-root-focused';
+    public rootHasValue:   string = 'edd-root-has-value';
     public rootNative:     string = 'edd-native';
     public gradientTop:    string = 'edd-gradient-top';
     public gradientBottom: string = 'edd-gradient-bottom';
