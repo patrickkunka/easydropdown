@@ -1,7 +1,7 @@
 {
   "name": "easydropdown",
   "version": "4.0.0",
-  "description": "",
+  "description": "A lightweight library for building beautiful styleable select elements",
   "author": "KunkaLabs Limited",
   "private": false,
   "license": "Apache-2.0",

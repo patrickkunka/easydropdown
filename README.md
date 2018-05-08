@@ -27,6 +27,7 @@ Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what
 - ARIA-compliant-markup
 - Support for IE9+, and all modern browsers.
 - Lightweight at only 9kb gzipped
+- No third-party dependencies
 
 **EasyDropDown [does not support](#multiple-attribute-support) the `multiple` attribute.*
 
@@ -811,7 +812,7 @@ class Select extends React.Component {
 
 Provided your styles respect the interface defined in [IClassNames](./src/Config/Interfaces/IClassNames.ts), you should be able to pass a reference to the imported `styles` object directly into the EasyDropDown configuration.
 
-If you are using TypeScript and CSS Modules, an EasyDropDown [CSS type definition](./demos/themes/theme.css.d.ts) is provided to assist you in authoring custom styles.
+If you are using TypeScript and CSS Modules, an EasyDropDown [CSS type definition](./demos/themes/theme.css.d.ts) is provided to assist you in authoring custom styles, in which case you would import your styles using `import * as styles from './styles.css'`.
 
 ## TypeScript Support
 
