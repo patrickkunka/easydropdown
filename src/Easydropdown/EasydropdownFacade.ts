@@ -1,37 +1,46 @@
 import Easydropdown from './Easydropdown';
 
 class EasydropdownFacade {
+    /**
+     * Programmatically opens the dropdown, closing any
+     * other open instances.
+     */
+
     public open: () => void;
+
+    /**
+     * Programmatically closes the dropdown.
+     */
+
     public close: () => void;
+
+    /**
+     * Refreshes the instance and updates the DOM in
+     * response to a change in the underlying `<select>`
+     * element (for example, adding or removing an option).
+     */
+
     public refresh: () => void;
+
+    /**
+     * Destroys the instance by removing all EasyDropDown-generated
+     * elements from the DOM, and unbinding all event handlers.
+     * The underlying select is returned to the root position.
+     */
+
     public destroy: () => void;
+
+    /**
+     * An accessor property allowing writing to and reading
+     * from the dropdown's value.
+     */
+
     public value: string;
 
     constructor(implementation: Easydropdown) {
-        /**
-         * Programmatically opens the dropdown menu.
-         */
-
         this.open = implementation.open.bind(implementation);
-
-        /**
-         * Programmatically closes the dropdown menu.
-         */
-
         this.close = implementation.close.bind(implementation);
-
-        /**
-         * Rebuilds the EasyDropDown instance in response to
-         * options being added or removed.
-         */
-
         this.refresh = implementation.refresh.bind(implementation);
-
-        /**
-         * Destroys the EasyDropDown instance, unbinding all event handlers
-         * and reverting the provided <select> to its original state.
-         */
-
         this.destroy = implementation.destroy.bind(implementation);
 
         Object.defineProperties(this, {

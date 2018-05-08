@@ -1,3 +1,3 @@
-type ICallback = (arg?: any) => void;
+type ICallback = () => void;
 
 export default ICallback;
