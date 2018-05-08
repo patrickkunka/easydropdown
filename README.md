@@ -65,10 +65,10 @@ You may then import the `easydropdown()` factory function into your project's mo
 import easydropdown from 'easydropdown';
 
 // CommonJS
-var easydropdown = require('easydropdown');
+const easydropdown = require('easydropdown');
 
 // AMD/RequireJS
-define(['easydropdown/bundles/easydropdown.js'] , function(easydropdown) {
+define(['easydropdown/bundles/easydropdown.js'] , easydropdown => {
     ...
 });
 ```
