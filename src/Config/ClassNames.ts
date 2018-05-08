@@ -9,7 +9,7 @@ class ClassNames implements IClassNames {
     public rootInvalid:    string = 'edd-root-invalid';
     public rootFocused:    string = 'edd-root-focused';
     public rootHasValue:   string = 'edd-root-has-value';
-    public rootNative:     string = 'edd-native';
+    public rootNative:     string = 'edd-root-native';
     public gradientTop:    string = 'edd-gradient-top';
     public gradientBottom: string = 'edd-gradient-bottom';
     public head:           string = 'edd-head';
