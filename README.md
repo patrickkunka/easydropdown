@@ -770,7 +770,7 @@ class Select extends React.Component {
                 name={this.props.name}
                 ref={this.setSelectElementRef}
             >
-                <option value="" data-placeholder>Select an option</value>
+                <option value="" data-placeholder>Select an option</option>
                 {this.props.options.map(option => this.renderOption(option))}
             </select>
         )
