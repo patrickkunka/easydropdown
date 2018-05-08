@@ -75,6 +75,20 @@ describe('Easydropdown', () => {
         assert.isTrue(onCloseSpy.called);
     });
 
+    it('does not invoke consumer callbacks if not provided', () => {
+        const select = createSelect();
+
+        const edd = new Easydropdown(select, {});
+
+        edd.actions.selectOption(1);
+
+        edd.open();
+
+        edd.actions.close();
+
+        assert.isTrue(true);
+    });
+
     describe('.open()', () => {
         it('programmatically opens the select', () => {
             const select = createSelect();
