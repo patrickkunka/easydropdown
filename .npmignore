@@ -5,6 +5,8 @@ coverage
 demos
 docs
 bundle/dist
+bundle/*.dev.js
+*.map
 src
 
 .travis.yml
