@@ -678,7 +678,7 @@ The `EasydropdownFacade` instance returned from the factory function exposes sev
 
 `.open()`
 
-Programmatically opens the dropdown. Closes any other open instances.
+Programmatically opens the dropdown, closing any other open instances.
 
 ```js
 
