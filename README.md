@@ -22,7 +22,8 @@ Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what
 - Collision detection
 - Live updates
 - Falls back to native UI on mobile devices
-- Typescript/intellisense support
+- CSS Modules support
+- TypeScript/intellisense support
 - ARIA-compliant-markup
 - Support for IE9+, and all modern browsers.
 - Lightweight at only 9kb gzipped
