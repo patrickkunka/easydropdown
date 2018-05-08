@@ -41,6 +41,7 @@ Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what
 - [Configuration Options](#configuration-options)
     - [Available Options](#available-options)
 - [API Methods](#configuration-options)
+- [React Example](#react-example)
 - [TypeScript Support](#typescript-support)
 - [Multiple Attribute Support](#multiple-attribute-support)
 
@@ -725,6 +726,57 @@ When using any kind of component-based framework (e.g. React), this method shoul
 const edd = easydropdown(selectElement);
 
 edd.destroy();
+```
+
+## React Example
+
+EasyDropDown is fully compatible with React and can be integrated into any component where you would normally use a `<select>` element.
+
+The following example shows a basic `Select` component with EasyDropDown integrated, and assumes that a `name`, an array of `options`, and a `handleChange` function are passed in as "props" from a parent compoment.
+
+Additional features such as `disabled` attributes and validation could be added as required.
+
+```jsx
+import easydropdown from 'easydropdown';
+import React from 'react';
+
+class Select extends React.Component {
+    setSelectElementRef(selectElement) {
+        this.selectElement = selectElement;
+    }
+
+    componentDidMount() {
+        this.edd = easydropdown(this.selectElement, {
+            callbacks: {
+                onSelect: nextValue => this.props.handleChange(this.props.name, nextValue)
+            }
+        });
+    }
+
+    renderOption(option) {
+        return (
+            <option value={option.value}>
+                {option.label}
+            </option>
+        );
+    }
+
+    render() {
+        return (
+            <select
+                name={this.props.name}
+                ref={this.setSelectElementRef}
+            >
+                <option value="" data-placeholder>Select an option</value>
+                {this.props.options.map(option => this.renderOption(option))}
+            </select>
+        )
+    }
+
+    componentWillUnmount() {
+        this.edd.destroy();
+    }
+}
 ```
 
 ## TypeScript Support
