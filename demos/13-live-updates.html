@@ -11,6 +11,7 @@
         <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEUAAABCiZtUyORUyORCiZtUyORCiZtUyORCiZtUyORUyORCiZtUyORCiZtUyOREkKNUyORUyORUyORCiZtUyORUyORCiZtUyORCiZtUyORCiZtDjaBFlalHma1KpbtLqcBOtM1QuNJSwNtTxN9UyOQlYZhqAAAAGnRSTlMAEBAgMDBAQFBQYHBwgICPj5+vv7/P39/v793jxf8AAACqSURBVHja1ZJdF4IgDIYnZaaVpWbKrCzl///GIokYH3btc/fuPBwGGywCQeH5HyEVyaxwAsHZjFDLfA4LfPXJeVBIVU4CQvHNDfMKNdO59Ak8NvLeI2Qkx45Q0NwwSxiO1oHSEq64ta8kwh2xjeymDeGBbyrn2bowdCg5+D4OpgYmNlQQmRJ6VLSRMzxZeKKmcscPYuzwx85ZIBA3NFnbKwg9Ei4jFTgsgRepVztePP0rPgAAAABJRU5ErkJggg==">
 
         <script src="./theme-switcher.js"></script>
+        <script src="./option-adder.js"></script>
     </head>
     <body>
         <main class="main">
@@ -43,20 +44,6 @@
         </footer>
 
         <script src="./easydropdown.js"></script>
-        <script>
-            var addOptionButton = document.getElementById('add-option');
-            var select = document.getElementById('demo-select');
-
-            addOptionButton.addEventListener('click', function() {
-                var totalOptions = select.options.length;
-
-                var newOption = document.createElement('option');
-
-                newOption.textContent = 'Option ' + totalOptions;
-
-                select.appendChild(newOption);
-            });
-        </script>
         <script>
             easydropdown.all({
                 behavior: {
