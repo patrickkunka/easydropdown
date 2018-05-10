@@ -1,6 +1,6 @@
 .nyc_output
 .vscode
-config
+/config
 coverage
 demos
 docs
