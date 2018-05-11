@@ -735,7 +735,7 @@ edd.destroy();
 
 EasyDropDown is fully compatible with React and can be integrated into any component where you would normally use a `<select>` element.
 
-The following example shows a basic `Select` component with EasyDropDown integrated, and assumes that a `name`, an array of `options`, and a `handleChange` function are passed in as "props" from a parent compoment.
+The following example shows a basic `Select` component with EasyDropDown integrated, and assumes that a `name`, a `value`, an array of `options`, and a `handleChange` function are passed in as "props" from a parent compoment.
 
 Additional features such as `disabled` attributes and validation could be added as required.
 
@@ -757,8 +757,10 @@ class Select extends React.Component {
     }
 
     renderOption(option) {
+        const isSelected = option.value === this.props.value;
+
         return (
-            <option value={option.value}>
+            <option value={option.value} selected={isSelected}>
                 {option.label}
             </option>
         );
