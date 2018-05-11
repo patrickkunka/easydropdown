@@ -26,7 +26,7 @@ Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what
 - TypeScript/intellisense support
 - ARIA-compliant-markup
 - Support for IE9+, and all modern browsers.
-- Lightweight at only 9kb gzipped
+- 9kb gzipped
 - No third-party dependencies
 
 **EasyDropDown [does not support](#multiple-attribute-support) the `multiple` attribute.*
