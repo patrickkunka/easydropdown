@@ -101,8 +101,9 @@
 .edd-select {
     position: absolute;
     opacity: 0;
-    left: -999px;
-    top: -999px;
+    width: 100%;
+    left: -100%;
+    top: 0;
 }
 
 .edd-root-native .edd-select {
