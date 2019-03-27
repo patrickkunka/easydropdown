@@ -33,7 +33,7 @@
     "extends": "./config/nyc/.nycrc.json"
   },
   "bundlesize": [
-   {
+    {
       "path": "./bundle/easydropdown.js",
       "maxSize": "9.17 kB"
     }
@@ -58,7 +58,7 @@
     "nyc": "13.3.0",
     "sinon": "7.2.3",
     "source-map-support": "0.5.0",
-    "stylelint": "9.2.0",
+    "stylelint": "9.10.1",
     "stylelint-config-standard": "18.2.0",
     "ts-loader": "5.3.0",
     "ts-node": "7.0.1",
