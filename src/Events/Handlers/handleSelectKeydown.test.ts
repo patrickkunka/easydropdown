@@ -79,7 +79,27 @@ describe('handleSelectKeydown()', () => {
             });
     });
 
-    it('does not call `actions.selectOptiom()` if when the space key is pressed if searching', () => {
+    it('calls `actions.selectOption()` with `close: false` if configured not to `closeOnSelect`', () => {
+        const mockEvent = createMockEvent();
+
+        const params = createMockHandlerParams({
+            behavior: {
+                closeOnSelect: false
+            }
+        });
+
+        const selectOptionSpy = spy(params.actions, 'selectOption');
+
+        params.state.bodyStatus = BodyStatus.OPEN_ABOVE;
+
+        mockEvent.keyCode = KeyCodes.ENTER;
+
+        handleSelectKeydown(mockEvent, params);
+
+        assert.isTrue(selectOptionSpy.calledWith(params.state.focusedIndex, false));
+    });
+
+    it('does not call `actions.selectOption()` if when the space key is pressed if searching', () => {
         const mockEvent = createMockEvent();
         const params = createMockHandlerParams();
         const selectOptionSpy = spy(params.actions, 'selectOption');

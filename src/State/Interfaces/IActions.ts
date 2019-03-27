@@ -17,7 +17,7 @@ interface IActions {
     close(): void;
     makeScrollable(): void;
     makeUnscrollable(): void;
-    selectOption(index: number): void;
+    selectOption(index: number, close?: boolean): void;
     focusOption(index: number, shouldScrollToView?: boolean): void;
     search(): void;
     resetSearch(): void;
