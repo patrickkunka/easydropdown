@@ -1,3 +1,4 @@
 --require ts-node/register
+--recursive
 --watch-extensions ts
 **/*.test.ts

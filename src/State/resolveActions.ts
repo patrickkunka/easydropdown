@@ -75,7 +75,7 @@ const resolveActions = (state: State): IActions => ({
         state.focusedIndex = -1;
     },
 
-    selectOption(this: IActions, index: number): void {
+    selectOption(this: IActions, index: number, close = true): void {
         const optionAtIndex = state.getOptionFromIndex(index);
 
         if (index > -1 && (!optionAtIndex || optionAtIndex.isDisabled)) return;
@@ -88,7 +88,7 @@ const resolveActions = (state: State): IActions => ({
 
         if (state.isSearching) {
             this.scrollToView(state);
-        } else {
+        } else if (close) {
             this.close();
         }
     },

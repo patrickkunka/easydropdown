@@ -35,7 +35,7 @@ function handleSelectKeydown(e: KeyboardEvent, handlerParams: IHandlerParams): v
             killSelectReaction(target as HTMLSelectElement, handlerParams);
 
             if (state.isOpen) {
-                actions.selectOption(state.focusedIndex);
+                actions.selectOption(state.focusedIndex, config.behavior.closeOnSelect);
             } else {
                 dispatchOpen(actions, config, dom);
             }

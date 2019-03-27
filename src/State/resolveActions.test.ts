@@ -210,12 +210,20 @@ describe('resolveActions', function(): void {
             assert.isFalse(self.state.isInvalid);
         });
 
-        it('closes the instance if open', () => {
-            self.state.bodyStatus = BodyStatus.CLOSED;
+        it('closes the instance if open and close parameter ommited', () => {
+            self.state.bodyStatus = BodyStatus.OPEN_ABOVE;
 
             self.actions.selectOption(2);
 
             assert.isFalse(self.state.isOpen);
+        });
+
+        it('does not close the instance if open and close parameter passed as `false`', () => {
+            self.state.bodyStatus = BodyStatus.OPEN_ABOVE;
+
+            self.actions.selectOption(2, false);
+
+            assert.isTrue(self.state.isOpen);
         });
 
         it('calls `actions.scrollToView` if searching', () => {

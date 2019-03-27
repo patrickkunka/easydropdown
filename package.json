@@ -1,6 +1,6 @@
 {
   "name": "easydropdown",
-  "version": "4.0.5",
+  "version": "4.1.0",
   "description": "A lightweight library for building beautiful styleable select elements",
   "author": "KunkaLabs Limited",
   "private": false,
@@ -13,7 +13,7 @@
     "url": "https://github.com/patrickkunka/easydropdown/"
   },
   "scripts": {
-    "test": "mocha --opts ./config/mocha/mocha.opts",
+    "test": "mocha --opts ./config/mocha/mocha.opts --exit",
     "test:watch": "npm run test -- --watch",
     "test:cover": "nyc npm run test",
     "test:size": "bundlesize",
@@ -39,34 +39,34 @@
     }
   ],
   "dependencies": {
-    "custom-event-polyfill": "^0.3.0",
-    "helpful-merge": "^0.1.0"
+    "custom-event-polyfill": "1.0.6",
+    "helpful-merge": "0.2.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.0.5",
-    "@types/mocha": "^2.2.44",
-    "@types/node": "^8.0.53",
-    "@types/sinon": "^4.3.1",
-    "bundlesize": "^0.17.0",
-    "chai": "^3.5.0",
-    "chai-shallow-deep-equal": "^1.4.0",
-    "coveralls": "^3.0.0",
-    "istanbul": "^0.4.5",
-    "jsdom": "^11.8.0",
-    "jsdom-global": "^3.0.2",
-    "mocha": "^3.0.2",
-    "nyc": "^11.3.0",
-    "sinon": "^4.5.0",
-    "source-map-support": "^0.5.0",
-    "stylelint": "^9.2.0",
-    "stylelint-config-standard": "^18.2.0",
-    "ts-loader": "^4.2.0",
-    "ts-node": "^3.3.0",
-    "tsconfig-paths": "^3.3.1",
-    "tslint": "^5.8.0",
-    "tslint-eslint-rules": "^5.1.0",
-    "typescript": "^2.6.1",
-    "webpack": "^4.6.0",
-    "webpack-cli": "^2.1.2"
+    "@types/chai": "4.1.7",
+    "@types/mocha": "5.2.5",
+    "@types/node": "10.12.12",
+    "@types/sinon": "7.0.4",
+    "bundlesize": "0.17.1",
+    "chai": "4.2.0",
+    "chai-shallow-deep-equal": "1.4.6",
+    "coveralls": "3.0.3",
+    "istanbul": "0.4.5",
+    "jsdom": "13.0.0",
+    "jsdom-global": "3.0.2",
+    "mocha": "5.2.0",
+    "nyc": "13.3.0",
+    "sinon": "7.2.3",
+    "source-map-support": "0.5.0",
+    "stylelint": "9.2.0",
+    "stylelint-config-standard": "18.2.0",
+    "ts-loader": "5.3.0",
+    "ts-node": "7.0.1",
+    "tsconfig-paths": "3.3.1",
+    "tslint": "5.14.0",
+    "tslint-eslint-rules": "5.4.0",
+    "typescript": "3.1.6",
+    "webpack": "4.29.6",
+    "webpack-cli": "3.1.0"
   }
 }

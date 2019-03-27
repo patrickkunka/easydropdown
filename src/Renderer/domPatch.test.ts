@@ -117,7 +117,7 @@ describe('domPatch()', () => {
 
     before(() => {
         rafStub = stub(window, 'requestAnimationFrame')
-            .callsFake(fn => fn());
+            .callsFake(fn => void fn(0) || 0);
     });
 
     after(() => rafStub.restore());

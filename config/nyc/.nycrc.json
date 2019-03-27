@@ -10,15 +10,9 @@
     "extension": [
       ".ts"
     ],
-    "watermarks": {
-      "lines": [100, 100],
-      "functions": [100, 100],
-      "branches": [100, 100],
-      "statements": [100, 100]
-    },
     "exclude": [
-      "./demos",
-      "./config",
+      "demos",
+      "config",
       "**/umd.ts",
       "**/index.ts",
       "**/*.d.ts",
@@ -31,5 +25,9 @@
       "dist",
       "coverage"
     ],
+    "statements": 100,
+    "branches": 100,
+    "functions": 100,
+    "lines": 100,
     "all": true
 }

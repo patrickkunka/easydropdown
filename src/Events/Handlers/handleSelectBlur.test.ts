@@ -28,4 +28,19 @@ describe('handleSelectBlur()', () => {
 
         assert.isFalse(blurSpy.called);
     });
+
+    it('calls `actions.close()` if `config.openOnFocus` is set', () => {
+        const params = createMockHandlerParams({
+            behavior: {
+                openOnFocus: true
+            }
+        });
+
+        const mockEvent = createMockEvent();
+        const closeSpy = spy(params.actions, 'close');
+
+        handleSelectBlur(mockEvent, params);
+
+        assert.isTrue(closeSpy.called);
+    });
 });
