@@ -29,12 +29,14 @@ describe('handleSelectBlur()', () => {
         assert.isFalse(blurSpy.called);
     });
 
-    it('calls `actions.close()` if `config.openOnFocus` is set', () => {
+    it('calls `actions.close()` if `config.openOnFocus` is set and `state.isClickSelecting` not set', () => {
         const params = createMockHandlerParams({
             behavior: {
                 openOnFocus: true
             }
         });
+
+        params.state.isClickSelecting = false;
 
         const mockEvent = createMockEvent();
         const closeSpy = spy(params.actions, 'close');
@@ -42,5 +44,22 @@ describe('handleSelectBlur()', () => {
         handleSelectBlur(mockEvent, params);
 
         assert.isTrue(closeSpy.called);
+    });
+
+    it('does not call `actions.close()` if `config.openOnFocus` is set and `state.isClickSelecting` is set', () => {
+        const params = createMockHandlerParams({
+            behavior: {
+                openOnFocus: true
+            }
+        });
+
+        params.state.isClickSelecting = true;
+
+        const mockEvent = createMockEvent();
+        const closeSpy = spy(params.actions, 'close');
+
+        handleSelectBlur(mockEvent, params);
+
+        assert.isFalse(closeSpy.called);
     });
 });

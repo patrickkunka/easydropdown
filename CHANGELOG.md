@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 4.1.1
+- Fixes issue introduced in 4.1.0 where UI no longer closed on select by default
+- Fixes issue introduced in 4.1.0 where clicking an option while `behavior.openOnFocus` set would close the UI without selecting any option.
+
 ## 4.1.0
 - Fixes a styling issue in Beanstalk and Ivy themes where native select element was discoverable on click to the left of the head element.
 - Fixes the `behavior.closeOnSelect` configuration option which not previously implemented internally.

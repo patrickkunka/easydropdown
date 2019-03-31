@@ -1,6 +1,7 @@
 import Dom from '../Renderer/Dom';
 
 import handleBodyClick       from './Handlers/handleBodyClick';
+import handleBodyMousedown   from './Handlers/handleBodyMousedown';
 import handleBodyMouseover   from './Handlers/handleBodyMouseover';
 import handleHeadClick       from './Handlers/handleHeadClick';
 import handleItemsListScroll from './Handlers/handleItemsListScroll';
@@ -18,6 +19,11 @@ const getEventsList = (dom: Dom): IEventBinding[] => [
         target: dom.head,
         type: 'click',
         handler: handleHeadClick
+    },
+    {
+        target: dom.body,
+        type: 'mousedown',
+        handler: handleBodyMousedown
     },
     {
         target: dom.body,

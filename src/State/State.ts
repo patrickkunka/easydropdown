@@ -23,6 +23,7 @@ class State {
     public isFocused:               boolean      = false;
     public isUseNativeMode:         boolean      = false;
     public isScrollable:            boolean      = false;
+    public isClickSelecting:        boolean      = false;
     public isSearching:             boolean      = false;
     public isKeying:                boolean      = false;
 

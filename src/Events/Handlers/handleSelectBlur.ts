@@ -5,7 +5,7 @@ function handleSelectBlur(e: Event, {actions, state, config}: IHandlerParams): v
 
     actions.blur();
 
-    if (config.behavior.openOnFocus) actions.close();
+    if (config.behavior.openOnFocus && !state.isClickSelecting) actions.close();
 }
 
 export default handleSelectBlur;

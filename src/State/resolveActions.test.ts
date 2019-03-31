@@ -183,11 +183,29 @@ describe('resolveActions', function(): void {
         });
     });
 
+    describe('.startClickSelecting()', () => {
+        it('sets `state.isClickSelecting` to `true`', () => {
+            self.actions.startClickSelecting();
+
+            assert.isTrue(self.state.isClickSelecting);
+        });
+    });
+
     describe('.selectOption()', () => {
         it('sets `state.selectedIndex` to the provided index', () => {
             self.actions.selectOption(2);
 
             assert.equal(self.state.selectedIndex, 2);
+        });
+
+        it('sets `state.isClickSelecting` to `false`', () => {
+            self.actions.startClickSelecting();
+
+            assert.isTrue(self.state.isClickSelecting);
+
+            self.actions.selectOption(2);
+
+            assert.isFalse(self.state.isClickSelecting);
         });
 
         it(

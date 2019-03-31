@@ -75,8 +75,14 @@ const resolveActions = (state: State): IActions => ({
         state.focusedIndex = -1;
     },
 
+    startClickSelecting(): void {
+        state.isClickSelecting = true;
+    },
+
     selectOption(this: IActions, index: number, close = true): void {
         const optionAtIndex = state.getOptionFromIndex(index);
+
+        state.isClickSelecting = false;
 
         if (index > -1 && (!optionAtIndex || optionAtIndex.isDisabled)) return;
 
