@@ -24,6 +24,7 @@ class State {
     public isUseNativeMode:         boolean      = false;
     public isScrollable:            boolean      = false;
     public isClickSelecting:        boolean      = false;
+    public isClickOption:           boolean      = false;
     public isSearching:             boolean      = false;
     public isKeying:                boolean      = false;
 

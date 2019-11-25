@@ -79,6 +79,10 @@ const resolveActions = (state: State): IActions => ({
         state.isClickSelecting = true;
     },
 
+    startClickOption(): void {
+        state.isClickOption = true;
+    },
+
     selectOption(this: IActions, index: number, close = true): void {
         const optionAtIndex = state.getOptionFromIndex(index);
 
@@ -87,6 +91,10 @@ const resolveActions = (state: State): IActions => ({
         if (index > -1 && (!optionAtIndex || optionAtIndex.isDisabled)) return;
 
         state.selectedIndex = index;
+
+        if (state.isClickOption === true) {
+            state.isClickOption = false;
+        }
 
         if (state.isInvalid) {
             this.validate();

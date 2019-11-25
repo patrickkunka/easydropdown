@@ -53,18 +53,22 @@ describe('Easydropdown', () => {
         const onOpenSpy = spy();
         const onCloseSpy = spy();
         const onSelectSpy = spy();
+        const onClickOptionSpy = spy();
 
         const edd = new Easydropdown(select, {
             callbacks: {
                 onOpen: onOpenSpy,
                 onClose: onCloseSpy,
-                onSelect: onSelectSpy
+                onSelect: onSelectSpy,
+                onClickOption: onClickOptionSpy
             }
         });
 
+        edd.actions.startClickOption();
         edd.actions.selectOption(1);
 
         assert.isTrue(onSelectSpy.calledWith('B'));
+        assert.isTrue(onClickOptionSpy.calledWith('B'));
 
         edd.open();
 
@@ -73,6 +77,35 @@ describe('Easydropdown', () => {
         edd.actions.close();
 
         assert.isTrue(onCloseSpy.called);
+    });
+
+    it('invokes onClickOption callback on state change even if selected the same option', () => {
+        const select = createSelect();
+
+        const onSelectSpy = spy();
+        const onClickOptionSpy = spy();
+
+        const edd = new Easydropdown(select, {
+            callbacks: {
+                onSelect: onSelectSpy,
+                onClickOption: onClickOptionSpy
+            }
+        });
+
+        edd.actions.startClickOption();
+        edd.actions.selectOption(1);
+
+        assert.isTrue(onSelectSpy.calledWith('B'));
+        assert.isTrue(onClickOptionSpy.calledWith('B'));
+
+        onSelectSpy.resetHistory();
+        onClickOptionSpy.resetHistory();
+
+        edd.actions.startClickOption();
+        edd.actions.selectOption(1);
+
+        assert.isFalse(onSelectSpy.calledWith('B'));
+        assert.isTrue(onClickOptionSpy.calledWith('B'));
     });
 
     it('does not invoke consumer callbacks if not provided', () => {

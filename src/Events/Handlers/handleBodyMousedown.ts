@@ -10,6 +10,7 @@ function handleBodyMousedown(e: Event, {actions}: IHandlerParams): void {
     if (!option) return;
 
     actions.startClickSelecting();
+    actions.startClickOption();
 }
 
 export default handleBodyMousedown;

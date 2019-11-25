@@ -2,6 +2,7 @@ import merge from 'helpful-merge';
 
 import Config                 from '../Config/Config';
 import ICallback              from '../Config/Interfaces/ICallback';
+import IClickOptionCallback   from '../Config/Interfaces/IClickOptionCallback';
 import IConfig                from '../Config/Interfaces/IConfig';
 import ISelectCallback        from '../Config/Interfaces/ISelectCallback';
 import bindEvents             from '../Events/bindEvents';
@@ -131,6 +132,12 @@ class Easydropdown {
                 cb = callbacks.onSelect;
 
                 if (typeof cb === 'function') (cb as ISelectCallback)(state.value);
+            case 'isClickOption':
+                if (state[key] === false) {
+                    cb = callbacks.onClickOption;
+
+                    if (typeof cb === 'function') (cb as IClickOptionCallback)(this.state.value);
+                }
         }
     }
 }

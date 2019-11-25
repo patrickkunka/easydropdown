@@ -191,6 +191,14 @@ describe('resolveActions', function(): void {
         });
     });
 
+    describe('.startClickOption()', () => {
+        it('sets `state.isClickOption` to `true`', () => {
+            self.actions.startClickOption();
+
+            assert.isTrue(self.state.isClickOption);
+        });
+    });
+
     describe('.selectOption()', () => {
         it('sets `state.selectedIndex` to the provided index', () => {
             self.actions.selectOption(2);
@@ -206,6 +214,16 @@ describe('resolveActions', function(): void {
             self.actions.selectOption(2);
 
             assert.isFalse(self.state.isClickSelecting);
+        });
+
+        it('sets `state.isClickOption` to `false`', () => {
+            self.actions.startClickOption();
+
+            assert.isTrue(self.state.isClickOption);
+
+            self.actions.selectOption(2);
+
+            assert.isFalse(self.state.isClickOption);
         });
 
         it(

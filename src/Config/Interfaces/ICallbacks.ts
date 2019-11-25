@@ -1,5 +1,6 @@
-import ICallback       from './ICallback';
-import ISelectCallback from './ISelectCallback';
+import ICallback            from './ICallback';
+import IClickOptionCallback from './IClickOptionCallback';
+import ISelectCallback      from './ISelectCallback';
 
 interface ICallbacks {
     /**
@@ -23,6 +24,14 @@ interface ICallbacks {
      */
 
     onSelect?: ISelectCallback;
+
+    /**
+     * An optional callback function to be invoked whenever
+     * an option is clicked. The current selected option's value
+     * is passed as the first argument to the callback.
+     */
+
+    onClickOption?: IClickOptionCallback;
 }
 
 export default ICallbacks;
