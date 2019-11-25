@@ -352,9 +352,10 @@ When using either the `easydropdown()` factory function, or the `.all()` static 
         useNativeUiOnMobile:     true;
     },
     callbacks: {
-        onClose:  null,
-        onOpen:   null,
-        onSelect: null
+        onClose:        null,
+        onOpen:         null,
+        onSelect:       null,
+        onClickOption:  null
     },
     classNames: {
         root:           'edd-root';
