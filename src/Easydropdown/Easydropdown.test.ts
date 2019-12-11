@@ -6,11 +6,11 @@ import Renderer from '../Renderer/Renderer';
 
 import Easydropdown  from './Easydropdown';
 
-const createSelect = () => {
+const createSelect = (selectAttributes = '') => {
     const parent = document.createElement('div');
 
     parent.innerHTML = (`
-        <select>
+        <select ${selectAttributes}>
             <option>A</option>
             <option>B</option>
             <option>C</option>
@@ -151,5 +151,31 @@ describe('Easydropdown', () => {
             // @ts-ignore
             assert.equal(edd.dom.item.length, 7);
         });
+    });
+
+    describe('.validate()', () => { 
+
+        it('validates a required select', () => {
+            const select = createSelect('required');
+            const edd = new Easydropdown(select, {});
+
+            // @ts-ignore
+            assert.equal(edd.validate(), false);
+            edd.actions.selectOption(1);
+            // @ts-ignore
+            assert.equal(edd.validate(), true);
+        });
+
+        it('validates a non required select', () => {
+            const select = createSelect();
+            const edd = new Easydropdown(select, {});
+
+            // @ts-ignore
+            assert.equal(edd.validate(), true);
+            edd.actions.selectOption(1);
+            // @ts-ignore
+            assert.equal(edd.validate(), true);    
+        });    
+
     });
 });
