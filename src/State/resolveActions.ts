@@ -1,4 +1,5 @@
-import CollisionType  from '../Shared/Util/Constants/CollisionType';
+import CollisionType    from '../Shared/Util/Constants/CollisionType';
+import isMobilePlatform from '../Shared/Util/isMobilePlatform';
 
 import BodyStatus   from './Constants/BodyStatus';
 import ScrollStatus from './Constants/ScrollStatus';
@@ -73,6 +74,9 @@ const resolveActions = (state: State): IActions => ({
     close(): void {
         state.bodyStatus = BodyStatus.CLOSED;
         state.focusedIndex = -1;
+        if (isMobilePlatform(window.navigator.userAgent)) {
+            this.blur();
+        }
     },
 
     startClickSelecting(): void {
