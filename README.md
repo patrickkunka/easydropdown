@@ -726,7 +726,9 @@ Validates the instance and returns a boolean whether validation succeeded. Helpf
 
 const edd = easydropdown(selectElement);
 
-edd.validate();
+const isValid = edd.validate();
+
+console.log(isValid); // false
 ```
 
 ### destroy()

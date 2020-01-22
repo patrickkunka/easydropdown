@@ -100,7 +100,7 @@ class Easydropdown {
     }
 
     public validate(): boolean {
-        if (this.state.selectedIndex !== 0 || this.state.isRequired !== true) {
+        if (!this.state.isRequired || this.state.hasValue) {
             return true;
         }
 

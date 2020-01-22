@@ -4,14 +4,14 @@ import {spy} from 'sinon';
 
 import Renderer from '../Renderer/Renderer';
 
-import Easydropdown  from './Easydropdown';
+import Easydropdown from './Easydropdown';
 
-const createSelect = (selectAttributes = '') => {
+const createSelect = (selectAttributes: string[] = [], firstOptionAttributes: string[] = []) => {
     const parent = document.createElement('div');
 
     parent.innerHTML = (`
-        <select ${selectAttributes}>
-            <option>A</option>
+        <select ${selectAttributes.join(' ')}>
+            <option ${firstOptionAttributes.join(' ')}>A</option>
             <option>B</option>
             <option>C</option>
         </select>
@@ -153,16 +153,30 @@ describe('Easydropdown', () => {
         });
     });
 
-    describe('.validate()', () => { 
+    describe('.validate()', () => {
 
-        it('validates a required select', () => {
-            const select = createSelect('required');
+        it('validates a required select without placeholder', () => {
+            const select = createSelect(['required']);
             const edd = new Easydropdown(select, {});
 
-            // @ts-ignore
+            assert.equal(edd.validate(), true);
+        });
+
+        it('validates a required select with placeholder', () => {
+            const select = createSelect(['required'], ['data-placeholder']);
+            const edd = new Easydropdown(select, {});
+
             assert.equal(edd.validate(), false);
             edd.actions.selectOption(1);
-            // @ts-ignore
+            assert.equal(edd.validate(), true);
+        });
+
+        it('validates a non required select with placeholder', () => {
+            const select = createSelect([], ['data-placeholder']);
+            const edd = new Easydropdown(select, {});
+
+            assert.equal(edd.validate(), true);
+            edd.actions.selectOption(1);
             assert.equal(edd.validate(), true);
         });
 
@@ -170,12 +184,10 @@ describe('Easydropdown', () => {
             const select = createSelect();
             const edd = new Easydropdown(select, {});
 
-            // @ts-ignore
             assert.equal(edd.validate(), true);
             edd.actions.selectOption(1);
-            // @ts-ignore
-            assert.equal(edd.validate(), true);    
-        });    
+            assert.equal(edd.validate(), true);
+        });
 
     });
 });
