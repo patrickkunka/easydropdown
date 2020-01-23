@@ -19,7 +19,7 @@
             <h1 class="heading">15. Callbacks</h1>
 
             <div class="demo-container">
-                <select id="test" required>
+                <select id="test">
                     <option value="" data-placeholder>Select</option>
                     <option>Foo</option>
                     <option>Bar</option>
@@ -46,14 +46,13 @@
         <script src="./easydropdown.js"></script>
         <script>
 
-            var instance = easydropdown('#test', {
+            easydropdown('#test', {
                 callbacks: {
                     onOpen: function() {
                         console.log('open');
                     },
                     onClose: function() {
                         console.log('close');
-                        instance.validate();
                     },
                     onSelect: function(value) {
                         console.log('select', value);
