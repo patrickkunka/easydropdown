@@ -716,6 +716,21 @@ const edd = easydropdown(selectElement);
 edd.refresh();
 ```
 
+### validate()
+
+`.validate()`
+
+Validates the instance and returns a boolean whether validation succeeded. Helpful if you need to validate without hitting the form submit button. 
+
+```js
+
+const edd = easydropdown(selectElement);
+
+const isValid = edd.validate();
+
+console.log(isValid); // false
+```
+
 ### destroy()
 
 `.destroy()`

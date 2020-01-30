@@ -99,6 +99,16 @@ class Easydropdown {
         Renderer.queryDomRefs(this.dom, ['group', 'option', 'item']);
     }
 
+    public validate(): boolean {
+        if (!this.state.isRequired || this.state.hasValue) {
+            return true;
+        }
+
+        this.actions.invalidate();
+
+        return false;
+    }
+
     public destroy(): void {
         this.timers.clear();
         this.eventBindings.forEach(binding => binding.unbind());

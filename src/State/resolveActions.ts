@@ -88,7 +88,7 @@ const resolveActions = (state: State): IActions => ({
 
         state.selectedIndex = index;
 
-        if (state.isInvalid) {
+        if (state.isInvalid && state.hasValue) {
             this.validate();
         }
 

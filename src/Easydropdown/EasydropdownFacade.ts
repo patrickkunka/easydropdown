@@ -23,6 +23,16 @@ class EasydropdownFacade {
     public refresh: () => void;
 
     /**
+     * Validates the instance by checking
+     * the current state whether dropown is required
+     * and a selection was made
+     *
+     * @returns boolean whether the dropdown is valid
+     */
+
+    public validate: () => boolean;
+
+    /**
      * Destroys the instance by removing all EasyDropDown-generated
      * elements from the DOM, and unbinding all event handlers.
      * The underlying select is returned to the root position.
@@ -42,6 +52,7 @@ class EasydropdownFacade {
         this.close = implementation.close.bind(implementation);
         this.refresh = implementation.refresh.bind(implementation);
         this.destroy = implementation.destroy.bind(implementation);
+        this.validate = implementation.validate.bind(implementation);
 
         Object.defineProperties(this, {
             value: {
