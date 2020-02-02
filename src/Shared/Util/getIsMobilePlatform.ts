@@ -1,4 +1,4 @@
-function isMobilePlatform(userAgent: string): boolean {
+function getIsMobilePlatform(userAgent: string): boolean {
     const isIos = /(ipad|iphone|ipod)/gi.test(userAgent);
     const isAndroid = /android/gi.test(userAgent);
     const isOperaMini = /opera mini/gi.test(userAgent);
@@ -11,4 +11,4 @@ function isMobilePlatform(userAgent: string): boolean {
     return false;
 }
 
-export default isMobilePlatform;
+export default getIsMobilePlatform;

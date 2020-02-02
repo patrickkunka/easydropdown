@@ -4,14 +4,14 @@ import {spy} from 'sinon';
 
 import Renderer from '../Renderer/Renderer';
 
-import Easydropdown  from './Easydropdown';
+import Easydropdown from './Easydropdown';
 
-const createSelect = () => {
+const createSelect = (selectAttributes: string[] = [], firstOptionAttributes: string[] = []) => {
     const parent = document.createElement('div');
 
     parent.innerHTML = (`
-        <select>
-            <option>A</option>
+        <select ${selectAttributes.join(' ')}>
+            <option ${firstOptionAttributes.join(' ')}>A</option>
             <option>B</option>
             <option>C</option>
         </select>
@@ -53,12 +53,14 @@ describe('Easydropdown', () => {
         const onOpenSpy = spy();
         const onCloseSpy = spy();
         const onSelectSpy = spy();
+        const onOptionClickSpy = spy();
 
         const edd = new Easydropdown(select, {
             callbacks: {
                 onOpen: onOpenSpy,
                 onClose: onCloseSpy,
-                onSelect: onSelectSpy
+                onSelect: onSelectSpy,
+                onOptionClick: onOptionClickSpy
             }
         });
 
@@ -73,6 +75,12 @@ describe('Easydropdown', () => {
         edd.actions.close();
 
         assert.isTrue(onCloseSpy.called);
+
+        edd.actions.focusOption(1);
+        edd.actions.startClickSelecting();
+        edd.actions.selectOption(1);
+
+        assert.isTrue(onOptionClickSpy.calledWith('B'));
     });
 
     it('does not invoke consumer callbacks if not provided', () => {
@@ -85,6 +93,10 @@ describe('Easydropdown', () => {
         edd.open();
 
         edd.actions.close();
+
+        edd.actions.focusOption(1);
+        edd.actions.startClickSelecting();
+        edd.actions.selectOption(1);
 
         assert.isTrue(true);
     });
@@ -151,5 +163,43 @@ describe('Easydropdown', () => {
             // @ts-ignore
             assert.equal(edd.dom.item.length, 7);
         });
+    });
+
+    describe('.validate()', () => {
+
+        it('validates a required select without placeholder', () => {
+            const select = createSelect(['required']);
+            const edd = new Easydropdown(select, {});
+
+            assert.equal(edd.validate(), true);
+        });
+
+        it('validates a required select with placeholder', () => {
+            const select = createSelect(['required'], ['data-placeholder']);
+            const edd = new Easydropdown(select, {});
+
+            assert.equal(edd.validate(), false);
+            edd.actions.selectOption(1);
+            assert.equal(edd.validate(), true);
+        });
+
+        it('validates a non required select with placeholder', () => {
+            const select = createSelect([], ['data-placeholder']);
+            const edd = new Easydropdown(select, {});
+
+            assert.equal(edd.validate(), true);
+            edd.actions.selectOption(1);
+            assert.equal(edd.validate(), true);
+        });
+
+        it('validates a non required select', () => {
+            const select = createSelect();
+            const edd = new Easydropdown(select, {});
+
+            assert.equal(edd.validate(), true);
+            edd.actions.selectOption(1);
+            assert.equal(edd.validate(), true);
+        });
+
     });
 });

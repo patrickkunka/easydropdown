@@ -1,7 +1,7 @@
 <!doctype HTML>
 <html>
     <head>
-        <title>Callbacks | EasyDropDown Demo</title>
+        <title>Programmatic Validation | EasyDropDown Demo</title>
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -11,21 +11,33 @@
         <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEUAAABCiZtUyORUyORCiZtUyORCiZtUyORCiZtUyORUyORCiZtUyORCiZtUyOREkKNUyORUyORUyORCiZtUyORUyORCiZtUyORCiZtUyORCiZtDjaBFlalHma1KpbtLqcBOtM1QuNJSwNtTxN9UyOQlYZhqAAAAGnRSTlMAEBAgMDBAQFBQYHBwgICPj5+vv7/P39/v793jxf8AAACqSURBVHja1ZJdF4IgDIYnZaaVpWbKrCzl///GIokYH3btc/fuPBwGGywCQeH5HyEVyaxwAsHZjFDLfA4LfPXJeVBIVU4CQvHNDfMKNdO59Ak8NvLeI2Qkx45Q0NwwSxiO1oHSEq64ta8kwh2xjeymDeGBbyrn2bowdCg5+D4OpgYmNlQQmRJ6VLSRMzxZeKKmcscPYuzwx85ZIBA3NFnbKwg9Ei4jFTgsgRepVztePP0rPgAAAABJRU5ErkJggg==">
 
         <script src="./scripts/themeSwitcher.js"></script>
+        <script src="./scripts/submitHandler.js"></script>
     </head>
     <body>
         <main class="main">
             <h2 class="sub-heading">EasyDropDown Demo</h2>
 
-            <h1 class="heading">15. Callbacks</h1>
+            <h1 class="heading">16. Programmatic Validation</h1>
 
-            <div class="demo-container">
-                <select id="test">
-                    <option value="" data-placeholder>Select</option>
-                    <option>Foo</option>
-                    <option>Bar</option>
-                    <option>Baz</option>
+            <form class="demo-container" method="post">
+                <select required id="test">
+                    <option value="">Expiry Month</option>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
                 </select>
-            </div>
+
+                <button type="button" class="button" id="validate">Validate</button>
+            </form>
 
             <div class="theme-switcher">
                 <div class="theme-switcher-label">Theme:</div>
@@ -45,22 +57,13 @@
 
         <script src="./easydropdown.js"></script>
         <script>
+            var edd = easydropdown('#test');
+            var validateButton = document.querySelector('#validate');
 
-            easydropdown('#test', {
-                callbacks: {
-                    onOpen: function() {
-                        console.log('open');
-                    },
-                    onClose: function() {
-                        console.log('close');
-                    },
-                    onSelect: function(value) {
-                        console.log('select', value);
-                    },
-                    onOptionClick: function(value) {
-                        console.log('click option', value);
-                    }
-                }
+            validateButton.addEventListener('click', function() {
+                var isValid = edd.validate();
+
+                if (isValid) alert('Valid!');
             });
         </script>
     </body>

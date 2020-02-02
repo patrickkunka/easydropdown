@@ -42,7 +42,7 @@ Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what
 - [Anatomy of EasyDropDown](#anatomy-of-easydropdown)
 - [Configuration Options](#configuration-options)
     - [Available Options](#available-options)
-- [API Methods](#configuration-options)
+- [API Methods](#api-methods)
 - [React Example](#react-example)
 - [CSS Modules Example](#css-modules-example)
 - [TypeScript Support](#typescript-support)
@@ -427,6 +427,7 @@ const edd = easydropdown.all({
 - [onClose](#onclose)
 - [onOpen](#onopen)
 - [onSelect](#onselect)
+- [onOptionClick](#onoptionclick)
 
 #### `classNames`
 
@@ -670,6 +671,26 @@ const edd = easydropdown(selectElement, {
 });
 ```
 
+### `onClickOption`
+
+| Type       | Default |
+|------------|---------|
+| `function` | `null`  |
+
+An optional callback function to be invoked whenever an option is clicked, regardless of whether that option is already selected, selectable or disabled. The clicked option's value is passed as the first argument to the callback.
+
+See the [Callbacks](https://demos.kunkalabs.com/easydropdown/15-callbacks.html) demo for a working example.
+
+##### Example: Adding an `onClickOption` callback
+
+```js
+const edd = easydropdown(selectElement, {
+    callbacks: {
+        onClickOption: value => console.log(`clicked option ${value}`)
+    }
+});
+```
+
 ## API Methods
 
 The `EasydropdownFacade` instance returned from the factory function exposes several API methods for programmatic control of the dropdown, and instance destruction.
@@ -714,6 +735,21 @@ When `behavior.liveUpdates` configuration option is set, this method is not necc
 const edd = easydropdown(selectElement);
 
 edd.refresh();
+```
+
+### validate()
+
+`.validate()`
+
+Validates the instance and returns a boolean whether validation succeeded. Helpful if you need to validate without hitting the form submit button.
+
+```js
+
+const edd = easydropdown(selectElement);
+
+const isValid = edd.validate();
+
+console.log(isValid); // false
 ```
 
 ### destroy()
