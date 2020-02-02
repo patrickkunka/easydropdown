@@ -42,7 +42,7 @@ Check out the **[demos](https://demos.kunkalabs.com/easydropdown/)** to see what
 - [Anatomy of EasyDropDown](#anatomy-of-easydropdown)
 - [Configuration Options](#configuration-options)
     - [Available Options](#available-options)
-- [API Methods](#configuration-options)
+- [API Methods](#api-methods)
 - [React Example](#react-example)
 - [CSS Modules Example](#css-modules-example)
 - [TypeScript Support](#typescript-support)
@@ -720,7 +720,7 @@ edd.refresh();
 
 `.validate()`
 
-Validates the instance and returns a boolean whether validation succeeded. Helpful if you need to validate without hitting the form submit button. 
+Validates the instance and returns a boolean whether validation succeeded. Helpful if you need to validate without hitting the form submit button.
 
 ```js
 
