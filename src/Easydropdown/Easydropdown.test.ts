@@ -53,12 +53,14 @@ describe('Easydropdown', () => {
         const onOpenSpy = spy();
         const onCloseSpy = spy();
         const onSelectSpy = spy();
+        const onOptionClickSpy = spy();
 
         const edd = new Easydropdown(select, {
             callbacks: {
                 onOpen: onOpenSpy,
                 onClose: onCloseSpy,
-                onSelect: onSelectSpy
+                onSelect: onSelectSpy,
+                onOptionClick: onOptionClickSpy
             }
         });
 
@@ -73,6 +75,12 @@ describe('Easydropdown', () => {
         edd.actions.close();
 
         assert.isTrue(onCloseSpy.called);
+
+        edd.actions.focusOption(1);
+        edd.actions.startClickSelecting();
+        edd.actions.selectOption(1);
+
+        assert.isTrue(onOptionClickSpy.calledWith('B'));
     });
 
     it('does not invoke consumer callbacks if not provided', () => {
@@ -85,6 +93,10 @@ describe('Easydropdown', () => {
         edd.open();
 
         edd.actions.close();
+
+        edd.actions.focusOption(1);
+        edd.actions.startClickSelecting();
+        edd.actions.selectOption(1);
 
         assert.isTrue(true);
     });

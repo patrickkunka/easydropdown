@@ -427,6 +427,7 @@ const edd = easydropdown.all({
 - [onClose](#onclose)
 - [onOpen](#onopen)
 - [onSelect](#onselect)
+- [onOptionClick](#onoptionclick)
 
 #### `classNames`
 
@@ -666,6 +667,26 @@ See the [Callbacks](https://demos.kunkalabs.com/easydropdown/15-callbacks.html) 
 const edd = easydropdown(selectElement, {
     callbacks: {
         onSelect: value => console.log(`selected ${value}`)
+    }
+});
+```
+
+### `onClickOption`
+
+| Type       | Default |
+|------------|---------|
+| `function` | `null`  |
+
+An optional callback function to be invoked whenever an option is clicked, regardless of whether that option is already selected, selectable or disabled. The clicked option's value is passed as the first argument to the callback.
+
+See the [Callbacks](https://demos.kunkalabs.com/easydropdown/15-callbacks.html) demo for a working example.
+
+##### Example: Adding an `onClickOption` callback
+
+```js
+const edd = easydropdown(selectElement, {
+    callbacks: {
+        onClickOption: value => console.log(`clicked option ${value}`)
     }
 });
 ```

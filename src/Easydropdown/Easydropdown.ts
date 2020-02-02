@@ -3,7 +3,6 @@ import merge from 'helpful-merge';
 import Config                 from '../Config/Config';
 import ICallback              from '../Config/Interfaces/ICallback';
 import IConfig                from '../Config/Interfaces/IConfig';
-import ISelectCallback        from '../Config/Interfaces/ISelectCallback';
 import bindEvents             from '../Events/bindEvents';
 import EventBinding           from '../Events/EventBinding';
 import Dom                    from '../Renderer/Dom';
@@ -122,12 +121,12 @@ class Easydropdown {
     private handleStateUpdate(state: State, key: keyof State): void {
         const {callbacks} = this.config;
 
-        let cb: ICallback;
-
         this.renderer.update(state, key);
 
         switch (key) {
-            case 'bodyStatus':
+            case 'bodyStatus': {
+                let cb: ICallback;
+
                 if (state.isOpen) {
                     cb = callbacks.onOpen;
                 } else {
@@ -137,10 +136,23 @@ class Easydropdown {
                 if (typeof cb === 'function') cb();
 
                 break;
-            case 'selectedIndex':
-                cb = callbacks.onSelect;
+            }
+            case 'selectedIndex': {
+                const cb = callbacks.onSelect;
 
-                if (typeof cb === 'function') (cb as ISelectCallback)(state.value);
+                if (typeof cb === 'function') cb(state.value);
+
+                break;
+            }
+            case 'isClickSelecting': {
+                const cb = callbacks.onOptionClick;
+
+                if (state[key] === false) {
+                    const nextValue = state.getOptionFromIndex(state.focusedIndex).value;
+
+                    if (typeof cb === 'function') cb(nextValue);
+                }
+            }
         }
     }
 }

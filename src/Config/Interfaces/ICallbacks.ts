@@ -23,6 +23,16 @@ interface ICallbacks {
      */
 
     onSelect?: ISelectCallback;
+
+    /**
+     * An optional callback function to be invoked whenever
+     * an option is clicked, regardless of whether that option
+     * is already selected, selectable or disabled. The clicked
+     * option's value is passed as the first argument to the
+     * callback.
+     */
+
+    onOptionClick?: ISelectCallback;
 }
 
 export default ICallbacks;
