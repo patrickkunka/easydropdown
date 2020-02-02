@@ -73,6 +73,8 @@ const resolveActions = (state: State): IActions => ({
     close(): void {
         state.bodyStatus = BodyStatus.CLOSED;
         state.focusedIndex = -1;
+
+        this.blur();
     },
 
     startClickSelecting(): void {

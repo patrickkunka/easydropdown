@@ -6,7 +6,7 @@ import detectBodyCollision from './detectBodyCollision';
 import IDispatchOpen       from './Interfaces/IDispatchOpen';
 
 function dispatchOpen(
-    injectedDetectBodyCollision,
+    injectedDetectBodyCollision: typeof detectBodyCollision,
     actions: IActions,
     config: Config,
     dom: Dom

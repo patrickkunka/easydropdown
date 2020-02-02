@@ -1,7 +1,7 @@
 import merge from 'helpful-merge';
 
-import Config           from '../Config/Config';
-import isMobilePlatform from '../Shared/Util/isMobilePlatform';
+import Config from '../Config/Config';
+import getIsMobilePlatform from '../Shared/Util/getIsMobilePlatform';
 
 import Group  from './Group';
 import Option from './Option';
@@ -19,7 +19,7 @@ class StateMapper {
 
         state.isUseNativeMode = (
             config.behavior.useNativeUiOnMobile &&
-            isMobilePlatform(window.navigator.userAgent)
+            getIsMobilePlatform(window.navigator.userAgent)
         );
 
         for (let i = 0, child: Element; (child = selectElement.children[i]); i++) {

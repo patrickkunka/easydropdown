@@ -5,7 +5,7 @@ import BodyStatus              from '../../State/Constants/BodyStatus';
 import createMockEvent         from '../Mock/createMockEvent';
 import createMockHandlerParams from '../Mock/createMockHandlerParams';
 
-import handleHeadClick from './handleHeadClick';
+import handleHeadClick, {handleHeadClick as unboundHandleHeadClick} from './handleHeadClick';
 
 describe('handleHeadClick()', () => {
     it('calls `stopPropagation` on the provided event', () => {
@@ -27,6 +27,18 @@ describe('handleHeadClick()', () => {
 
         assert.isTrue(openSpy.called);
         assert.isTrue(focusSpy.called);
+    });
+
+    it('does not focus the native select element if on a mobile platform', () => {
+        const params = createMockHandlerParams();
+        const openSpy = spy(params.actions, 'open');
+        const focusSpy = spy(params.dom.select, 'focus');
+        const mockEvent = createMockEvent();
+
+        unboundHandleHeadClick(() => true, mockEvent, params);
+
+        assert.isTrue(openSpy.called);
+        assert.isFalse(focusSpy.called);
     });
 
     it('calls `actions.close()` if open', () => {
