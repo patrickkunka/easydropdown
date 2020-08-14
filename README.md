@@ -447,7 +447,7 @@ A boolean dictating whether or not to further reduce the `maxVisibleItems` value
 
 By default, EasyDropDown will reduce the number of visible items until at least 10px of clearspace is created between the nearest viewport edge and the bottom or top of the dropdown body. This prevents the need to scroll the window to view the dropdown body when a collision occurs.
 
-You may wish to disable this option if your select UI will always appear within a collision zone, and you do not wish to reduce the number of visible options beyond the defined `maxVisibleOptions` value.
+You may wish to disable this option if your select UI will always appear within a collision zone, and you do not wish to reduce the number of visible options beyond the defined `maxVisibleItems` value.
 
 ##### Example: Disabling `clampMaxVisibleItems`
 
@@ -575,12 +575,12 @@ An integer dictating the maximum visible options that should be visible in the d
 
 It may be desirable to increase this value when dealing with long lists and when we can be sure that collision with the viewport edge will not occur (if collision does occur the value will be clamped anyway, providing `clampMaxVisibleItems` is set).
 
-##### Example: Changing `maxVisibleOptions`
+##### Example: Changing `maxVisibleItems`
 
 ```js
 const edd = easydropdown(selectElement, {
     behavior: {
-        maxVisibleOptions: 25
+        maxVisibleItems: 25
     }
 });
 ```
