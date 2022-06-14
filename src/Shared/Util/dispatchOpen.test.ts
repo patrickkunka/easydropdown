@@ -1,5 +1,6 @@
 import {assert} from 'chai';
 import {spy} from 'sinon';
+import CollisionType  from './Constants/CollisionType';
 
 import createMockHandlerParams from '../../Events/Mock/createMockHandlerParams';
 
@@ -40,7 +41,8 @@ describe('dispatchOpen()', () => {
             const openSpy = spy(actions, 'open');
 
             const mockDetectBodyCollision = () => ({
-                maxVisibleItemsOverride: 3
+                maxVisibleItemsOverride: 3,
+                type: CollisionType.TOP
             });
 
             config.behavior.maxVisibleItems = 6;
