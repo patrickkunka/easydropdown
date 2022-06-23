@@ -52,7 +52,7 @@
     "chai-shallow-deep-equal": "1.4.6",
     "coveralls": "3.0.3",
     "istanbul": "0.4.5",
-    "jsdom": "13.0.0",
+    "jsdom": "16.5.0",
     "jsdom-global": "3.0.2",
     "mocha": "5.2.0",
     "nyc": "13.3.0",
